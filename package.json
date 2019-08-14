@@ -2,7 +2,7 @@
   "name": "@th3rdwave/safe-area-view",
   "version": "0.1.0",
   "description": "A more flexible <SafeAreaView>",
-  "main": "src/index.ts",
+  "main": "src/index.tsx",
   "files": [
     "/android",
     "!/android/build",

@@ -5,12 +5,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTUIManager.h>
 
-@implementation RNCSafeAreaView {
-  UIEdgeInsets _currentSafeAreaInsets;
-}
-
-RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)decoder)
-RCT_NOT_IMPLEMENTED(- (instancetype)initWithFrame:(CGRect)frame)
+@implementation RNCSafeAreaView
 
 - (BOOL)isSupportedByOS
 {
@@ -54,14 +49,6 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithFrame:(CGRect)frame)
   return safeAreaInsets;
 }
 
-static BOOL UIEdgeInsetsEqualToEdgeInsetsWithThreshold(UIEdgeInsets insets1, UIEdgeInsets insets2, CGFloat threshold) {
-  return
-  ABS(insets1.left - insets2.left) <= threshold &&
-  ABS(insets1.right - insets2.right) <= threshold &&
-  ABS(insets1.top - insets2.top) <= threshold &&
-  ABS(insets1.bottom - insets2.bottom) <= threshold;
-}
-
 - (void)safeAreaInsetsDidChange
 {
   [self invalidateSafeAreaInsets];
@@ -71,7 +58,12 @@ static BOOL UIEdgeInsetsEqualToEdgeInsetsWithThreshold(UIEdgeInsets insets1, UIE
 {
   UIEdgeInsets safeAreaInsets = [self realOrEmulateSafeAreaInsets];
   self.onInsetsChange(@{
-    @"top": @(safeAreaInsets.top),
+    @"insets": @{
+      @"top": @(safeAreaInsets.top),
+      @"right": @(safeAreaInsets.right),
+      @"bottom": @(safeAreaInsets.bottom),
+      @"left": @(safeAreaInsets.left),
+    }
   });
 }
 

@@ -21,26 +21,10 @@ module.exports = {
         typescriptEslintPrettier.rules,
         {
           '@typescript-eslint/explicit-member-accessibility': 'off',
+          '@typescript-eslint/explicit-function-return-type': 'off',
+          '@typescript-eslint/no-use-before-define': 'off',
         },
       ),
-    },
-    {
-      files: ['example/**/*.ts', 'example/**/*.tsx'],
-      rules: {
-        // Turn off rules which are useless and annoying for the example files files
-        '@typescript-eslint/explicit-function-return-type': 'off',
-        'react-native/no-inline-styles': 'off',
-      },
-    },
-    {
-      files: ['**/__tests__/**/*.ts', '**/*.spec.ts'],
-      env: {
-        jest: true,
-      },
-      rules: {
-        // Turn off rules which are useless and annoying for unit test files
-        '@typescript-eslint/explicit-function-return-type': 'off',
-      },
     },
   ],
 };
