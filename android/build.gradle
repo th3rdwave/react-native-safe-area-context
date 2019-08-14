@@ -1,0 +1,45 @@
+buildscript {
+  repositories {
+    google()
+    jcenter()
+  }
+
+  dependencies {
+    //noinspection GradleDependency
+    classpath 'com.android.tools.build:gradle:3.2.1'
+  }
+}
+
+def getExtOrDefault(name) {
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties['ReactNativeNetInfo_' + name]
+}
+
+def getExtOrIntegerDefault(name) {
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties['ReactNativeNetInfo_' + name]).toInteger()
+}
+
+apply plugin: 'com.android.library'
+
+android {
+  compileSdkVersion getExtOrIntegerDefault('compileSdkVersion')
+  buildToolsVersion getExtOrDefault('buildToolsVersion')
+
+  defaultConfig {
+    minSdkVersion getExtOrIntegerDefault('minSdkVersion')
+    targetSdkVersion getExtOrIntegerDefault('targetSdkVersion')
+  }
+  lintOptions{
+    abortOnError false
+  }
+}
+
+repositories {
+  google()
+  jcenter()
+  mavenCentral()
+}
+
+dependencies {
+  //noinspection GradleDynamicVersion
+  api 'com.facebook.react:react-native:+'
+}

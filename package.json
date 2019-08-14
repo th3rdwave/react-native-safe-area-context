@@ -1,0 +1,51 @@
+{
+  "name": "@th3rdwave/safe-area-view",
+  "version": "0.1.0",
+  "description": "A more flexible <SafeAreaView>",
+  "main": "src/index.ts",
+  "files": [
+    "/android",
+    "!/android/build",
+    "/ios",
+    "/src",
+    "/*.podspec"
+  ],
+  "author": "Janic Duplessis <janicduplessis@gmail.com>",
+  "homepage": "https://github.com/th3rdwave/safe-area-view#readme",
+  "license": "MIT",
+  "scripts": {
+    "start": "react-native start",
+    "test": "yarn validate:eslint && yarn validate:typescript",
+    "validate:eslint": "eslint \"src/**/*.{js,ts,tsx}\" \"example/**/*.{js,ts,tsx}\"",
+    "validate:typescript": "tsc --project ./ --noEmit"
+  },
+  "keywords": [
+    "react-native",
+    "react native",
+    "safe area",
+    "view"
+  ],
+  "peerDependencies": {
+    "react-native": ">=0.59"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@react-native-community/eslint-config": "^0.0.5",
+    "@types/react-native": "^0.60.5",
+    "@typescript-eslint/eslint-plugin": "^1.7.0",
+    "@typescript-eslint/parser": "^1.7.0",
+    "babel-plugin-module-resolver": "^3.2.0",
+    "eslint": "5.16.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-plugin-prettier": "3.0.1",
+    "metro-react-native-babel-preset": "^0.55.0",
+    "prettier": "^1.18.2",
+    "react": "^16.8.3",
+    "react-native": "^0.60.5",
+    "typescript": "^3.5.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/th3rdwave/safe-area-view.git"
+  }
+}
