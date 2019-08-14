@@ -29,6 +29,8 @@ export default function SafeAreaView({ children, style }: SafeAreaViewProps) {
     [],
   );
 
+  console.warn(insets);
+
   return (
     <NativeSafeAreaView
       style={[styles.fill, style]}

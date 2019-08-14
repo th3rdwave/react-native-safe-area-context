@@ -21,7 +21,11 @@ import {
 const App = () => {
   return (
     <>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar
+        barStyle="dark-content"
+        translucent
+        backgroundColor="rgba(0, 0, 0, 0.3)"
+      />
       <SafeAreaView>
         {insets => (
           <ScrollView
