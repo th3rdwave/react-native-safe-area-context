@@ -199,7 +199,7 @@ dependencies {
       implementation jscFlavor
     }
 
-    implementation project(":th3rdwave-safe-area-view")
+    implementation project(":react-native-safe-area-context")
 }
 
 // Run this once to be able to run the application with BUCK

@@ -1,5 +1,5 @@
 rootProject.name = 'SafeAreaViewExample'
 include ':app'
 
-include ':th3rdwave-safe-area-view'
-project(':th3rdwave-safe-area-view').projectDir = new File(rootProject.projectDir, '../../android')
+include ':react-native-safe-area-context'
+project(':react-native-safe-area-context').projectDir = new File(rootProject.projectDir, '../../android')

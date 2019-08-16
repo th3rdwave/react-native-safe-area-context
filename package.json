@@ -1,5 +1,5 @@
 {
-  "name": "@th3rdwave/safe-area-view",
+  "name": "react-native-safe-area-context",
   "version": "0.1.0",
   "description": "A more flexible <SafeAreaView>",
   "main": "src/index.tsx",
@@ -11,7 +11,7 @@
     "/*.podspec"
   ],
   "author": "Janic Duplessis <janicduplessis@gmail.com>",
-  "homepage": "https://github.com/th3rdwave/safe-area-view#readme",
+  "homepage": "https://github.com/th3rdwave/react-native-safe-area-context#readme",
   "license": "MIT",
   "scripts": {
     "start": "react-native start",
@@ -34,7 +34,6 @@
     "@types/react-native": "^0.60.5",
     "@typescript-eslint/eslint-plugin": "^1.7.0",
     "@typescript-eslint/parser": "^1.7.0",
-    "babel-plugin-module-resolver": "^3.2.0",
     "eslint": "5.16.0",
     "eslint-config-prettier": "^4.2.0",
     "eslint-plugin-prettier": "3.0.1",
@@ -46,6 +45,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/th3rdwave/safe-area-view.git"
+    "url": "https://github.com/th3rdwave/react-native-safe-area-context.git"
   }
 }
