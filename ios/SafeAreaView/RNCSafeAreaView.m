@@ -5,7 +5,18 @@
 #import <React/RCTBridge.h>
 #import <React/RCTUIManager.h>
 
+static BOOL UIEdgeInsetsEqualToEdgeInsetsWithThreshold(UIEdgeInsets insets1, UIEdgeInsets insets2, CGFloat threshold) {
+  return
+  ABS(insets1.left - insets2.left) <= threshold &&
+  ABS(insets1.right - insets2.right) <= threshold &&
+  ABS(insets1.top - insets2.top) <= threshold &&
+  ABS(insets1.bottom - insets2.bottom) <= threshold;
+}
+
 @implementation RNCSafeAreaView
+{
+  UIEdgeInsets _currentSafeAreaInsets;
+}
 
 - (BOOL)isSupportedByOS
 {
@@ -57,6 +68,13 @@
 - (void)invalidateSafeAreaInsets
 {
   UIEdgeInsets safeAreaInsets = [self realOrEmulateSafeAreaInsets];
+
+  if (UIEdgeInsetsEqualToEdgeInsetsWithThreshold(safeAreaInsets, _currentSafeAreaInsets, 1.0 / RCTScreenScale())) {
+    return;
+  }
+
+  _currentSafeAreaInsets = safeAreaInsets;
+
   self.onInsetsChange(@{
     @"insets": @{
       @"top": @(safeAreaInsets.top),

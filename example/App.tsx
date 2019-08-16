@@ -8,7 +8,6 @@
 
 import * as React from 'react';
 import { StyleSheet, ScrollView, View, Text, StatusBar } from 'react-native';
-import SafeAreaView from '..';
 
 import {
   Header,
@@ -17,57 +16,96 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import { SafeAreaProvider, useSafeArea } from '..';
+
+type ForceInsets = 'always' | 'never';
+
+const CompatSafeAreaView = ({
+  forceInsets = {},
+  children,
+}: {
+  forceInsets?: {
+    top?: ForceInsets;
+    right?: ForceInsets;
+    bottom?: ForceInsets;
+    left?: ForceInsets;
+  };
+  children?: React.ReactNode;
+}) => {
+  const insets = useSafeArea();
+  const top = forceInsets.top === 'never' ? 0 : insets.top;
+  const right = forceInsets.right === 'never' ? 0 : insets.right;
+  const bottom = forceInsets.bottom === 'never' ? 0 : insets.bottom;
+  const left = forceInsets.left === 'never' ? 0 : insets.left;
+  return (
+    <View
+      style={{
+        paddingTop: top,
+        paddingRight: right,
+        paddingBottom: bottom,
+        paddingLeft: left,
+      }}
+    >
+      {children}
+    </View>
+  );
+};
 
 const App = () => {
+  const insets = useSafeArea();
   return (
     <>
       <StatusBar
         barStyle="dark-content"
-        translucent
-        backgroundColor="rgba(0, 0, 0, 0.3)"
+        translucent={false}
+        backgroundColor="transparent"
       />
-      <SafeAreaView>
-        {insets => (
-          <ScrollView
-            contentInsetAdjustmentBehavior="automatic"
-            contentContainerStyle={{
-              paddingTop: insets.top,
-              paddingBottom: insets.bottom,
-            }}
-            style={styles.scrollView}
-          >
-            <Header />
-            <View style={styles.body}>
-              <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>Step One</Text>
-                <Text style={styles.sectionDescription}>
-                  Edit <Text style={styles.highlight}>App.js</Text> to change
-                  this screen and then come back to see your edits.
-                </Text>
-              </View>
-              <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>See Your Changes</Text>
-                <Text style={styles.sectionDescription}>
-                  <ReloadInstructions />
-                </Text>
-              </View>
-              <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>Debug</Text>
-                <Text style={styles.sectionDescription}>
-                  <DebugInstructions />
-                </Text>
-              </View>
-              <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>Learn More</Text>
-                <Text style={styles.sectionDescription}>
-                  Read the docs to discover what to do next:
-                </Text>
-              </View>
-              <LearnMoreLinks />
+      <ScrollView
+        contentInsetAdjustmentBehavior="never"
+        style={styles.scrollView}
+      >
+        <CompatSafeAreaView>
+          <Header />
+          <View style={styles.body}>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>Step One</Text>
+              <Text style={styles.sectionDescription}>
+                Edit <Text style={styles.highlight}>App.js</Text> to change this
+                screen and then come back to see your edits.
+              </Text>
             </View>
-          </ScrollView>
-        )}
-      </SafeAreaView>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>See Your Changes</Text>
+              <Text style={styles.sectionDescription}>
+                <ReloadInstructions />
+              </Text>
+            </View>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>Debug</Text>
+              <Text style={styles.sectionDescription}>
+                <DebugInstructions />
+              </Text>
+            </View>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>Learn More</Text>
+              <Text style={styles.sectionDescription}>
+                Read the docs to discover what to do next:
+              </Text>
+            </View>
+            <LearnMoreLinks />
+          </View>
+        </CompatSafeAreaView>
+      </ScrollView>
+      <View
+        style={{
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          left: 0,
+          height: insets.top,
+          backgroundColor: 'rgba(0, 0, 0, 0.3)',
+        }}
+      />
     </>
   );
 };
@@ -111,4 +149,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default () => (
+  <SafeAreaProvider>
+    <App />
+  </SafeAreaProvider>
+);

@@ -1,30 +1,45 @@
 package com.th3rdwave.safeareaview;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.os.Build;
-import android.util.DisplayMetrics;
 import android.view.Surface;
+import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.view.WindowInsets;
 import android.view.WindowManager;
 
 import com.facebook.infer.annotation.Assertions;
-import com.facebook.react.uimanager.DisplayMetricsHolder;
 import com.facebook.react.views.view.ReactViewGroup;
 
 import androidx.annotation.Nullable;
 
-public class SafeAreaView extends ReactViewGroup {
+public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnGlobalLayoutListener {
   public interface OnInsetsChangeListener {
     void onInsetsChange(SafeAreaView view, EdgeInsets insets);
   }
 
   private @Nullable OnInsetsChangeListener mInsetsChangeListener;
-  WindowManager mWindowManager;
+  private WindowManager mWindowManager;
+  private @Nullable EdgeInsets mLastInsets;
 
   public SafeAreaView(Context context) {
     super(context);
 
     mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+  }
+
+  private Activity getActivity() {
+    Context context = getContext();
+    while (context instanceof ContextWrapper) {
+      if (context instanceof Activity) {
+        return (Activity)context;
+      }
+      context = ((ContextWrapper)context).getBaseContext();
+    }
+    return null;
   }
 
   private EdgeInsets getSafeAreaInsets() {
@@ -60,21 +75,40 @@ public class SafeAreaView extends ReactViewGroup {
     }
 
     // Calculate the part of the root view that overlaps with window insets.
+    View rootView = getRootView();
+    View contentView = rootView.findViewById(android.R.id.content);
+    float windowWidth = rootView.getWidth();
+    float windowHeight = rootView.getHeight();
     int[] windowLocation = new int[2];
-    getLocationInWindow(windowLocation);
-    DisplayMetrics screenMetrics = DisplayMetricsHolder.getScreenDisplayMetrics();
+    contentView.getLocationInWindow(windowLocation);
     windowInsets.top = Math.max(windowInsets.top - windowLocation[1], 0);
     windowInsets.left = Math.max(windowInsets.left - windowLocation[0], 0);
-    windowInsets.bottom = Math.max(windowLocation[1] + getHeight() + windowInsets.bottom - screenMetrics.heightPixels, 0);
-    windowInsets.right = Math.max(windowLocation[0] + getWidth() + windowInsets.right - screenMetrics.widthPixels, 0);
+    windowInsets.bottom = Math.max(windowLocation[1] + contentView.getHeight() + windowInsets.bottom - windowHeight, 0);
+    windowInsets.right = Math.max(windowLocation[0] + contentView.getWidth() + windowInsets.right - windowWidth, 0);
     return windowInsets;
   }
 
   @Override
-  protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-    super.onLayout(changed, left, top, right, bottom);
+  protected void onAttachedToWindow() {
+    super.onAttachedToWindow();
 
-    Assertions.assertNotNull(mInsetsChangeListener).onInsetsChange(this, getSafeAreaInsets());
+    getRootView().getViewTreeObserver().addOnGlobalLayoutListener(this);
+  }
+
+  @Override
+  protected void onDetachedFromWindow() {
+    super.onDetachedFromWindow();
+
+    getRootView().getViewTreeObserver().removeOnGlobalLayoutListener(this);
+  }
+
+  @Override
+  public void onGlobalLayout() {
+    EdgeInsets edgeInsets = getSafeAreaInsets();
+    if (mLastInsets == null || !mLastInsets.equalsToEdgeInsets(edgeInsets)) {
+      Assertions.assertNotNull(mInsetsChangeListener).onInsetsChange(this, edgeInsets);
+      mLastInsets = edgeInsets;
+    }
   }
 
   public void setOnInsetsChangeListener(OnInsetsChangeListener listener) {

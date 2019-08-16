@@ -2,7 +2,6 @@ import * as React from 'react';
 import {
   requireNativeComponent,
   NativeSyntheticEvent,
-  ViewStyle,
   StyleSheet,
 } from 'react-native';
 
@@ -15,12 +14,13 @@ export interface EdgeInsets {
   left: number;
 }
 
+const SafeAreaContext = React.createContext<EdgeInsets | null>(null);
+
 export interface SafeAreaViewProps {
-  children: (insets: EdgeInsets) => React.ReactNode;
-  style?: ViewStyle;
+  children?: React.ReactNode;
 }
 
-export default function SafeAreaView({ children, style }: SafeAreaViewProps) {
+export function SafeAreaProvider({ children }: SafeAreaViewProps) {
   const [insets, setInsets] = React.useState<EdgeInsets | null>(null);
   const onInsetsChange = React.useCallback(
     (event: NativeSyntheticEvent<{ insets: EdgeInsets }>) => {
@@ -29,14 +29,13 @@ export default function SafeAreaView({ children, style }: SafeAreaViewProps) {
     [],
   );
 
-  console.warn(insets);
-
   return (
-    <NativeSafeAreaView
-      style={[styles.fill, style]}
-      onInsetsChange={onInsetsChange}
-    >
-      {insets !== null ? children(insets) : null}
+    <NativeSafeAreaView style={styles.fill} onInsetsChange={onInsetsChange}>
+      {insets !== null ? (
+        <SafeAreaContext.Provider value={insets}>
+          {children}
+        </SafeAreaContext.Provider>
+      ) : null}
     </NativeSafeAreaView>
   );
 }
@@ -44,3 +43,13 @@ export default function SafeAreaView({ children, style }: SafeAreaViewProps) {
 const styles = StyleSheet.create({
   fill: { flex: 1 },
 });
+
+export function useSafeArea(): EdgeInsets {
+  const safeArea = React.useContext(SafeAreaContext);
+  if (safeArea == null) {
+    throw new Error(
+      'No safe area value available. Make sure you are rendering `<SafeAreaProvider>` at the top of your app.',
+    );
+  }
+  return safeArea;
+}
