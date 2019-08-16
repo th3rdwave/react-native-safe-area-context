@@ -1,4 +1,4 @@
-package com.th3rdwave.safeareaview;
+package com.th3rdwave.safeareacontext;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,7 +7,6 @@ import android.os.Build;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.Window;
 import android.view.WindowInsets;
 import android.view.WindowManager;
 

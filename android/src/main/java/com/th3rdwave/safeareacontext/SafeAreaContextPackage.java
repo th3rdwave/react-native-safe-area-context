@@ -1,4 +1,4 @@
-package com.th3rdwave.safeareaview;
+package com.th3rdwave.safeareacontext;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
@@ -10,7 +10,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-public class SafeAreaViewPackage implements ReactPackage {
+public class SafeAreaContextPackage implements ReactPackage {
 
   @Nonnull
   @Override
@@ -23,4 +23,5 @@ public class SafeAreaViewPackage implements ReactPackage {
   public List<ViewManager> createViewManagers(@Nonnull ReactApplicationContext reactContext) {
     return Collections.<ViewManager>singletonList(new SafeAreaViewManager());
   }
+
 }

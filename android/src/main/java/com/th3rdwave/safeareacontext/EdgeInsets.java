@@ -1,4 +1,4 @@
-package com.th3rdwave.safeareaview;
+package com.th3rdwave.safeareacontext;
 
 /* package */ class EdgeInsets {
   public float top;

@@ -1,7 +1,7 @@
 {
   "name": "react-native-safe-area-context",
   "version": "0.1.0",
-  "description": "A more flexible <SafeAreaView>",
+  "description": "A flexible way to handle safe area, also works on Android.",
   "main": "src/index.tsx",
   "files": [
     "/android",

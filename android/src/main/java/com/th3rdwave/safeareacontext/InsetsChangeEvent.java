@@ -1,4 +1,4 @@
-package com.th3rdwave.safeareaview;
+package com.th3rdwave.safeareacontext;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableMap;
