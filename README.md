@@ -74,30 +74,39 @@ protected List<ReactPackage> getPackages() {
 ```
 </details>
 
-## Example
+## Usage
+
+Add `SafeAreaProvider` in your app root component:
 
 ```js
-import React from 'react';
-import { View } from 'react-native';
-import { SafeAreaProvider, SafeAreaConsumer, useSafeArea } from 'react-native-safe-area-context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 function App() {
   return (
     <SafeAreaProvider>
-      <HookComponent />
-      <ClassComponent />
+      ...
     </SafeAreaProvider>
   );
 }
+```
 
-// With hooks
+Usage with hooks api:
+
+```js
+import { useSafeArea } from 'react-native-safe-area-context';
+
 function HookComponent() {
   const insets = useSafeArea();
 
   return <View style={{ paddingTop: insets.top }} />;
 }
+```
 
-// With consumer
+Usage with consumer api:
+
+```js
+import { SafeAreaConsumer } from 'react-native-safe-area-context';
+
 class ClassComponent extends React.Component {
   render() {
     return (
@@ -107,6 +116,4 @@ class ClassComponent extends React.Component {
     );
   }
 }
-
-
 ```
