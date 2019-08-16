@@ -79,19 +79,34 @@ protected List<ReactPackage> getPackages() {
 ```js
 import React from 'react';
 import { View } from 'react-native';
-import { SafeAreaProvider, useSafeArea } from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaConsumer, useSafeArea } from 'react-native-safe-area-context';
 
-function SomeComponent() {
+function App() {
+  return (
+    <SafeAreaProvider>
+      <HookComponent />
+      <ClassComponent />
+    </SafeAreaProvider>
+  );
+}
+
+// With hooks
+function HookComponent() {
   const insets = useSafeArea();
 
   return <View style={{ paddingTop: insets.top }} />;
 }
 
-function App() {
-  return (
-    <SafeAreaProvider>
-      <SomeComponent />
-    </SafeAreaProvider>
-  );
+// With consumer
+class ClassComponent extends React.Component {
+  render() {
+    return (
+      <SafeAreaConsumer>
+        {insets => <View style={{ paddingTop: insets.top }} />}
+      </SafeAreaConsumer>
+    );
+  }
 }
+
+
 ```

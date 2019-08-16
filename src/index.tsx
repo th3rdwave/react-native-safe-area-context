@@ -44,6 +44,8 @@ const styles = StyleSheet.create({
   fill: { flex: 1 },
 });
 
+export const SafeAreaConsumer = SafeAreaContext.Consumer;
+
 export function useSafeArea(): EdgeInsets {
   const safeArea = React.useContext(SafeAreaContext);
   if (safeArea == null) {
