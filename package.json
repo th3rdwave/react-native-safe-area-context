@@ -15,9 +15,10 @@
   "license": "MIT",
   "scripts": {
     "start": "react-native start",
-    "test": "yarn validate:eslint && yarn validate:typescript",
+    "test": "yarn validate:prettier && yarn validate:eslint && yarn validate:typescript",
     "validate:eslint": "eslint \"src/**/*.{js,ts,tsx}\" \"example/**/*.{js,ts,tsx}\"",
-    "validate:typescript": "tsc --project ./ --noEmit"
+    "validate:typescript": "tsc --project ./ --noEmit",
+    "validate:prettier": "prettier \"src/**/*.{js,ts,tsx}\" \"example/**/*.{js,ts,tsx}\" --check"
   },
   "keywords": [
     "react-native",
