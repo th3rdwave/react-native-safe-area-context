@@ -1,0 +1,23 @@
+name: Node CI
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js 10.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+    - name: Install yarn
+      run: npm install -g yarn
+    - name: Install dependencies
+      run: yarn install
+    - name: Run tests
+      run: yarn workspaces run test
