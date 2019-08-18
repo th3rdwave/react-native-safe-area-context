@@ -1,18 +1,7 @@
 import * as React from 'react';
-import {
-  requireNativeComponent,
-  NativeSyntheticEvent,
-  StyleSheet,
-} from 'react-native';
-
-const NativeSafeAreaView = requireNativeComponent('RNCSafeAreaView');
-
-export interface EdgeInsets {
-  top: number;
-  right: number;
-  bottom: number;
-  left: number;
-}
+import { StyleSheet } from 'react-native';
+import { EdgeInsets, InsetChangedEvent } from './SafeArea.types';
+import NativeSafeAreaView from './NativeSafeAreaView';
 
 const SafeAreaContext = React.createContext<EdgeInsets | null>(null);
 
@@ -22,12 +11,9 @@ export interface SafeAreaViewProps {
 
 export function SafeAreaProvider({ children }: SafeAreaViewProps) {
   const [insets, setInsets] = React.useState<EdgeInsets | null>(null);
-  const onInsetsChange = React.useCallback(
-    (event: NativeSyntheticEvent<{ insets: EdgeInsets }>) => {
-      setInsets(event.nativeEvent.insets);
-    },
-    [],
-  );
+  const onInsetsChange = React.useCallback((event: InsetChangedEvent) => {
+    setInsets(event.nativeEvent.insets);
+  }, []);
 
   return (
     <NativeSafeAreaView style={styles.fill} onInsetsChange={onInsetsChange}>
@@ -55,3 +41,5 @@ export function useSafeArea(): EdgeInsets {
   }
   return safeArea;
 }
+
+export { EdgeInsets };
