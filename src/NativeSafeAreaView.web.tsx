@@ -22,34 +22,26 @@ export default function NativeSafeAreaView({
   style,
   onInsetsChange,
 }: NativeSafeAreaViewProps) {
-  const element = createContextElement();
-  document.body.appendChild(element);
-
-  const onEnd = () => {
-    const {
-      paddingTop,
-      paddingBottom,
-      paddingLeft,
-      paddingRight,
-    } = getComputedStyle(element);
-
-    const insets = {
-      top: paddingTop ? parseInt(paddingTop, 10) : 0,
-      bottom: paddingBottom ? parseInt(paddingBottom, 10) : 0,
-      left: paddingLeft ? parseInt(paddingLeft, 10) : 0,
-      right: paddingRight ? parseInt(paddingRight, 10) : 0,
-    };
-
-    console.log('onEnd');
-    // @ts-ignore: missing properties
-    onInsetsChange({ nativeEvent: { insets } });
-  };
   React.useEffect(() => {
-    console.log(
-      'SUPPORTED_TRANSITION_EVENT',
-      SUPPORTED_TRANSITION_EVENT,
-      SUPPORTED_ENV,
-    );
+    const element = createContextElement();
+    document.body.appendChild(element);
+    const onEnd = () => {
+      const {
+        paddingTop,
+        paddingBottom,
+        paddingLeft,
+        paddingRight,
+      } = getComputedStyle(element);
+
+      const insets = {
+        top: paddingTop ? parseInt(paddingTop, 10) : 0,
+        bottom: paddingBottom ? parseInt(paddingBottom, 10) : 0,
+        left: paddingLeft ? parseInt(paddingLeft, 10) : 0,
+        right: paddingRight ? parseInt(paddingRight, 10) : 0,
+      };
+      // @ts-ignore: missing properties
+      onInsetsChange({ nativeEvent: { insets } });
+    };
     element.addEventListener(SUPPORTED_TRANSITION_EVENT, onEnd);
     onEnd();
     return () => {
