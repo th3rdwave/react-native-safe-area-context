@@ -1,8 +1,10 @@
 {
   "name": "react-native-safe-area-context",
   "version": "0.1.0",
-  "description": "A flexible way to handle safe area, also works on Android.",
-  "main": "src/index.tsx",
+  "description": "A flexible way to handle safe area, also works on Android and web.",
+  "main": "src/index",
+  "module": "src/index",
+  "sideEffects": false,
   "files": [
     "/android",
     "!/android/build",
@@ -11,6 +13,9 @@
     "/*.podspec"
   ],
   "author": "Janic Duplessis <janicduplessis@gmail.com>",
+  "contributors": [
+    "Evan Bacon <bacon@expo.io> (https://github.com/evanbacon)"
+  ],
   "homepage": "https://github.com/th3rdwave/react-native-safe-area-context#readme",
   "license": "MIT",
   "scripts": {
@@ -23,6 +28,8 @@
   "keywords": [
     "react-native",
     "react native",
+    "react-native-web",
+    "expo-web",
     "safe area",
     "view"
   ],
@@ -38,10 +45,13 @@
     "eslint": "5.16.0",
     "eslint-config-prettier": "^4.2.0",
     "eslint-plugin-prettier": "3.0.1",
+    "expo": "^34.0.4",
     "metro-react-native-babel-preset": "^0.55.0",
     "prettier": "^1.18.2",
     "react": "^16.8.3",
+    "react-dom": "^16.9.0",
     "react-native": "^0.60.5",
+    "react-native-web": "^0.11.7",
     "typescript": "^3.5.3"
   },
   "repository": {
