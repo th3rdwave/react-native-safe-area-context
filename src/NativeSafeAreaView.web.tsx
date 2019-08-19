@@ -31,7 +31,7 @@ export default function NativeSafeAreaView({
         paddingBottom,
         paddingLeft,
         paddingRight,
-      } = getComputedStyle(element);
+      } = window.getComputedStyle(element);
 
       const insets = {
         top: paddingTop ? parseInt(paddingTop, 10) : 0,
