@@ -1,5 +1,7 @@
 # react-native-safe-area-context
 
+[![Actions Status](https://wdp9fww0r9.execute-api.us-west-2.amazonaws.com/production/badge/th3rdwave/react-native-safe-area-context)](https://wdp9fww0r9.execute-api.us-west-2.amazonaws.com/production/results/th3rdwave/react-native-safe-area-context) ![Supports Android, iOS and web](https://img.shields.io/badge/platforms-android%20%7C%20ios%20%7C%20web-lightgrey.svg) ![MIT License](https://img.shields.io/npm/l/react-native-safe-area-context.svg)
+
 A flexible way to handle safe area, also works on Android!
 
 ## Getting started
