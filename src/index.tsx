@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { EdgeInsets, InsetChangedEvent } from './SafeArea.types';
 import NativeSafeAreaView from './NativeSafeAreaView';
 
-const SafeAreaContext = React.createContext<EdgeInsets | null>(null);
+export const SafeAreaContext = React.createContext<EdgeInsets | null>(null);
 
 export interface SafeAreaViewProps {
   children?: React.ReactNode;
