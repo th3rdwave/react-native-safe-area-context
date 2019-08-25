@@ -42,4 +42,4 @@ export function useSafeArea(): EdgeInsets {
   return safeArea;
 }
 
-export { EdgeInsets };
+export type EdgeInsets = EdgeInsets;
