@@ -38,6 +38,7 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "@react-native-community/bob": "^0.7.0",
     "@react-native-community/eslint-config": "^0.0.5",
     "@types/react-native": "^0.60.5",
     "@typescript-eslint/eslint-plugin": "^1.7.0",
