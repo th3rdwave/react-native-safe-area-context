@@ -2,14 +2,17 @@
   "name": "react-native-safe-area-context",
   "version": "0.3.1",
   "description": "A flexible way to handle safe area, also works on Android and web.",
-  "main": "src/index",
-  "module": "src/index",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/module/index.js",
+  "react-native": "src/index.tsx",
+  "types": "lib/typescript/src/index.d.ts",
   "sideEffects": false,
   "files": [
+    "/src",
+    "/lib",
     "/android",
     "!/android/build",
     "/ios",
-    "/src",
     "/*.podspec"
   ],
   "author": "Janic Duplessis <janicduplessis@gmail.com>",
@@ -23,7 +26,8 @@
     "test": "yarn validate:prettier && yarn validate:eslint && yarn validate:typescript",
     "validate:eslint": "eslint \"src/**/*.{js,ts,tsx}\" \"example/**/*.{js,ts,tsx}\"",
     "validate:typescript": "tsc --project ./ --noEmit",
-    "validate:prettier": "prettier \"src/**/*.{js,ts,tsx}\" \"example/**/*.{js,ts,tsx}\" --check"
+    "validate:prettier": "prettier \"src/**/*.{js,ts,tsx}\" \"example/**/*.{js,ts,tsx}\" --check",
+    "prepare": "bob build"
   },
   "keywords": [
     "react-native",
@@ -58,5 +62,19 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/th3rdwave/react-native-safe-area-context.git"
+  },
+  "jest": {
+    "modulePathIgnorePatterns": [
+      "<rootDir>/lib/"
+    ]
+  },
+  "@react-native-community/bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      "typescript"
+    ]
   }
 }

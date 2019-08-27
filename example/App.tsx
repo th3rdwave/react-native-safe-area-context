@@ -18,7 +18,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 // import { SafeAreaProvider, useSafeArea } from 'react-native-safe-area-context'; in your app.
-import { SafeAreaProvider, useSafeArea } from '..';
+import { SafeAreaProvider, useSafeArea } from '../src';
 
 type ForceInsets = 'always' | 'never';
 
