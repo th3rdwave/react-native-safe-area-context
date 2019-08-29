@@ -26,5 +26,5 @@ target 'SafeAreaViewExample' do
   pod 'glog', :podspec => '../../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'th3rdwave-safe-area-view', :path => '../../'
+  pod 'react-native-safe-area-context', :path => '../../'
 end
