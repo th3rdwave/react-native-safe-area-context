@@ -24,7 +24,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		134814201AA4EA6300B7C361 /* libRNCNetInfo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNCNetInfo.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		134814201AA4EA6300B7C361 /* libRNCSafeAreaContext.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNCSafeAreaContext.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		19AC186B23048EBB0093B581 /* RNCSafeAreaView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RNCSafeAreaView.h; path = SafeAreaView/RNCSafeAreaView.h; sourceTree = "<group>"; };
 		19AC186C23048EBB0093B581 /* RNCSafeAreaView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RNCSafeAreaView.m; path = SafeAreaView/RNCSafeAreaView.m; sourceTree = "<group>"; };
 		C923EDBB220C2C1A00D3100F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -45,7 +45,7 @@
 		134814211AA4EA7D00B7C361 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				134814201AA4EA6300B7C361 /* libRNCNetInfo.a */,
+				134814201AA4EA6300B7C361 /* libRNCSafeAreaContext.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -71,9 +71,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		58B511DA1A9E6C8500147676 /* RNCNetInfo */ = {
+		58B511DA1A9E6C8500147676 /* RNCSafeAreaContext */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "RNCNetInfo" */;
+			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "RNCSafeAreaContext" */;
 			buildPhases = (
 				58B511D71A9E6C8500147676 /* Sources */,
 				58B511D81A9E6C8500147676 /* Frameworks */,
@@ -83,9 +83,9 @@
 			);
 			dependencies = (
 			);
-			name = RNCNetInfo;
+			name = RNCSafeAreaContext;
 			productName = RCTDataManager;
-			productReference = 134814201AA4EA6300B7C361 /* libRNCNetInfo.a */;
+			productReference = 134814201AA4EA6300B7C361 /* libRNCSafeAreaContext.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -115,7 +115,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				58B511DA1A9E6C8500147676 /* RNCNetInfo */,
+				58B511DA1A9E6C8500147676 /* RNCSafeAreaContext */,
 			);
 		};
 /* End PBXProject section */
@@ -242,7 +242,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = RNCNetInfo;
+				PRODUCT_NAME = RNCSafeAreaContext;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -258,7 +258,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = RNCNetInfo;
+				PRODUCT_NAME = RNCSafeAreaContext;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -275,7 +275,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "RNCNetInfo" */ = {
+		58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "RNCSafeAreaContext" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				58B511F01A9E6C8500147676 /* Debug */,
