@@ -23,6 +23,11 @@ export default function NativeSafeAreaView({
   onInsetsChange,
 }: NativeSafeAreaViewProps) {
   React.useEffect(() => {
+    // Skip for SSR.
+    if (typeof document === 'undefined') {
+      return;
+    }
+
     const element = createContextElement();
     document.body.appendChild(element);
     const onEnd = () => {
@@ -42,29 +47,41 @@ export default function NativeSafeAreaView({
       // @ts-ignore: missing properties
       onInsetsChange({ nativeEvent: { insets } });
     };
-    element.addEventListener(SUPPORTED_TRANSITION_EVENT, onEnd);
+    element.addEventListener(getSupportedTransitionEvent(), onEnd);
     onEnd();
     return () => {
       document.body.removeChild(element);
-      element.removeEventListener(SUPPORTED_TRANSITION_EVENT, onEnd);
+      element.removeEventListener(getSupportedTransitionEvent(), onEnd);
     };
   }, [onInsetsChange]);
 
   return <View style={style}>{children}</View>;
 }
 
-const SUPPORTED_TRANSITION_EVENT: string = (() => {
+let _supportedTransitionEvent: string | null = null;
+function getSupportedTransitionEvent(): string {
+  if (_supportedTransitionEvent !== null) {
+    return _supportedTransitionEvent;
+  }
   const element = document.createElement('invalidtype');
 
+  _supportedTransitionEvent = CSSTransitions.Transition;
   for (const key in CSSTransitions) {
     if (element.style[key] !== undefined) {
-      return CSSTransitions[key];
+      _supportedTransitionEvent = CSSTransitions[key];
+      break;
     }
   }
-  return CSSTransitions.Transition;
-})();
+  return _supportedTransitionEvent;
+}
 
-const SUPPORTED_ENV: 'constant' | 'env' = (() => {
+type CssEnv = 'constant' | 'env';
+
+let _supportedEnv: CssEnv | null = null;
+function getSupportedEnv(): CssEnv {
+  if (_supportedEnv !== null) {
+    return _supportedEnv;
+  }
   // @ts-ignore: Property 'CSS' does not exist on type 'Window'.ts(2339)
   const { CSS } = window;
   if (
@@ -72,13 +89,15 @@ const SUPPORTED_ENV: 'constant' | 'env' = (() => {
     CSS.supports &&
     CSS.supports('top: constant(safe-area-inset-top)')
   ) {
-    return 'constant';
+    _supportedEnv = 'constant';
+  } else {
+    _supportedEnv = 'env';
   }
-  return 'env';
-})();
+  return _supportedEnv;
+}
 
 function getInset(side: string): string {
-  return `${SUPPORTED_ENV}(safe-area-inset-${side})`;
+  return `${getSupportedEnv()}(safe-area-inset-${side})`;
 }
 
 function createContextElement(): HTMLElement {
