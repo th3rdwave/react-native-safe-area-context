@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { EdgeInsets, InsetChangedEvent } from './SafeArea.types';
 import NativeSafeAreaView from './NativeSafeAreaView';
 
@@ -10,20 +10,27 @@ export interface SafeAreaViewProps {
 }
 
 export function SafeAreaProvider({ children }: SafeAreaViewProps) {
+  let parentInsets = useParentSafeArea();
   const [insets, setInsets] = React.useState<EdgeInsets | null>(null);
   const onInsetsChange = React.useCallback((event: InsetChangedEvent) => {
     setInsets(event.nativeEvent.insets);
   }, []);
 
-  return (
-    <NativeSafeAreaView style={styles.fill} onInsetsChange={onInsetsChange}>
-      {insets !== null ? (
-        <SafeAreaContext.Provider value={insets}>
-          {children}
-        </SafeAreaContext.Provider>
-      ) : null}
-    </NativeSafeAreaView>
-  );
+  // If a provider is nested inside of another provider then we can just use
+  // the parent insets, without rendering another native safe area view
+  if (parentInsets) {
+    return <View style={styles.fill}>{children}</View>;
+  } else {
+    return (
+      <NativeSafeAreaView style={styles.fill} onInsetsChange={onInsetsChange}>
+        {insets !== null ? (
+          <SafeAreaContext.Provider value={insets}>
+            {children}
+          </SafeAreaContext.Provider>
+        ) : null}
+      </NativeSafeAreaView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -31,6 +38,10 @@ const styles = StyleSheet.create({
 });
 
 export const SafeAreaConsumer = SafeAreaContext.Consumer;
+
+function useParentSafeArea(): React.ContextType<typeof SafeAreaContext> {
+  return React.useContext(SafeAreaContext);
+}
 
 export function useSafeArea(): EdgeInsets {
   const safeArea = React.useContext(SafeAreaContext);
