@@ -68,6 +68,12 @@ static BOOL UIEdgeInsetsEqualToEdgeInsetsWithThreshold(UIEdgeInsets insets1, UIE
 
 - (void)invalidateSafeAreaInsets
 {
+  // This gets called before the view size is set by react-native so
+  // make sure to wait so we don't set wrong insets to JS.
+  if (CGSizeEqualToSize(self.frame.size, CGSizeZero)) {
+    return;
+  }
+
   UIEdgeInsets safeAreaInsets = [self realOrEmulateSafeAreaInsets];
 
   if (_initialInsetsSent && UIEdgeInsetsEqualToEdgeInsetsWithThreshold(safeAreaInsets, _currentSafeAreaInsets, 1.0 / RCTScreenScale())) {
