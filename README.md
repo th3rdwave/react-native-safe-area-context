@@ -123,7 +123,7 @@ class ClassComponent extends React.Component {
 Usage with `SafeAreaView`:
 
 ```js
-import { SafeAreaConsumer } from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 function SomeComponent() {
   return (
