@@ -16,6 +16,7 @@ static BOOL UIEdgeInsetsEqualToEdgeInsetsWithThreshold(UIEdgeInsets insets1, UIE
 @implementation RNCSafeAreaView
 {
   UIEdgeInsets _currentSafeAreaInsets;
+  BOOL _initialInsetsSent;
 }
 
 - (BOOL)isSupportedByOS
@@ -69,10 +70,11 @@ static BOOL UIEdgeInsetsEqualToEdgeInsetsWithThreshold(UIEdgeInsets insets1, UIE
 {
   UIEdgeInsets safeAreaInsets = [self realOrEmulateSafeAreaInsets];
 
-  if (UIEdgeInsetsEqualToEdgeInsetsWithThreshold(safeAreaInsets, _currentSafeAreaInsets, 1.0 / RCTScreenScale())) {
+  if (_initialInsetsSent && UIEdgeInsetsEqualToEdgeInsetsWithThreshold(safeAreaInsets, _currentSafeAreaInsets, 1.0 / RCTScreenScale())) {
     return;
   }
 
+  _initialInsetsSent = YES;
   _currentSafeAreaInsets = safeAreaInsets;
 
   self.onInsetsChange(@{
@@ -89,9 +91,7 @@ static BOOL UIEdgeInsetsEqualToEdgeInsetsWithThreshold(UIEdgeInsets insets1, UIE
 {
   [super layoutSubviews];
 
-  if (!self.isSupportedByOS) {
-    [self invalidateSafeAreaInsets];
-  }
+  [self invalidateSafeAreaInsets];
 }
 
 @end
