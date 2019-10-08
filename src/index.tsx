@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ViewProps } from 'react-native';
 import { EdgeInsets, InsetChangedEvent } from './SafeArea.types';
 import NativeSafeAreaView from './NativeSafeAreaView';
 
@@ -51,6 +51,28 @@ export function useSafeArea(): EdgeInsets {
     );
   }
   return safeArea;
+}
+
+export function SafeAreaView({
+  style,
+  ...rest
+}: ViewProps & { children: React.ReactNode }) {
+  const insets = useSafeArea();
+
+  return (
+    <View
+      style={[
+        {
+          paddingTop: insets.top,
+          paddingRight: insets.right,
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+        },
+        style,
+      ]}
+      {...rest}
+    />
+  );
 }
 
 export type EdgeInsets = EdgeInsets;
