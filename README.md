@@ -120,6 +120,20 @@ class ClassComponent extends React.Component {
 }
 ```
 
+Usage with `SafeAreaView`:
+
+```js
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+function SomeComponent() {
+  return (
+    <SafeAreaView>
+      <View />
+    </SafeAreaView>
+  );
+}
+```
+
 ## Resources
 
-- Great article about how this libary can be used: https://dev.to/brunolemos/adding-notch-support-to-your-react-native-android-app-3ci3
+- Great article about how this library can be used: https://dev.to/brunolemos/adding-notch-support-to-your-react-native-android-app-3ci3
