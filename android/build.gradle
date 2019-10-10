@@ -1,45 +1,22 @@
-buildscript {
-  repositories {
-    google()
-    jcenter()
-  }
-
-  dependencies {
-    //noinspection GradleDependency
-    classpath 'com.android.tools.build:gradle:3.2.1'
-  }
-}
-
-def getExtOrDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties['ReactNativeSafeAreaView_' + name]
-}
-
-def getExtOrIntegerDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties['ReactNativeSafeAreaView_' + name]).toInteger()
+def getExtOrDefault(name, defaultVaue) {
+  return rootProject.ext.get(name) ?: defaultVaue
 }
 
 apply plugin: 'com.android.library'
 
 android {
-  compileSdkVersion getExtOrIntegerDefault('compileSdkVersion')
-  buildToolsVersion getExtOrDefault('buildToolsVersion')
+  compileSdkVersion getExtOrDefault('compileSdkVersion', 28)
 
   defaultConfig {
-    minSdkVersion getExtOrIntegerDefault('minSdkVersion')
-    targetSdkVersion getExtOrIntegerDefault('targetSdkVersion')
+    minSdkVersion getExtOrDefault('minSdkVersion', 16)
+    targetSdkVersion getExtOrDefault('targetSdkVersion', 28)
   }
   lintOptions{
     abortOnError false
   }
 }
 
-repositories {
-  google()
-  jcenter()
-  mavenCentral()
-}
-
 dependencies {
   //noinspection GradleDynamicVersion
-  api 'com.facebook.react:react-native:+'
+  implementation 'com.facebook.react:react-native:+'
 }
