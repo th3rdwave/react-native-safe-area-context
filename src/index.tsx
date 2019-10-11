@@ -7,23 +7,29 @@ export const SafeAreaContext = React.createContext<EdgeInsets | null>(null);
 
 export interface SafeAreaViewProps {
   children?: React.ReactNode;
+  initialSafeAreaInsets?: EdgeInsets | null;
 }
 
-export function SafeAreaProvider({ children }: SafeAreaViewProps) {
+export function SafeAreaProvider({
+  children,
+  initialSafeAreaInsets,
+}: SafeAreaViewProps) {
   let parentInsets = useParentSafeArea();
-  const [insets, setInsets] = React.useState<EdgeInsets | null>(null);
+  const [insets, setInsets] = React.useState<EdgeInsets | null | undefined>(
+    initialSafeAreaInsets,
+  );
   const onInsetsChange = React.useCallback((event: InsetChangedEvent) => {
     setInsets(event.nativeEvent.insets);
   }, []);
 
   // If a provider is nested inside of another provider then we can just use
   // the parent insets, without rendering another native safe area view
-  if (parentInsets) {
+  if (parentInsets != null) {
     return <View style={styles.fill}>{children}</View>;
   } else {
     return (
       <NativeSafeAreaView style={styles.fill} onInsetsChange={onInsetsChange}>
-        {insets !== null ? (
+        {insets != null ? (
           <SafeAreaContext.Provider value={insets}>
             {children}
           </SafeAreaContext.Provider>

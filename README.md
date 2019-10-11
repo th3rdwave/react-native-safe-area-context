@@ -134,6 +134,10 @@ function SomeComponent() {
 }
 ```
 
+### Web SSR
+
+If you are doing server side rendering on the web you can use `initialSafeAreaInsets` to inject insets value based on the device the user has, or simply pass zero values. Since insets measurement is async it will break rendering your page content otherwise.
+
 ## Resources
 
 - Great article about how this library can be used: https://dev.to/brunolemos/adding-notch-support-to-your-react-native-android-app-3ci3
