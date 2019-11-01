@@ -9,13 +9,13 @@ interface NativeSafeAreaViewProps {
   onInsetsChange: InsetChangeNativeCallback;
 }
 
-enum CSSTransitions {
-  WebkitTransition = 'webkitTransitionEnd',
-  Transition = 'transitionEnd',
-  MozTransition = 'transitionend',
-  MSTransition = 'msTransitionEnd',
-  OTransition = 'oTransitionEnd',
-}
+const CSSTransitions: Record<string, string> = {
+  WebkitTransition: 'webkitTransitionEnd',
+  Transition: 'transitionEnd',
+  MozTransition: 'transitionend',
+  MSTransition: 'msTransitionEnd',
+  OTransition: 'oTransitionEnd',
+};
 
 export default function NativeSafeAreaView({
   children,
@@ -67,7 +67,7 @@ function getSupportedTransitionEvent(): string {
 
   _supportedTransitionEvent = CSSTransitions.Transition;
   for (const key in CSSTransitions) {
-    if (element.style[key] !== undefined) {
+    if (element.style[key as keyof CSSStyleDeclaration] !== undefined) {
       _supportedTransitionEvent = CSSTransitions[key];
       break;
     }
@@ -82,7 +82,6 @@ function getSupportedEnv(): CssEnv {
   if (_supportedEnv !== null) {
     return _supportedEnv;
   }
-  // @ts-ignore: Property 'CSS' does not exist on type 'Window'.ts(2339)
   const { CSS } = window;
   if (
     CSS &&
