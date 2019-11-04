@@ -1,0 +1,140 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SafeAreaProvider does not render child until inset values are received 1`] = `
+<RNCSafeAreaView
+  onInsetsChange={[Function]}
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+/>
+`;
+
+exports[`SafeAreaProvider renders 1`] = `
+<RNCSafeAreaView
+  onInsetsChange={[Function]}
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+/>
+`;
+
+exports[`SafeAreaProvider renders child when inset values are received 1`] = `
+<RNCSafeAreaView
+  onInsetsChange={[Function]}
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+/>
+`;
+
+exports[`SafeAreaProvider renders child when inset values are received 2`] = `
+<RNCSafeAreaView
+  onInsetsChange={[Function]}
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "bottom": 4,
+        "left": 2,
+        "right": 3,
+        "top": 1,
+      }
+    }
+  />
+</RNCSafeAreaView>
+`;
+
+exports[`SafeAreaProvider supports setting initial insets 1`] = `
+<RNCSafeAreaView
+  onInsetsChange={[Function]}
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "bottom": 4,
+        "left": 2,
+        "right": 3,
+        "top": 1,
+      }
+    }
+  />
+</RNCSafeAreaView>
+`;
+
+exports[`SafeAreaProvider uses inner insets 1`] = `
+<RNCSafeAreaView
+  onInsetsChange={[Function]}
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <RNCSafeAreaView
+    onInsetsChange={[Function]}
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "bottom": 5,
+          "left": 3,
+          "right": 4,
+          "top": 2,
+        }
+      }
+    />
+  </RNCSafeAreaView>
+</RNCSafeAreaView>
+`;
+
+exports[`SafeAreaProvider uses parent insets when available 1`] = `
+<RNCSafeAreaView
+  onInsetsChange={[Function]}
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <RNCSafeAreaView
+    onInsetsChange={[Function]}
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "bottom": 4,
+          "left": 2,
+          "right": 3,
+          "top": 1,
+        }
+      }
+    />
+  </RNCSafeAreaView>
+</RNCSafeAreaView>
+`;

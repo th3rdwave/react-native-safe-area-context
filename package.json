@@ -27,6 +27,7 @@
     "validate:eslint": "eslint \"src/**/*.{js,ts,tsx}\" \"example/**/*.{js,ts,tsx}\"",
     "validate:typescript": "tsc --project ./ --noEmit",
     "validate:prettier": "prettier \"src/**/*.{js,ts,tsx}\" \"example/**/*.{js,ts,tsx}\" --check",
+    "validate:jest": "jest",
     "prepare": "bob build"
   },
   "keywords": [
@@ -44,19 +45,24 @@
   "devDependencies": {
     "@react-native-community/bob": "^0.7.0",
     "@react-native-community/eslint-config": "^0.0.5",
+    "@types/jest": "^24.0.21",
+    "@types/react": "^16.9.11",
     "@types/react-native": "^0.60.22",
+    "@types/react-test-renderer": "^16.9.1",
     "@typescript-eslint/eslint-plugin": "^2.6.0",
     "@typescript-eslint/parser": "^2.6.0",
     "eslint": "6.6.0",
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-prettier": "3.1.1",
     "expo": "^35.0.0",
+    "jest": "^24.9.0",
     "metro-react-native-babel-preset": "^0.57.0",
     "prettier": "^1.18.2",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-native": "^0.61.0",
     "react-native-web": "^0.11.7",
+    "react-test-renderer": "^16.11.0",
     "typescript": "^3.6.4"
   },
   "repository": {
@@ -64,6 +70,9 @@
     "url": "https://github.com/th3rdwave/react-native-safe-area-context.git"
   },
   "jest": {
+    "preset": "react-native",
+    "testEnvironment": "node",
+    "clearMocks": true,
     "modulePathIgnorePatterns": [
       "<rootDir>/lib/"
     ]
