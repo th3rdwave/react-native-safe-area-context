@@ -6,11 +6,12 @@ import { SafeAreaProvider, useSafeArea } from '../src';
 
 const Screen = () => {
   const insets = useSafeArea();
+
   return (
     <>
       <StatusBar
         barStyle="dark-content"
-        translucent={false}
+        translucent
         backgroundColor="transparent"
       />
       <View
