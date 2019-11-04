@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { StyleSheet, View, ViewProps } from 'react-native';
-import { EdgeInsets, InsetChangedEvent } from './SafeArea.types';
+import { EdgeInsets as EdgeInsetsT, InsetChangedEvent } from './SafeArea.types';
 import NativeSafeAreaView from './NativeSafeAreaView';
 
-export const SafeAreaContext = React.createContext<EdgeInsets | null>(null);
+export const SafeAreaContext = React.createContext<EdgeInsetsT | null>(null);
 
 export interface SafeAreaViewProps {
   children?: React.ReactNode;
-  initialSafeAreaInsets?: EdgeInsets | null;
+  initialSafeAreaInsets?: EdgeInsetsT | null;
 }
 
 export function SafeAreaProvider({
@@ -15,7 +15,7 @@ export function SafeAreaProvider({
   initialSafeAreaInsets,
 }: SafeAreaViewProps) {
   const parentInsets = useParentSafeArea();
-  const [insets, setInsets] = React.useState<EdgeInsets | null | undefined>(
+  const [insets, setInsets] = React.useState<EdgeInsetsT | null | undefined>(
     initialSafeAreaInsets || parentInsets,
   );
   const onInsetsChange = React.useCallback((event: InsetChangedEvent) => {
@@ -43,7 +43,7 @@ function useParentSafeArea(): React.ContextType<typeof SafeAreaContext> {
   return React.useContext(SafeAreaContext);
 }
 
-export function useSafeArea(): EdgeInsets {
+export function useSafeArea(): EdgeInsetsT {
   const safeArea = React.useContext(SafeAreaContext);
   if (safeArea == null) {
     throw new Error(
@@ -75,4 +75,4 @@ export function SafeAreaView({
   );
 }
 
-export type EdgeInsets = EdgeInsets;
+export type EdgeInsets = EdgeInsetsT;
