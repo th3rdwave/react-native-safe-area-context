@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactTestRenderer from 'react-test-renderer';
 import { View } from 'react-native';
-import { SafeAreaProvider, useSafeArea } from '../index';
+import { SafeAreaProvider, SafeAreaView, useSafeArea } from '../index';
 import NativeSafeAreaView from '../NativeSafeAreaView';
 
 const PrintInsetsTestView = () => {
@@ -51,6 +51,17 @@ describe('SafeAreaProvider', () => {
     expect(component).toMatchSnapshot();
   });
 
+  it('supports setting initial insets', () => {
+    const component = ReactTestRenderer.create(
+      <SafeAreaProvider
+        initialSafeAreaInsets={{ top: 1, left: 2, right: 3, bottom: 4 }}
+      >
+        <PrintInsetsTestView />
+      </SafeAreaProvider>,
+    );
+    expect(component).toMatchSnapshot();
+  });
+
   it('uses parent insets when available', () => {
     const component = ReactTestRenderer.create(
       <SafeAreaProvider
@@ -79,17 +90,6 @@ describe('SafeAreaProvider', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('supports setting initial insets', () => {
-    const component = ReactTestRenderer.create(
-      <SafeAreaProvider
-        initialSafeAreaInsets={{ top: 1, left: 2, right: 3, bottom: 4 }}
-      >
-        <PrintInsetsTestView />
-      </SafeAreaProvider>,
-    );
-    expect(component).toMatchSnapshot();
-  });
-
   it('throws when no provider is rendered', () => {
     // Silence the React error boundary warning; we expect an uncaught error.
     const consoleErrorMock = jest
@@ -106,5 +106,33 @@ describe('SafeAreaProvider', () => {
     );
 
     consoleErrorMock.mockRestore();
+  });
+});
+
+describe('SafeAreaView', () => {
+  it('renders', () => {
+    const component = ReactTestRenderer.create(
+      <SafeAreaProvider
+        initialSafeAreaInsets={{ top: 1, left: 2, right: 3, bottom: 4 }}
+      >
+        <SafeAreaView>
+          <View />
+        </SafeAreaView>
+      </SafeAreaProvider>,
+    );
+    expect(component).toMatchSnapshot();
+  });
+
+  it('can override padding styles', () => {
+    const component = ReactTestRenderer.create(
+      <SafeAreaProvider
+        initialSafeAreaInsets={{ top: 1, left: 2, right: 3, bottom: 4 }}
+      >
+        <SafeAreaView style={{ paddingTop: 0 }}>
+          <View />
+        </SafeAreaView>
+      </SafeAreaProvider>,
+    );
+    expect(component).toMatchSnapshot();
   });
 });
