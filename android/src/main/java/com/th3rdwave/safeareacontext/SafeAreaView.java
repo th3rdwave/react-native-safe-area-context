@@ -74,11 +74,20 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnG
     return windowInsets;
   }
 
+  private void maybeUpdateInsets() {
+    EdgeInsets edgeInsets = getSafeAreaInsets();
+    if (mLastInsets == null || !mLastInsets.equalsToEdgeInsets(edgeInsets)) {
+      Assertions.assertNotNull(mInsetsChangeListener).onInsetsChange(this, edgeInsets);
+      mLastInsets = edgeInsets;
+    }
+  }
+
   @Override
   protected void onAttachedToWindow() {
     super.onAttachedToWindow();
 
     getRootView().getViewTreeObserver().addOnGlobalLayoutListener(this);
+    maybeUpdateInsets();
   }
 
   @Override
@@ -90,11 +99,7 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnG
 
   @Override
   public void onGlobalLayout() {
-    EdgeInsets edgeInsets = getSafeAreaInsets();
-    if (mLastInsets == null || !mLastInsets.equalsToEdgeInsets(edgeInsets)) {
-      Assertions.assertNotNull(mInsetsChangeListener).onInsetsChange(this, edgeInsets);
-      mLastInsets = edgeInsets;
-    }
+    maybeUpdateInsets();
   }
 
   public void setOnInsetsChangeListener(OnInsetsChangeListener listener) {
