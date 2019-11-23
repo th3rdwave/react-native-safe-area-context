@@ -138,6 +138,27 @@ function SomeComponent() {
 
 If you are doing server side rendering on the web you can use `initialSafeAreaInsets` to inject insets value based on the device the user has, or simply pass zero values. Since insets measurement is async it will break rendering your page content otherwise.
 
+### Optimization
+
+To speed up the initial render, you can import `initialSafeAreaInsets` from this package and set in on the provider as described in Web SSR. You cannot do this if your provider remounts, or you are using `react-native-navigation`.
+
+Only supported on iOS at the moment.
+
+```js
+import {
+  SafeAreaProvider,
+  initialSafeAreaInsets,
+} from 'react-native-safe-area-context';
+
+function App() {
+  return (
+    <SafeAreaProvider initialSafeAreaInsets={initialSafeAreaInsets}>
+      ...
+    </SafeAreaProvider>
+  );
+}
+```
+
 ## Resources
 
 - Great article about how this library can be used: https://dev.to/brunolemos/adding-notch-support-to-your-react-native-android-app-3ci3
