@@ -9,6 +9,7 @@ import android.view.WindowInsets;
 import android.view.WindowManager;
 
 import com.facebook.infer.annotation.Assertions;
+import com.facebook.react.uimanager.PixelUtil;
 import com.facebook.react.views.view.ReactViewGroup;
 
 import androidx.annotation.Nullable;
@@ -45,12 +46,12 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnG
       int statusBarHeight = 0;
       int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
       if (resourceId > 0) {
-        statusBarHeight = (int) (getResources().getDimension(resourceId) / getResources().getDisplayMetrics().density);
+        statusBarHeight = (int) Math.round(PixelUtil.toDIPFromPixel(getResources().getDimensionPixelSize(resourceId)));
       }
       int navbarHeight = 0;
       resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
       if (resourceId > 0) {
-        navbarHeight = (int) (getResources().getDimension(resourceId) / getResources().getDisplayMetrics().density);
+        navbarHeight = (int) Math.round(PixelUtil.toDIPFromPixel(getResources().getDimensionPixelSize(resourceId)));
       }
 
       windowInsets = new EdgeInsets(
