@@ -2,6 +2,21 @@ def getExtOrDefault(name, defaultVaue) {
   return rootProject.ext.has(name) ? rootProject.ext.get(name) : defaultVaue
 }
 
+buildscript {
+    // The Android Gradle plugin is only required when opening the android folder stand-alone.
+    // This avoids unnecessary downloads and potential conflicts when the library is included as a
+    // module dependency in an application project.
+    if (project == rootProject) {
+        repositories {
+            google()
+            jcenter()
+        }
+        dependencies {
+            classpath 'com.android.tools.build:gradle:3.5.0'
+        }
+    }
+}
+
 apply plugin: 'com.android.library'
 
 android {
@@ -14,6 +29,15 @@ android {
   lintOptions{
     abortOnError false
   }
+}
+
+repositories {
+    google()
+    maven {
+        // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+        url "$rootDir/../node_modules/react-native/android"
+    }
+    jcenter()
 }
 
 dependencies {
