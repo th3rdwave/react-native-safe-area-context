@@ -45,12 +45,12 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnG
       int statusBarHeight = 0;
       int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
       if (resourceId > 0) {
-        statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+        statusBarHeight = (int) (getResources().getDimension(resourceId) / getResources().getDisplayMetrics().density);
       }
       int navbarHeight = 0;
       resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
       if (resourceId > 0) {
-        navbarHeight = getResources().getDimensionPixelSize(resourceId);
+        navbarHeight = (int) (getResources().getDimension(resourceId) / getResources().getDisplayMetrics().density);
       }
 
       windowInsets = new EdgeInsets(
