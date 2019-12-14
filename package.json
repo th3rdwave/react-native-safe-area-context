@@ -12,7 +12,6 @@
     "/lib",
     "/android",
     "!/android/build",
-    "!/android/gradle",
     "/ios",
     "/*.podspec"
   ],
