@@ -3,7 +3,9 @@ import { StyleSheet, View, ViewProps } from 'react-native';
 import { EdgeInsets as EdgeInsetsT, InsetChangedEvent } from './SafeArea.types';
 import NativeSafeAreaView from './NativeSafeAreaView';
 
-export { default as initialSafeAreaInsets } from './InitialSafeAreaInsets';
+export {
+  default as initialWindowSafeAreaInsets,
+} from './InitialWindowSafeAreaInsets';
 
 export const SafeAreaContext = React.createContext<EdgeInsetsT | null>(null);
 
