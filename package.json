@@ -39,7 +39,8 @@
     "view"
   ],
   "peerDependencies": {
-    "react-native": ">=0.59"
+    "react": "*",
+    "react-native": "*"
   },
   "dependencies": {},
   "devDependencies": {
