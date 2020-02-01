@@ -70,6 +70,7 @@ Add the `SafeAreaContextPackage` class to your list of exported packages.
 protected List<ReactPackage> getPackages() {
     return Arrays.asList(
             new MainReactPackage(),
+            ...
             new SafeAreaContextPackage()
     );
 }
