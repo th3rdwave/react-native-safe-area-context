@@ -77,10 +77,6 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnG
   }
 
   private void maybeUpdateInsets() {
-    if (!isAttachedToWindow()) {
-      return;
-    }
-
     EdgeInsets edgeInsets = getSafeAreaInsets();
     if (mLastInsets == null || !mLastInsets.equalsToEdgeInsets(edgeInsets)) {
       Assertions.assertNotNull(mInsetsChangeListener).onInsetsChange(this, edgeInsets);
