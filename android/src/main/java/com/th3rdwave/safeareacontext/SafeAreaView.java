@@ -1,6 +1,7 @@
 package com.th3rdwave.safeareacontext;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Build;
 import android.view.Surface;
 import android.view.View;
@@ -65,16 +66,21 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnG
     View contentView = rootView.findViewById(android.R.id.content);
     float windowWidth = rootView.getWidth();
     float windowHeight = rootView.getHeight();
-    int[] windowLocation = new int[2];
-    contentView.getLocationInWindow(windowLocation);
-    windowInsets.top = Math.max(windowInsets.top - windowLocation[1], 0);
-    windowInsets.left = Math.max(windowInsets.left - windowLocation[0], 0);
-    windowInsets.bottom = Math.max(windowLocation[1] + contentView.getHeight() + windowInsets.bottom - windowHeight, 0);
-    windowInsets.right = Math.max(windowLocation[0] + contentView.getWidth() + windowInsets.right - windowWidth, 0);
+    Rect visibleRect = new Rect();
+    contentView.getGlobalVisibleRect(visibleRect);
+
+    windowInsets.top = Math.max(windowInsets.top - visibleRect.top, 0);
+    windowInsets.left = Math.max(windowInsets.left - visibleRect.left, 0);
+    windowInsets.bottom = Math.max(visibleRect.top + contentView.getHeight() + windowInsets.bottom - windowHeight, 0);
+    windowInsets.right = Math.max(visibleRect.left + contentView.getWidth() + windowInsets.right - windowWidth, 0);
     return windowInsets;
   }
 
   private void maybeUpdateInsets() {
+    if (!isAttachedToWindow()) {
+      return;
+    }
+
     EdgeInsets edgeInsets = getSafeAreaInsets();
     if (mLastInsets == null || !mLastInsets.equalsToEdgeInsets(edgeInsets)) {
       Assertions.assertNotNull(mInsetsChangeListener).onInsetsChange(this, edgeInsets);
@@ -86,7 +92,7 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnG
   protected void onAttachedToWindow() {
     super.onAttachedToWindow();
 
-    getRootView().getViewTreeObserver().addOnGlobalLayoutListener(this);
+    getViewTreeObserver().addOnGlobalLayoutListener(this);
     maybeUpdateInsets();
   }
 
@@ -94,7 +100,7 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnG
   protected void onDetachedFromWindow() {
     super.onDetachedFromWindow();
 
-    getRootView().getViewTreeObserver().removeOnGlobalLayoutListener(this);
+    getViewTreeObserver().removeOnGlobalLayoutListener(this);
   }
 
   @Override
