@@ -2,7 +2,11 @@ import * as React from 'react';
 import { View, Text, StatusBar, Button } from 'react-native';
 
 // import { SafeAreaProvider, useSafeArea } from 'react-native-safe-area-context'; in your app.
-import { SafeAreaProvider, useSafeArea } from '../src';
+import {
+  SafeAreaProvider,
+  useSafeArea,
+  initialWindowSafeAreaInsets,
+} from '../src';
 
 const Screen = () => {
   const insets = useSafeArea();
@@ -33,6 +37,10 @@ const Screen = () => {
           }}
         >
           <Text>Insets: {JSON.stringify(insets, null, 2)}</Text>
+          <Text>
+            Initial insets:{' '}
+            {JSON.stringify(initialWindowSafeAreaInsets, null, 2)}
+          </Text>
         </View>
       </View>
     </>

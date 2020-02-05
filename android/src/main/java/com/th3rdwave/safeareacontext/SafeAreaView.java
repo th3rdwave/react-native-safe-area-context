@@ -20,64 +20,17 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnG
   }
 
   private @Nullable OnInsetsChangeListener mInsetsChangeListener;
-  private WindowManager mWindowManager;
+  private final WindowManager mWindowManager;
   private @Nullable EdgeInsets mLastInsets;
 
-  public SafeAreaView(Context context) {
+  public SafeAreaView(Context context, WindowManager windowManager) {
     super(context);
 
     mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
   }
 
-  private EdgeInsets getSafeAreaInsets() {
-    // Window insets are parts of the window that are covered by system views (status bar,
-    // navigation bar, notches). There are no apis the get these values for android < M so we
-    // do a best effort polyfill.
-    EdgeInsets windowInsets;
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-      WindowInsets insets = getRootWindowInsets();
-      windowInsets = new EdgeInsets(
-          insets.getSystemWindowInsetTop(),
-          insets.getSystemWindowInsetRight(),
-          insets.getSystemWindowInsetBottom(),
-          insets.getSystemWindowInsetLeft());
-    } else {
-      int rotation = mWindowManager.getDefaultDisplay().getRotation();
-      int statusBarHeight = 0;
-      int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-      if (resourceId > 0) {
-        statusBarHeight = getResources().getDimensionPixelSize(resourceId);
-      }
-      int navbarHeight = 0;
-      resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-      if (resourceId > 0) {
-        navbarHeight = getResources().getDimensionPixelSize(resourceId);
-      }
-
-      windowInsets = new EdgeInsets(
-          statusBarHeight,
-          rotation == Surface.ROTATION_90 ? navbarHeight : 0,
-          rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_180 ? navbarHeight : 0,
-          rotation == Surface.ROTATION_270 ? navbarHeight : 0);
-    }
-
-    // Calculate the part of the root view that overlaps with window insets.
-    View rootView = getRootView();
-    View contentView = rootView.findViewById(android.R.id.content);
-    float windowWidth = rootView.getWidth();
-    float windowHeight = rootView.getHeight();
-    Rect visibleRect = new Rect();
-    contentView.getGlobalVisibleRect(visibleRect);
-
-    windowInsets.top = Math.max(windowInsets.top - visibleRect.top, 0);
-    windowInsets.left = Math.max(windowInsets.left - visibleRect.left, 0);
-    windowInsets.bottom = Math.max(visibleRect.top + contentView.getHeight() + windowInsets.bottom - windowHeight, 0);
-    windowInsets.right = Math.max(visibleRect.left + contentView.getWidth() + windowInsets.right - windowWidth, 0);
-    return windowInsets;
-  }
-
   private void maybeUpdateInsets() {
-    EdgeInsets edgeInsets = getSafeAreaInsets();
+    EdgeInsets edgeInsets = SafeAreaUtils.getSafeAreaInsets(mWindowManager, getRootView());
     if (mLastInsets == null || !mLastInsets.equalsToEdgeInsets(edgeInsets)) {
       Assertions.assertNotNull(mInsetsChangeListener).onInsetsChange(this, edgeInsets);
       mLastInsets = edgeInsets;
