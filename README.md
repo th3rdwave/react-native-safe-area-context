@@ -43,12 +43,14 @@ pod 'react-native-safe-area-context', :path => '../node_modules/react-native-saf
 Make the following changes:
 
 #### `android/settings.gradle`
+
 ```groovy
 include ':react-native-safe-area-context'
 project(':react-native-safe-area-context').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-safe-area-context/android')
 ```
 
 #### `android/app/build.gradle`
+
 ```groovy
 dependencies {
    ...
@@ -57,6 +59,7 @@ dependencies {
 ```
 
 #### `android/app/src/main/.../MainApplication.java`
+
 On top, where imports are:
 
 ```java
@@ -75,6 +78,7 @@ protected List<ReactPackage> getPackages() {
     );
 }
 ```
+
 </details>
 
 ## Usage
@@ -85,11 +89,7 @@ Add `SafeAreaProvider` in your app root component:
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 function App() {
-  return (
-    <SafeAreaProvider>
-      ...
-    </SafeAreaProvider>
-  );
+  return <SafeAreaProvider>...</SafeAreaProvider>;
 }
 ```
 
@@ -138,6 +138,27 @@ function SomeComponent() {
 ### Web SSR
 
 If you are doing server side rendering on the web you can use `initialSafeAreaInsets` to inject insets value based on the device the user has, or simply pass zero values. Since insets measurement is async it will break rendering your page content otherwise.
+
+### Optimization
+
+To speed up the initial render, you can import `initialWindowSafeAreaInsets` from this package and set as the `initialSafeAreaInsets` prop on the provider as described in Web SSR. You cannot do this if your provider remounts, or you are using `react-native-navigation`.
+
+Only supported on iOS at the moment.
+
+```js
+import {
+  SafeAreaProvider,
+  initialWindowSafeAreaInsets,
+} from 'react-native-safe-area-context';
+
+function App() {
+  return (
+    <SafeAreaProvider initialSafeAreaInsets={initialWindowSafeAreaInsets}>
+      ...
+    </SafeAreaProvider>
+  );
+}
+```
 
 ## Resources
 
