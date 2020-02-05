@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, StatusBar, Button } from 'react-native';
+import { View, Text, StatusBar } from 'react-native';
 
 // import { SafeAreaProvider, useSafeArea } from 'react-native-safe-area-context'; in your app.
 import {
@@ -48,16 +48,9 @@ const Screen = () => {
 };
 
 export default function App() {
-  const [refreshKey, setRefreshKey] = React.useState(1);
   return (
-    <View key={refreshKey} style={{ flex: 1 }}>
-      <SafeAreaProvider>
-        <Screen />
-        <Button
-          title="Refresh"
-          onPress={() => setRefreshKey(state => state + 1)}
-        />
-      </SafeAreaProvider>
-    </View>
+    <SafeAreaProvider>
+      <Screen />
+    </SafeAreaProvider>
   );
 }
