@@ -1,6 +1,6 @@
 # react-native-safe-area-context
 
-[![npm](https://img.shields.io/npm/v/react-native-safe-area-context)](https://www.npmjs.com/package/react-native-safe-area-context) [![Actions Status](https://6t2fa745na.execute-api.us-west-2.amazonaws.com/production/badge/th3rdwave/react-native-safe-area-context)](https://6t2fa745na.execute-api.us-west-2.amazonaws.com/production/results/th3rdwave/react-native-safe-area-context) ![Supports Android, iOS and web](https://img.shields.io/badge/platforms-android%20%7C%20ios%20%7C%20web-lightgrey.svg) ![MIT License](https://img.shields.io/npm/l/react-native-safe-area-context.svg)
+[![npm](https://img.shields.io/npm/v/react-native-safe-area-context)](https://www.npmjs.com/package/react-native-safe-area-context) [![CI](https://github.com/th3rdwave/react-native-safe-area-context/workflows/CI/badge.svg)](https://github.com/th3rdwave/react-native-safe-area-context/actions?query=workflow%3ACI) ![Supports Android, iOS and web](https://img.shields.io/badge/platforms-android%20%7C%20ios%20%7C%20web-lightgrey.svg) ![MIT License](https://img.shields.io/npm/l/react-native-safe-area-context.svg)
 
 A flexible way to handle safe area, also works on Android and Web!
 
