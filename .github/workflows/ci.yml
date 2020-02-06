@@ -1,0 +1,29 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  install-deps:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Install yarn
+        run: npm install -g yarn
+      - name: Install dependencies
+        run: yarn install
+  js-tests:
+    runs-on: ubuntu-latest
+    needs: install-deps
+    steps:
+      - name: Run tests
+        run: yarn test
+  android-build:
+    runs-on: ubuntu-latest
+    needs: install-deps
+    steps:
+      - name: Build android example app
+        run: cd example/app && ./gradlew assembleRelease
