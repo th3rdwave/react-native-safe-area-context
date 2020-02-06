@@ -30,4 +30,25 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Build android example app
-        run: cd example/android && ./gradlew assembleRelease
+        run: cd example/android && ./gradlew assembleDebug
+    ios-build:
+      runs-on: macOS-latest
+      steps:
+        - uses: actions/checkout@v1
+        - name: Use Node.js 12.x
+          uses: actions/setup-node@v1
+          with:
+            node-version: 12.x
+        - uses: actions/setup-ruby@v1
+          with:
+            ruby-version: '2.x'
+        - name: Install cocoapods
+          run: gem install cocoapods
+        - name: Install yarn
+          run: npm install -g yarn
+        - name: Install dependencies
+          run: yarn install
+        - name: Install pods
+          run: cd example/ios && pod install
+        - name: Build ios example app
+          run: cd example/ios && xcodebuild -scheme SafeAreaViewExample -workspace SafeAreaViewExample.xcworkspace ONLY_ACTIVE_ARCH=NO -sdk iphonesimulator -configuration Debug
