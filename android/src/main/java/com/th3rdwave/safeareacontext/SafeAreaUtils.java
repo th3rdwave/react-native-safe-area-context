@@ -8,7 +8,6 @@ import android.view.WindowInsets;
 import android.view.WindowManager;
 
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.PixelUtil;
@@ -16,7 +15,7 @@ import com.facebook.react.uimanager.PixelUtil;
 import java.util.Map;
 
 /* package */ class SafeAreaUtils {
-  static ReadableMap edgeInsetsToJsMap(EdgeInsets insets) {
+  static WritableMap edgeInsetsToJsMap(EdgeInsets insets) {
     WritableMap insetsMap = Arguments.createMap();
     insetsMap.putDouble("top", PixelUtil.toDIPFromPixel(insets.top));
     insetsMap.putDouble("right", PixelUtil.toDIPFromPixel(insets.right));
