@@ -30,4 +30,4 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Build android example app
-        run: cd example/app && ./gradlew assembleRelease
+        run: cd example/android && ./gradlew assembleRelease
