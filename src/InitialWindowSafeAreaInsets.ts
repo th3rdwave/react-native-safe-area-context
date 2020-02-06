@@ -6,6 +6,7 @@ const RNCSafeAreaViewConfig = UIManager.getViewManagerConfig(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ) as any;
 
-export default (RNCSafeAreaViewConfig.Constants != null
+export default (RNCSafeAreaViewConfig != null &&
+RNCSafeAreaViewConfig.Constants != null
   ? RNCSafeAreaViewConfig.Constants.initialWindowSafeAreaInsets
   : null) as EdgeInsets | null;

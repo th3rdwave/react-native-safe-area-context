@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactTestRenderer from 'react-test-renderer';
-import { View } from 'react-native';
+import { View, UIManager } from 'react-native';
 import { SafeAreaProvider, SafeAreaView, useSafeArea } from '../index';
 import NativeSafeAreaView from '../NativeSafeAreaView';
 
@@ -134,5 +134,36 @@ describe('SafeAreaView', () => {
       </SafeAreaProvider>,
     );
     expect(component).toMatchSnapshot();
+  });
+});
+
+describe('initialWindowSafeAreaInsets', () => {
+  it('is null when no view config is available', () => {
+    jest.resetModules();
+    expect(require('../index').initialWindowSafeAreaInsets).toBe(null);
+  });
+
+  it('it uses the constant provided by the view config', () => {
+    jest.resetModules();
+    const testInsets = {
+      top: 20,
+      left: 0,
+      right: 0,
+      bottom: 0,
+    };
+    UIManager.getViewManagerConfig = jest.fn(name => {
+      if (name === 'RNCSafeAreaView') {
+        return {
+          Commands: {},
+          Constants: {
+            initialWindowSafeAreaInsets: testInsets,
+          },
+        };
+      }
+      return { Commands: {} };
+    });
+
+    expect(require('../index').initialWindowSafeAreaInsets).toBe(testInsets);
+    expect(UIManager.getViewManagerConfig).toBeCalledWith('RNCSafeAreaView');
   });
 });
