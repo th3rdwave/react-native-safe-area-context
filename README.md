@@ -143,12 +143,10 @@ If you are doing server side rendering on the web you can use `initialSafeAreaIn
 
 To speed up the initial render, you can import `initialWindowSafeAreaInsets` from this package and set as the `initialSafeAreaInsets` prop on the provider as described in Web SSR. You cannot do this if your provider remounts, or you are using `react-native-navigation`.
 
-Only supported on iOS at the moment.
-
 ```js
 import {
   SafeAreaProvider,
-  initialWindowSafeAreaInsets,
+  initialWindowSafeAreaInsets
 } from 'react-native-safe-area-context';
 
 function App() {
