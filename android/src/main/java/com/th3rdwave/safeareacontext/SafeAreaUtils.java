@@ -14,6 +14,8 @@ import com.facebook.react.uimanager.PixelUtil;
 
 import java.util.Map;
 
+import androidx.annotation.Nullable;
+
 /* package */ class SafeAreaUtils {
   static WritableMap edgeInsetsToJsMap(EdgeInsets insets) {
     WritableMap insetsMap = Arguments.createMap();
@@ -36,13 +38,16 @@ import java.util.Map;
         PixelUtil.toDIPFromPixel(insets.left));
   }
 
-  static EdgeInsets getSafeAreaInsets(WindowManager windowManager, View rootView) {
+  static @Nullable EdgeInsets getSafeAreaInsets(WindowManager windowManager, View rootView) {
     // Window insets are parts of the window that are covered by system views (status bar,
     // navigation bar, notches). There are no apis the get these values for android < M so we
     // do a best effort polyfill.
     EdgeInsets windowInsets;
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
       WindowInsets insets = rootView.getRootWindowInsets();
+      if (insets == null) {
+        return null;
+      }
       windowInsets = new EdgeInsets(
           insets.getSystemWindowInsetTop(),
           insets.getSystemWindowInsetRight(),

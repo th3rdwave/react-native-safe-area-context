@@ -2,6 +2,7 @@ package com.th3rdwave.safeareacontext;
 
 import android.app.Activity;
 import android.content.Context;
+import android.view.View;
 import android.view.WindowManager;
 
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -66,9 +67,18 @@ public class SafeAreaViewManager extends ViewGroupManager<SafeAreaView> {
       return null;
     }
 
-    EdgeInsets insets = SafeAreaUtils.getSafeAreaInsets(mWindowManager, activity.getWindow().getDecorView());
+    View decorView = activity.getWindow().getDecorView();
+    if (decorView == null) {
+      return null;
+    }
+
+    EdgeInsets insets = SafeAreaUtils.getSafeAreaInsets(mWindowManager, decorView);
+    if (insets == null) {
+      return null;
+    }
     return MapBuilder.<String, Object>of(
         "initialWindowSafeAreaInsets",
         SafeAreaUtils.edgeInsetsToJavaMap(insets));
+
   }
 }
