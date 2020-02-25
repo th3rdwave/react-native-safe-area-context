@@ -41,12 +41,14 @@ const styles = StyleSheet.create({
 
 export const SafeAreaConsumer = SafeAreaContext.Consumer;
 
-export function withSafeAreaConsumer<T>(WrappedComponent: React.ComponentType<T>) {
+export function withSafeAreaConsumer<T>(
+  WrappedComponent: React.ComponentType<T>,
+) {
   return (props: T) => (
     <SafeAreaConsumer>
       {insets => <WrappedComponent {...props} insets={insets} />}
     </SafeAreaConsumer>
-  )
+  );
 }
 
 function useParentSafeArea(): React.ContextType<typeof SafeAreaContext> {
