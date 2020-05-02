@@ -1,47 +1,82 @@
 import * as React from 'react';
-import { View, Text, StatusBar } from 'react-native';
+import { View, Text, StatusBar, ScrollView } from 'react-native';
 
 // import { SafeAreaProvider, useSafeArea } from 'react-native-safe-area-context'; in your app.
 import {
   SafeAreaProvider,
-  useSafeArea,
-  initialWindowSafeAreaInsets,
+  useSafeAreaInsets,
+  initialWindowMetrics,
+  useSafeAreaFrame,
 } from '../src';
 
+const DataView = ({ data }: { data: object | null | undefined }) => (
+  <Text style={{ fontSize: 16, lineHeight: 24, color: '#292929' }}>
+    {data == null
+      ? 'null'
+      : Object.entries(data)
+          .map(([key, value]) => `${key}: ${value}`)
+          .join('\n')}
+  </Text>
+);
+
+const Card = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) => (
+  <View style={{ padding: 16, backgroundColor: 'white', marginBottom: 4 }}>
+    <Text
+      style={{
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 16,
+        color: '#292929',
+      }}
+    >
+      {title}
+    </Text>
+    {children}
+  </View>
+);
+
+const BORDER_WIDTH = 8;
+
 const Screen = () => {
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
+  const frame = useSafeAreaFrame();
 
   return (
     <>
-      <StatusBar
-        barStyle="dark-content"
-        translucent
-        backgroundColor="transparent"
-      />
+      <StatusBar barStyle="dark-content" backgroundColor="transparent" />
       <View
         style={{
-          flex: 1,
+          width: frame.width,
+          height: frame.height,
           backgroundColor: 'red',
-          paddingTop: insets.top,
-          paddingLeft: insets.left,
-          paddingBottom: insets.bottom,
-          paddingRight: insets.right,
+          paddingTop: insets.top - BORDER_WIDTH,
+          paddingLeft: insets.left - BORDER_WIDTH,
+          paddingBottom: insets.bottom - BORDER_WIDTH,
+          paddingRight: insets.right - BORDER_WIDTH,
+          borderColor: 'blue',
+          borderWidth: BORDER_WIDTH,
         }}
       >
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: 'white',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Text>Insets: {JSON.stringify(insets, null, 2)}</Text>
-          <Text>
-            Initial insets:{' '}
-            {JSON.stringify(initialWindowSafeAreaInsets, null, 2)}
-          </Text>
-        </View>
+        <ScrollView style={{ flex: 1, backgroundColor: '#eee' }}>
+          <Card title="Provider insets">
+            <DataView data={insets} />
+          </Card>
+          <Card title="Provider frame">
+            <DataView data={frame} />
+          </Card>
+          <Card title="Initial window insets">
+            <DataView data={initialWindowMetrics?.insets} />
+          </Card>
+          <Card title="Initial window frame">
+            <DataView data={initialWindowMetrics?.frame} />
+          </Card>
+        </ScrollView>
       </View>
     </>
   );
@@ -49,8 +84,10 @@ const Screen = () => {
 
 export default function App() {
   return (
-    <SafeAreaProvider>
-      <Screen />
-    </SafeAreaProvider>
+    <View style={{ marginTop: 0, flex: 1 }}>
+      <SafeAreaProvider>
+        <Screen />
+      </SafeAreaProvider>
+    </View>
   );
 }

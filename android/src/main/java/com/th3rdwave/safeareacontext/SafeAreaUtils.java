@@ -4,41 +4,18 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.view.Surface;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowInsets;
 import android.view.WindowManager;
-
-import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.common.MapBuilder;
-import com.facebook.react.uimanager.PixelUtil;
-
-import java.util.Map;
 
 import androidx.annotation.Nullable;
 
 /* package */ class SafeAreaUtils {
-  static WritableMap edgeInsetsToJsMap(EdgeInsets insets) {
-    WritableMap insetsMap = Arguments.createMap();
-    insetsMap.putDouble("top", PixelUtil.toDIPFromPixel(insets.top));
-    insetsMap.putDouble("right", PixelUtil.toDIPFromPixel(insets.right));
-    insetsMap.putDouble("bottom", PixelUtil.toDIPFromPixel(insets.bottom));
-    insetsMap.putDouble("left", PixelUtil.toDIPFromPixel(insets.left));
-    return insetsMap;
-  }
-
-  static Map<String, Float> edgeInsetsToJavaMap(EdgeInsets insets) {
-    return MapBuilder.of(
-        "top",
-        PixelUtil.toDIPFromPixel(insets.top),
-        "right",
-        PixelUtil.toDIPFromPixel(insets.right),
-        "bottom",
-        PixelUtil.toDIPFromPixel(insets.bottom),
-        "left",
-        PixelUtil.toDIPFromPixel(insets.left));
-  }
-
-  static @Nullable EdgeInsets getSafeAreaInsets(WindowManager windowManager, View rootView) {
+  static @Nullable EdgeInsets getSafeAreaInsets(
+      WindowManager windowManager,
+      View rootView,
+      View view
+  ) {
     // Window insets are parts of the window that are covered by system views (status bar,
     // navigation bar, notches). There are no apis the get these values for android < M so we
     // do a best effort polyfill.
@@ -73,17 +50,24 @@ import androidx.annotation.Nullable;
           rotation == Surface.ROTATION_270 ? navbarHeight : 0);
     }
 
-    // Calculate the part of the root view that overlaps with window insets.
-    View contentView = rootView.findViewById(android.R.id.content);
+    // Calculate the part of the view that overlaps with window insets.
     float windowWidth = rootView.getWidth();
     float windowHeight = rootView.getHeight();
     Rect visibleRect = new Rect();
-    contentView.getGlobalVisibleRect(visibleRect);
+    view.getGlobalVisibleRect(visibleRect);
 
     windowInsets.top = Math.max(windowInsets.top - visibleRect.top, 0);
     windowInsets.left = Math.max(windowInsets.left - visibleRect.left, 0);
-    windowInsets.bottom = Math.max(visibleRect.top + contentView.getHeight() + windowInsets.bottom - windowHeight, 0);
-    windowInsets.right = Math.max(visibleRect.left + contentView.getWidth() + windowInsets.right - windowWidth, 0);
+    windowInsets.bottom = Math.max(visibleRect.top + view.getHeight() + windowInsets.bottom - windowHeight, 0);
+    windowInsets.right = Math.max(visibleRect.left + view.getWidth() + windowInsets.right - windowWidth, 0);
     return windowInsets;
+  }
+
+  static com.th3rdwave.safeareacontext.Rect getFrame(ViewGroup rootView, View view) {
+    Rect offset = new Rect();
+    view.getDrawingRect(offset);
+    rootView.offsetDescendantRectToMyCoords(view, offset);
+
+    return new com.th3rdwave.safeareacontext.Rect(offset.left, offset.top, view.getWidth(), view.getHeight());
   }
 }

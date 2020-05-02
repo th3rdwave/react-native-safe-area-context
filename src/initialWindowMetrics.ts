@@ -1,12 +1,12 @@
 import { UIManager } from 'react-native';
-import { EdgeInsets } from './SafeArea.types';
+import { Metrics } from './SafeArea.types';
 
 const RNCSafeAreaViewConfig = UIManager.getViewManagerConfig(
   'RNCSafeAreaView',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ) as any;
 
-export default (RNCSafeAreaViewConfig != null &&
+export const initialWindowMetrics = (RNCSafeAreaViewConfig != null &&
 RNCSafeAreaViewConfig.Constants != null
-  ? RNCSafeAreaViewConfig.Constants.initialWindowSafeAreaInsets
-  : null) as EdgeInsets | null;
+  ? RNCSafeAreaViewConfig.Constants.initialWindowMetrics
+  : null) as Metrics | null;

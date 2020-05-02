@@ -7,7 +7,19 @@ export interface EdgeInsets {
   left: number;
 }
 
-export type InsetChangedEvent = NativeSyntheticEvent<{ insets: EdgeInsets }>;
+export interface Rect {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+export interface Metrics {
+  insets: EdgeInsets;
+  frame: Rect;
+}
+
+export type InsetChangedEvent = NativeSyntheticEvent<Metrics>;
 
 export type InsetChangeNativeCallback = (event: InsetChangedEvent) => void;
 

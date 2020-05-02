@@ -24,11 +24,19 @@ RCT_EXPORT_VIEW_PROPERTY(onInsetsChange, RCTBubblingEventBlock)
     UIWindow* window = [[UIApplication sharedApplication] keyWindow];
     UIEdgeInsets safeAreaInsets = window.safeAreaInsets;
     return @{
-      @"initialWindowSafeAreaInsets": @{
-        @"top": @(safeAreaInsets.top),
-        @"right": @(safeAreaInsets.right),
-        @"bottom": @(safeAreaInsets.bottom),
-        @"left": @(safeAreaInsets.left),
+      @"initialWindowMetrics": @{
+        @"insets": @{
+          @"top": @(safeAreaInsets.top),
+          @"right": @(safeAreaInsets.right),
+          @"bottom": @(safeAreaInsets.bottom),
+          @"left": @(safeAreaInsets.left),
+        },
+        @"frame": @{
+          @"x": @(window.frame.origin.x),
+          @"y": @(window.frame.origin.y),
+          @"width": @(window.frame.size.width),
+          @"height": @(window.frame.size.height),
+        },
       }
     };
   } else {

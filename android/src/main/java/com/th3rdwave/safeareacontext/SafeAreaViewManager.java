@@ -3,6 +3,7 @@ package com.th3rdwave.safeareacontext;
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -46,8 +47,8 @@ public class SafeAreaViewManager extends ViewGroupManager<SafeAreaView> {
         reactContext.getNativeModule(UIManagerModule.class).getEventDispatcher();
     view.setOnInsetsChangeListener(new SafeAreaView.OnInsetsChangeListener() {
       @Override
-      public void onInsetsChange(SafeAreaView view, EdgeInsets insets) {
-        dispatcher.dispatchEvent(new InsetsChangeEvent(view.getId(), insets));
+      public void onInsetsChange(SafeAreaView view, EdgeInsets insets, Rect frame) {
+        dispatcher.dispatchEvent(new InsetsChangeEvent(view.getId(), insets, frame));
       }
     });
   }
@@ -67,18 +68,27 @@ public class SafeAreaViewManager extends ViewGroupManager<SafeAreaView> {
       return null;
     }
 
-    View decorView = activity.getWindow().getDecorView();
+    ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
     if (decorView == null) {
       return null;
     }
 
-    EdgeInsets insets = SafeAreaUtils.getSafeAreaInsets(mWindowManager, decorView);
+    View contentView = decorView.findViewById(android.R.id.content);
+    EdgeInsets insets = SafeAreaUtils.getSafeAreaInsets(
+        mWindowManager,
+        decorView,
+        contentView);
+    Rect frame = SafeAreaUtils.getFrame(decorView, contentView);
     if (insets == null) {
       return null;
     }
     return MapBuilder.<String, Object>of(
-        "initialWindowSafeAreaInsets",
-        SafeAreaUtils.edgeInsetsToJavaMap(insets));
+        "initialWindowMetrics",
+        MapBuilder.<String, Object>of(
+            "insets",
+            SerializationUtils.edgeInsetsToJavaMap(insets),
+            "frame",
+            SerializationUtils.rectToJavaMap(frame)));
 
   }
 }
