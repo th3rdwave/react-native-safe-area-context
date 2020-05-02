@@ -1,13 +1,6 @@
 import * as React from 'react';
-import { ViewStyle, View } from 'react-native';
-
-import { InsetChangeNativeCallback } from './SafeArea.types';
-
-interface NativeSafeAreaViewProps {
-  children?: React.ReactNode;
-  style: ViewStyle;
-  onInsetsChange: InsetChangeNativeCallback;
-}
+import { View } from 'react-native';
+import { NativeSafeAreaViewProps } from './SafeArea.types';
 
 const CSSTransitions: Record<string, string> = {
   WebkitTransition: 'webkitTransitionEnd',
