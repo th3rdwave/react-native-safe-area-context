@@ -80,6 +80,22 @@ export function useSafeAreaFrame(): Rect {
  * @deprecated
  */
 export function useSafeArea(): EdgeInsets {
-  console.warn('useSafeArea is deprecated, use useSafeAreaInsets instead.');
+  React.useEffect(() => {
+    console.warn('useSafeArea is deprecated, use useSafeAreaInsets instead.');
+  }, []);
   return useSafeAreaInsets();
+}
+
+/**
+ * @deprecated
+ */
+export function SafeAreaConsumer(
+  props: React.ComponentProps<typeof SafeAreaInsetsContext.Consumer>,
+) {
+  React.useEffect(() => {
+    console.warn(
+      'SafeAreaConsumer is deprecated, use SafeAreaInsetsContext.Consumer instead.',
+    );
+  }, []);
+  return <SafeAreaInsetsContext.Consumer {...props} />;
 }
