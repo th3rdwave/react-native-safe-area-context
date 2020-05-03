@@ -79,7 +79,7 @@ public class SafeAreaViewManager extends ViewGroupManager<SafeAreaView> {
         decorView,
         contentView);
     Rect frame = SafeAreaUtils.getFrame(decorView, contentView);
-    if (insets == null) {
+    if (insets == null || frame == null) {
       return null;
     }
     return MapBuilder.<String, Object>of(

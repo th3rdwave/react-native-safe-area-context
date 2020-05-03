@@ -63,10 +63,21 @@ import androidx.annotation.Nullable;
     return windowInsets;
   }
 
-  static com.th3rdwave.safeareacontext.Rect getFrame(ViewGroup rootView, View view) {
+  static @Nullable com.th3rdwave.safeareacontext.Rect getFrame(ViewGroup rootView, View view) {
+    // This can happen while the view gets unmounted.
+    if (view.getParent() == null) {
+      return null;
+    }
     Rect offset = new Rect();
     view.getDrawingRect(offset);
-    rootView.offsetDescendantRectToMyCoords(view, offset);
+    try {
+      rootView.offsetDescendantRectToMyCoords(view, offset);
+    } catch (IllegalArgumentException ex) {
+      // This can throw if the view is not a descendant of rootView. This should not
+      // happen but avoid potential crashes.
+      ex.printStackTrace();
+      return null;
+    }
 
     return new com.th3rdwave.safeareacontext.Rect(offset.left, offset.top, view.getWidth(), view.getHeight());
   }
