@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.WindowManager;
 
 import com.facebook.infer.annotation.Assertions;
 import com.facebook.react.views.view.ReactViewGroup;
@@ -18,18 +17,15 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnG
   }
 
   private @Nullable OnInsetsChangeListener mInsetsChangeListener;
-  private final WindowManager mWindowManager;
   private @Nullable EdgeInsets mLastInsets;
   private @Nullable Rect mLastFrame;
 
-  public SafeAreaView(Context context, WindowManager windowManager) {
+  public SafeAreaView(Context context) {
     super(context);
-
-    mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
   }
 
   private void maybeUpdateInsets() {
-    EdgeInsets edgeInsets = SafeAreaUtils.getSafeAreaInsets(mWindowManager, getRootView(), this);
+    EdgeInsets edgeInsets = SafeAreaUtils.getSafeAreaInsets(getRootView(), this);
     Rect frame = SafeAreaUtils.getFrame((ViewGroup) getRootView(), this);
     if (edgeInsets != null && frame != null &&
         (mLastInsets == null ||

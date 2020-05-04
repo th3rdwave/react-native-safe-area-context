@@ -1,10 +1,8 @@
 package com.th3rdwave.safeareacontext;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.common.MapBuilder;
@@ -20,13 +18,11 @@ import androidx.annotation.Nullable;
 
 public class SafeAreaViewManager extends ViewGroupManager<SafeAreaView> {
   private final ReactApplicationContext mContext;
-  private final WindowManager mWindowManager;
 
   public SafeAreaViewManager(ReactApplicationContext context) {
     super();
 
     mContext = context;
-    mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
   }
 
   @Override
@@ -38,7 +34,7 @@ public class SafeAreaViewManager extends ViewGroupManager<SafeAreaView> {
   @Override
   @NonNull
   public SafeAreaView createViewInstance(@NonNull ThemedReactContext context) {
-    return new SafeAreaView(context, mWindowManager);
+    return new SafeAreaView(context);
   }
 
   @Override
@@ -74,10 +70,7 @@ public class SafeAreaViewManager extends ViewGroupManager<SafeAreaView> {
     }
 
     View contentView = decorView.findViewById(android.R.id.content);
-    EdgeInsets insets = SafeAreaUtils.getSafeAreaInsets(
-        mWindowManager,
-        decorView,
-        contentView);
+    EdgeInsets insets = SafeAreaUtils.getSafeAreaInsets(decorView, contentView);
     Rect frame = SafeAreaUtils.getFrame(decorView, contentView);
     if (insets == null || frame == null) {
       return null;

@@ -27,7 +27,8 @@
     "validate:typescript": "tsc --project ./ --noEmit",
     "validate:prettier": "prettier \"src/**/*.{js,ts,tsx}\" \"example/**/*.{js,ts,tsx}\" --check",
     "validate:jest": "jest",
-    "prepare": "bob build"
+    "prepare": "bob build",
+    "example:ios": "cd example && react-native run-ios"
   },
   "keywords": [
     "react-native",
