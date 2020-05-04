@@ -185,7 +185,7 @@ PODS:
     - React-cxxreact (= 0.63.0-rc.0)
     - React-jsi (= 0.63.0-rc.0)
   - React-jsinspector (0.63.0-rc.0)
-  - react-native-safe-area-context (1.0.0-beta.0):
+  - react-native-safe-area-context (1.0.0-beta.2):
     - React
   - React-RCTActionSheet (0.63.0-rc.0):
     - React-Core/RCTActionSheetHeaders (= 0.63.0-rc.0)
@@ -250,35 +250,35 @@ PODS:
   - Yoga (1.14.0)
 
 DEPENDENCIES:
-  - DoubleConversion (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
-  - FBLazyVector (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/FBLazyVector`)
-  - FBReactNativeSpec (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/FBReactNativeSpec`)
-  - Folly (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/third-party-podspecs/Folly.podspec`)
-  - glog (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/third-party-podspecs/glog.podspec`)
-  - RCTRequired (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/RCTRequired`)
-  - RCTTypeSafety (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/TypeSafety`)
-  - React (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/`)
-  - React-callinvoker (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/ReactCommon/callinvoker`)
-  - React-Core (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/`)
-  - React-Core/DevSupport (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/`)
-  - React-Core/RCTWebSocket (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/`)
-  - React-CoreModules (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/React/CoreModules`)
-  - React-cxxreact (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/ReactCommon/cxxreact`)
-  - React-jsi (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/ReactCommon/jsi`)
-  - React-jsiexecutor (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/ReactCommon/jsiexecutor`)
-  - React-jsinspector (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/ReactCommon/jsinspector`)
-  - react-native-safe-area-context (from `../../`)
-  - React-RCTActionSheet (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/ActionSheetIOS`)
-  - React-RCTAnimation (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/NativeAnimation`)
-  - React-RCTBlob (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/Blob`)
-  - React-RCTImage (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/Image`)
-  - React-RCTLinking (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/LinkingIOS`)
-  - React-RCTNetwork (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/Network`)
-  - React-RCTSettings (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/Settings`)
-  - React-RCTText (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/Text`)
-  - React-RCTVibration (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/Vibration`)
-  - ReactCommon/turbomodule/core (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/ReactCommon`)
-  - Yoga (from `/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/ReactCommon/yoga`)
+  - DoubleConversion (from `../../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
+  - FBLazyVector (from `../../node_modules/react-native/Libraries/FBLazyVector`)
+  - FBReactNativeSpec (from `../../node_modules/react-native/Libraries/FBReactNativeSpec`)
+  - Folly (from `../../node_modules/react-native/third-party-podspecs/Folly.podspec`)
+  - glog (from `../../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - RCTRequired (from `../../node_modules/react-native/Libraries/RCTRequired`)
+  - RCTTypeSafety (from `../../node_modules/react-native/Libraries/TypeSafety`)
+  - React (from `../../node_modules/react-native/`)
+  - React-callinvoker (from `../../node_modules/react-native/ReactCommon/callinvoker`)
+  - React-Core (from `../../node_modules/react-native/`)
+  - React-Core/DevSupport (from `../../node_modules/react-native/`)
+  - React-Core/RCTWebSocket (from `../../node_modules/react-native/`)
+  - React-CoreModules (from `../../node_modules/react-native/React/CoreModules`)
+  - React-cxxreact (from `../../node_modules/react-native/ReactCommon/cxxreact`)
+  - React-jsi (from `../../node_modules/react-native/ReactCommon/jsi`)
+  - React-jsiexecutor (from `../../node_modules/react-native/ReactCommon/jsiexecutor`)
+  - React-jsinspector (from `../../node_modules/react-native/ReactCommon/jsinspector`)
+  - react-native-safe-area-context (from `../..`)
+  - React-RCTActionSheet (from `../../node_modules/react-native/Libraries/ActionSheetIOS`)
+  - React-RCTAnimation (from `../../node_modules/react-native/Libraries/NativeAnimation`)
+  - React-RCTBlob (from `../../node_modules/react-native/Libraries/Blob`)
+  - React-RCTImage (from `../../node_modules/react-native/Libraries/Image`)
+  - React-RCTLinking (from `../../node_modules/react-native/Libraries/LinkingIOS`)
+  - React-RCTNetwork (from `../../node_modules/react-native/Libraries/Network`)
+  - React-RCTSettings (from `../../node_modules/react-native/Libraries/Settings`)
+  - React-RCTText (from `../../node_modules/react-native/Libraries/Text`)
+  - React-RCTVibration (from `../../node_modules/react-native/Libraries/Vibration`)
+  - ReactCommon/turbomodule/core (from `../../node_modules/react-native/ReactCommon`)
+  - Yoga (from `../../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
@@ -286,59 +286,59 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   DoubleConversion:
-    :podspec: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
+    :podspec: "../../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   FBLazyVector:
-    :path: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/FBLazyVector"
+    :path: "../../node_modules/react-native/Libraries/FBLazyVector"
   FBReactNativeSpec:
-    :path: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/FBReactNativeSpec"
+    :path: "../../node_modules/react-native/Libraries/FBReactNativeSpec"
   Folly:
-    :podspec: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/third-party-podspecs/Folly.podspec"
+    :podspec: "../../node_modules/react-native/third-party-podspecs/Folly.podspec"
   glog:
-    :podspec: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/third-party-podspecs/glog.podspec"
+    :podspec: "../../node_modules/react-native/third-party-podspecs/glog.podspec"
   RCTRequired:
-    :path: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/RCTRequired"
+    :path: "../../node_modules/react-native/Libraries/RCTRequired"
   RCTTypeSafety:
-    :path: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/TypeSafety"
+    :path: "../../node_modules/react-native/Libraries/TypeSafety"
   React:
-    :path: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/"
+    :path: "../../node_modules/react-native/"
   React-callinvoker:
-    :path: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/ReactCommon/callinvoker"
+    :path: "../../node_modules/react-native/ReactCommon/callinvoker"
   React-Core:
-    :path: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/"
+    :path: "../../node_modules/react-native/"
   React-CoreModules:
-    :path: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/React/CoreModules"
+    :path: "../../node_modules/react-native/React/CoreModules"
   React-cxxreact:
-    :path: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/ReactCommon/cxxreact"
+    :path: "../../node_modules/react-native/ReactCommon/cxxreact"
   React-jsi:
-    :path: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/ReactCommon/jsi"
+    :path: "../../node_modules/react-native/ReactCommon/jsi"
   React-jsiexecutor:
-    :path: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/ReactCommon/jsiexecutor"
+    :path: "../../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
-    :path: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/ReactCommon/jsinspector"
+    :path: "../../node_modules/react-native/ReactCommon/jsinspector"
   react-native-safe-area-context:
-    :path: "../../"
+    :path: "../.."
   React-RCTActionSheet:
-    :path: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/ActionSheetIOS"
+    :path: "../../node_modules/react-native/Libraries/ActionSheetIOS"
   React-RCTAnimation:
-    :path: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/NativeAnimation"
+    :path: "../../node_modules/react-native/Libraries/NativeAnimation"
   React-RCTBlob:
-    :path: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/Blob"
+    :path: "../../node_modules/react-native/Libraries/Blob"
   React-RCTImage:
-    :path: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/Image"
+    :path: "../../node_modules/react-native/Libraries/Image"
   React-RCTLinking:
-    :path: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/LinkingIOS"
+    :path: "../../node_modules/react-native/Libraries/LinkingIOS"
   React-RCTNetwork:
-    :path: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/Network"
+    :path: "../../node_modules/react-native/Libraries/Network"
   React-RCTSettings:
-    :path: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/Settings"
+    :path: "../../node_modules/react-native/Libraries/Settings"
   React-RCTText:
-    :path: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/Text"
+    :path: "../../node_modules/react-native/Libraries/Text"
   React-RCTVibration:
-    :path: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/Libraries/Vibration"
+    :path: "../../node_modules/react-native/Libraries/Vibration"
   ReactCommon:
-    :path: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/ReactCommon"
+    :path: "../../node_modules/react-native/ReactCommon"
   Yoga:
-    :path: "/Users/janic/Developer/react-native-safe-area-context/node_modules/react-native/ReactCommon/yoga"
+    :path: "../../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
@@ -357,7 +357,7 @@ SPEC CHECKSUMS:
   React-jsi: 87b6b899f6c81c29487d0416969c261b73f46a2d
   React-jsiexecutor: 0ca3a8a0a65f9eb9aec3273c4cf44f6d31277937
   React-jsinspector: 09b8cb3fefdf81b2889a13cc1a645e905e514ddb
-  react-native-safe-area-context: 7493344a8026a5b0c6a23fc0b8d6f2ec0925369c
+  react-native-safe-area-context: d480295e19c27f5bc211bf5e31d4ef4fdac2f0e2
   React-RCTActionSheet: b6d2445d7317359997ed0c650421d0a0b9dd58cb
   React-RCTAnimation: 2f48bd93a4f5317cd5ab7189c6b5e469b60fb7bf
   React-RCTBlob: b8da9c90135ee183f3ad35b521313390370b5ed2
@@ -370,6 +370,6 @@ SPEC CHECKSUMS:
   ReactCommon: 14ae20c83bd846c1790e45ad95e0f0717dcd034f
   Yoga: 5ffb724bde6d20a1828a1dc9a368085f404a1203
 
-PODFILE CHECKSUM: 415a49fe5a4e3b91cc8d99745989ac2562ebb4f4
+PODFILE CHECKSUM: c6a3f4efa49838adde4e4d6ee3c894309fdef069
 
 COCOAPODS: 1.9.1
