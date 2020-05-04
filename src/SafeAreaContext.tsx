@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import NativeSafeAreaView from './NativeSafeAreaView';
 import { EdgeInsets, InsetChangedEvent, Metrics, Rect } from './SafeArea.types';
 
@@ -12,28 +12,43 @@ export const SafeAreaFrameContext = React.createContext<Rect | null>(null);
 export interface SafeAreaViewProps {
   children?: React.ReactNode;
   initialMetrics?: Metrics | null;
+  /**
+   * @deprecated
+   */
+  initialSafeAreaInsets?: EdgeInsets | null;
 }
 
 export function SafeAreaProvider({
   children,
   initialMetrics,
+  initialSafeAreaInsets,
 }: SafeAreaViewProps) {
   const parentInsets = useParentSafeAreaInsets();
   const parentFrame = useParentSafeAreaFrame();
   const [insets, setInsets] = React.useState<EdgeInsets | null>(
-    initialMetrics?.insets ?? parentInsets ?? null,
+    initialMetrics?.insets ?? initialSafeAreaInsets ?? parentInsets ?? null,
   );
-  const [frame, setFrame] = React.useState<Rect | null>(
-    initialMetrics?.frame ?? parentFrame ?? null,
+  const [frame, setFrame] = React.useState<Rect>(
+    initialMetrics?.frame ??
+      parentFrame ?? {
+        // Backwards compat so we render anyway if we don't have frame.
+        x: 0,
+        y: 0,
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
+      },
   );
   const onInsetsChange = React.useCallback((event: InsetChangedEvent) => {
+    // Backwards compat with old native code that won't send frame.
+    if (event.nativeEvent.frame != null) {
+      setFrame(event.nativeEvent.frame);
+    }
     setInsets(event.nativeEvent.insets);
-    setFrame(event.nativeEvent.frame);
   }, []);
 
   return (
     <NativeSafeAreaView style={styles.fill} onInsetsChange={onInsetsChange}>
-      {insets != null && frame != null ? (
+      {insets != null ? (
         <SafeAreaFrameContext.Provider value={frame}>
           <SafeAreaInsetsContext.Provider value={insets}>
             {children}
@@ -80,9 +95,6 @@ export function useSafeAreaFrame(): Rect {
  * @deprecated
  */
 export function useSafeArea(): EdgeInsets {
-  React.useEffect(() => {
-    console.warn('useSafeArea is deprecated, use useSafeAreaInsets instead.');
-  }, []);
   return useSafeAreaInsets();
 }
 
@@ -92,10 +104,5 @@ export function useSafeArea(): EdgeInsets {
 export function SafeAreaConsumer(
   props: React.ComponentProps<typeof SafeAreaInsetsContext.Consumer>,
 ) {
-  React.useEffect(() => {
-    console.warn(
-      'SafeAreaConsumer is deprecated, use SafeAreaInsetsContext.Consumer instead.',
-    );
-  }, []);
   return <SafeAreaInsetsContext.Consumer {...props} />;
 }

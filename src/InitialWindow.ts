@@ -10,3 +10,8 @@ export const initialWindowMetrics = (RNCSafeAreaViewConfig != null &&
 RNCSafeAreaViewConfig.Constants != null
   ? RNCSafeAreaViewConfig.Constants.initialWindowMetrics
   : null) as Metrics | null;
+
+/**
+ * @deprecated
+ */
+export const initialWindowSafeAreaInsets = initialWindowMetrics?.insets;
