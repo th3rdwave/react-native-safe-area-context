@@ -4,7 +4,7 @@ import { Metrics } from '../SafeArea.types';
 describe('initialWindowMetrics', () => {
   it('is null when no view config is available', () => {
     jest.resetModules();
-    expect(require('../initialWindowMetrics').initialWindowMetrics).toBe(null);
+    expect(require('../InitialWindow').initialWindowMetrics).toBe(null);
   });
 
   it('it uses the constant provided by the view config', () => {
@@ -35,7 +35,7 @@ describe('initialWindowMetrics', () => {
       return { Commands: {} };
     });
 
-    expect(require('../index').initialWindowMetrics).toBe(testMetrics);
+    expect(require('../InitialWindow').initialWindowMetrics).toBe(testMetrics);
     expect(UIManager.getViewManagerConfig).toBeCalledWith('RNCSafeAreaView');
   });
 });
