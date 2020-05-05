@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { View, Text, StatusBar, ScrollView } from 'react-native';
 
-// import { SafeAreaProvider, useSafeArea } from 'react-native-safe-area-context'; in your app.
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
   initialWindowMetrics,
   useSafeAreaFrame,
-} from '../src';
+} from 'react-native-safe-area-context';
 
 const DataView = ({ data }: { data: object | null | undefined }) => (
   <Text style={{ fontSize: 16, lineHeight: 24, color: '#292929' }}>

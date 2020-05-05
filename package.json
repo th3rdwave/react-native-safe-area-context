@@ -28,7 +28,9 @@
     "validate:prettier": "prettier \"src/**/*.{js,ts,tsx}\" \"example/**/*.{js,ts,tsx}\" --check",
     "validate:jest": "jest",
     "prepare": "bob build",
-    "example:ios": "cd example && react-native run-ios"
+    "example:ios": "cd ./example && react-native run-ios",
+    "example:android": "cd ./example && react-native run-android --no-jetifier",
+    "example:expo": "expo start --config example/app.json"
   },
   "keywords": [
     "react-native",
@@ -53,10 +55,12 @@
     "@types/react-test-renderer": "^16.9.2",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
+    "babel-plugin-module-resolver": "^4.0.0",
     "eslint": "6.8.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "3.1.3",
     "expo": "^37.0.8",
+    "expo-cli": "^3.20.1",
     "jest": "^25.5.4",
     "metro-react-native-babel-preset": "^0.59.0",
     "prettier": "^2.0.5",

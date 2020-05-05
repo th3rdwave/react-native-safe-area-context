@@ -12,7 +12,11 @@
     "moduleResolution": "node",
     "skipLibCheck": true,
     "lib": ["dom", "es2015", "es2016", "esnext"],
-    "jsx": "react-native"
+    "jsx": "react-native",
+    "baseUrl": ".",
+    "paths": {
+      "react-native-safe-area-context": ["./src"]
+    }
   },
   "exclude": ["node_modules"]
 }

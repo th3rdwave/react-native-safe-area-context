@@ -1,0 +1,10 @@
+{
+  "name": "example",
+  "dependencies": {
+    "expo": "^37.0.8",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-native": "^0.63.0-rc.0",
+    "react-native-web": "^0.12.2"
+  }
+}
