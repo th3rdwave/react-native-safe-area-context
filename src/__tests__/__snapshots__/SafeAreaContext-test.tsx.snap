@@ -45,10 +45,14 @@ exports[`SafeAreaProvider renders child when inset values are received 2`] = `
   <View
     style={
       Object {
-        "bottom": 4,
-        "left": 2,
-        "right": 3,
-        "top": 1,
+        "height": 100,
+        "left": 0,
+        "paddingBottom": 4,
+        "paddingLeft": 2,
+        "paddingRight": 3,
+        "paddingTop": 1,
+        "top": 0,
+        "width": 100,
       }
     }
   />
@@ -67,10 +71,14 @@ exports[`SafeAreaProvider supports setting initial insets 1`] = `
   <View
     style={
       Object {
-        "bottom": 4,
-        "left": 2,
-        "right": 3,
-        "top": 1,
+        "height": 100,
+        "left": 0,
+        "paddingBottom": 4,
+        "paddingLeft": 2,
+        "paddingRight": 3,
+        "paddingTop": 1,
+        "top": 0,
+        "width": 100,
       }
     }
   />
@@ -97,10 +105,14 @@ exports[`SafeAreaProvider uses inner insets 1`] = `
     <View
       style={
         Object {
-          "bottom": 5,
-          "left": 3,
-          "right": 4,
-          "top": 2,
+          "height": 16,
+          "left": 0,
+          "paddingBottom": 5,
+          "paddingLeft": 3,
+          "paddingRight": 4,
+          "paddingTop": 2,
+          "top": 0,
+          "width": 10,
         }
       }
     />
@@ -128,69 +140,17 @@ exports[`SafeAreaProvider uses parent insets when available 1`] = `
     <View
       style={
         Object {
-          "bottom": 4,
-          "left": 2,
-          "right": 3,
-          "top": 1,
+          "height": 100,
+          "left": 0,
+          "paddingBottom": 4,
+          "paddingLeft": 2,
+          "paddingRight": 3,
+          "paddingTop": 1,
+          "top": 0,
+          "width": 100,
         }
       }
     />
   </RNCSafeAreaView>
-</RNCSafeAreaView>
-`;
-
-exports[`SafeAreaView can override padding styles 1`] = `
-<RNCSafeAreaView
-  onInsetsChange={[Function]}
-  style={
-    Object {
-      "flex": 1,
-    }
-  }
->
-  <View
-    style={
-      Array [
-        Object {
-          "paddingBottom": 4,
-          "paddingLeft": 2,
-          "paddingRight": 3,
-          "paddingTop": 1,
-        },
-        Object {
-          "paddingTop": 0,
-        },
-      ]
-    }
-  >
-    <View />
-  </View>
-</RNCSafeAreaView>
-`;
-
-exports[`SafeAreaView renders 1`] = `
-<RNCSafeAreaView
-  onInsetsChange={[Function]}
-  style={
-    Object {
-      "flex": 1,
-    }
-  }
->
-  <View
-    style={
-      Array [
-        Object {
-          "paddingBottom": 4,
-          "paddingLeft": 2,
-          "paddingRight": 3,
-          "paddingTop": 1,
-        },
-        undefined,
-      ]
-    }
-  >
-    <View />
-  </View>
 </RNCSafeAreaView>
 `;

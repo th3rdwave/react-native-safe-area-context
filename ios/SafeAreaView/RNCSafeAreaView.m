@@ -16,6 +16,7 @@ static BOOL UIEdgeInsetsEqualToEdgeInsetsWithThreshold(UIEdgeInsets insets1, UIE
 @implementation RNCSafeAreaView
 {
   UIEdgeInsets _currentSafeAreaInsets;
+  CGRect _currentFrame;
   BOOL _initialInsetsSent;
 }
 
@@ -75,13 +76,19 @@ static BOOL UIEdgeInsetsEqualToEdgeInsetsWithThreshold(UIEdgeInsets insets1, UIE
   }
 
   UIEdgeInsets safeAreaInsets = [self realOrEmulateSafeAreaInsets];
+  CGRect frame = [self convertRect:self.bounds toView:nil];
 
-  if (_initialInsetsSent && UIEdgeInsetsEqualToEdgeInsetsWithThreshold(safeAreaInsets, _currentSafeAreaInsets, 1.0 / RCTScreenScale())) {
+  if (
+    _initialInsetsSent &&
+    UIEdgeInsetsEqualToEdgeInsetsWithThreshold(safeAreaInsets, _currentSafeAreaInsets, 1.0 / RCTScreenScale()) &&
+    CGRectEqualToRect(frame, _currentFrame)
+  ) {
     return;
   }
 
   _initialInsetsSent = YES;
   _currentSafeAreaInsets = safeAreaInsets;
+  _currentFrame = frame;
 
   self.onInsetsChange(@{
     @"insets": @{
@@ -89,7 +96,13 @@ static BOOL UIEdgeInsetsEqualToEdgeInsetsWithThreshold(UIEdgeInsets insets1, UIE
       @"right": @(safeAreaInsets.right),
       @"bottom": @(safeAreaInsets.bottom),
       @"left": @(safeAreaInsets.left),
-    }
+    },
+    @"frame": @{
+      @"x": @(frame.origin.x),
+      @"y": @(frame.origin.y),
+      @"width": @(frame.size.width),
+      @"height": @(frame.size.height),
+    },
   });
 }
 

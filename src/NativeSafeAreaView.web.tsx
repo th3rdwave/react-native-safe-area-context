@@ -1,13 +1,14 @@
 import * as React from 'react';
-import { ViewStyle, View } from 'react-native';
+import { View } from 'react-native';
+import { NativeSafeAreaViewProps } from './SafeArea.types';
 
-import { InsetChangeNativeCallback } from './SafeArea.types';
-
-interface NativeSafeAreaViewProps {
-  children?: React.ReactNode;
-  style: ViewStyle;
-  onInsetsChange: InsetChangeNativeCallback;
-}
+/**
+ * TODO:
+ * Currently insets and frame are based on the window and are not
+ * relative to the provider view. This is inconsistent with iOS and Android.
+ * However in most cases if the provider view covers the screen this is not
+ * an issue.
+ */
 
 const CSSTransitions: Record<string, string> = {
   WebkitTransition: 'webkitTransitionEnd',
@@ -44,8 +45,14 @@ export default function NativeSafeAreaView({
         left: paddingLeft ? parseInt(paddingLeft, 10) : 0,
         right: paddingRight ? parseInt(paddingRight, 10) : 0,
       };
+      const frame = {
+        x: 0,
+        y: 0,
+        width: document.documentElement.offsetWidth,
+        height: document.documentElement.offsetHeight,
+      };
       // @ts-ignore: missing properties
-      onInsetsChange({ nativeEvent: { insets } });
+      onInsetsChange({ nativeEvent: { insets, frame } });
     };
     element.addEventListener(getSupportedTransitionEvent(), onEnd);
     onEnd();

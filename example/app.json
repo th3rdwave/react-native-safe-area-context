@@ -2,7 +2,7 @@
   "name": "SafeAreaViewExample",
   "displayName": "SafeAreaViewExample",
   "expo": {
-    "entryPoint": "node_modules/expo/AppEntry",
+    "entryPoint": "./example/index.expo",
     "name": "react-native-safe-area-context",
     "slug": "react-native-safe-area-context",
     "version": "0.1.0",

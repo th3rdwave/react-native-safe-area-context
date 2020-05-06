@@ -1,4 +1,4 @@
-import { NativeSyntheticEvent } from 'react-native';
+import { NativeSyntheticEvent, ViewStyle } from 'react-native';
 
 export interface EdgeInsets {
   top: number;
@@ -7,6 +7,24 @@ export interface EdgeInsets {
   left: number;
 }
 
-export type InsetChangedEvent = NativeSyntheticEvent<{ insets: EdgeInsets }>;
+export interface Rect {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+export interface Metrics {
+  insets: EdgeInsets;
+  frame: Rect;
+}
+
+export type InsetChangedEvent = NativeSyntheticEvent<Metrics>;
 
 export type InsetChangeNativeCallback = (event: InsetChangedEvent) => void;
+
+export interface NativeSafeAreaViewProps {
+  children?: React.ReactNode;
+  style?: ViewStyle;
+  onInsetsChange: InsetChangeNativeCallback;
+}
