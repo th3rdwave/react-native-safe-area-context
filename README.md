@@ -96,10 +96,10 @@ function App() {
 Usage with hooks api:
 
 ```js
-import { useSafeArea } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 function HookComponent() {
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
 
   return <View style={{ paddingTop: insets.top }} />;
 }
@@ -108,14 +108,14 @@ function HookComponent() {
 Usage with consumer api:
 
 ```js
-import { SafeAreaConsumer } from 'react-native-safe-area-context';
+import { SafeAreaInsetsContext } from 'react-native-safe-area-context';
 
 class ClassComponent extends React.Component {
   render() {
     return (
-      <SafeAreaConsumer>
+      <SafeAreaInsetsContext.Consumer>
         {insets => <View style={{ paddingTop: insets.top }} />}
-      </SafeAreaConsumer>
+      </SafeAreaInsetsContext.Consumer>
     );
   }
 }
@@ -137,21 +137,21 @@ function SomeComponent() {
 
 ### Web SSR
 
-If you are doing server side rendering on the web you can use `initialSafeAreaInsets` to inject insets value based on the device the user has, or simply pass zero values. Since insets measurement is async it will break rendering your page content otherwise.
+If you are doing server side rendering on the web you can use `initialMetrics` to inject insets and frame value based on the device the user has, or simply pass zero values. Since insets measurement is async it will break rendering your page content otherwise.
 
 ### Optimization
 
-To speed up the initial render, you can import `initialWindowSafeAreaInsets` from this package and set as the `initialSafeAreaInsets` prop on the provider as described in Web SSR. You cannot do this if your provider remounts, or you are using `react-native-navigation`.
+To speed up the initial render, you can import `initialWindowMetrics` from this package and set as the `initialMetrics` prop on the provider as described in Web SSR. You cannot do this if your provider remounts, or you are using `react-native-navigation`.
 
 ```js
 import {
   SafeAreaProvider,
-  initialWindowSafeAreaInsets
+  initialWindowMetrics
 } from 'react-native-safe-area-context';
 
 function App() {
   return (
-    <SafeAreaProvider initialSafeAreaInsets={initialWindowSafeAreaInsets}>
+    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       ...
     </SafeAreaProvider>
   );
