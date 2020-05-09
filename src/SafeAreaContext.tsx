@@ -112,7 +112,7 @@ export function withSafeAreaInsets<T>(
 ) {
   return (props: T) => (
     <SafeAreaConsumer>
-      {insets => <WrappedComponent {...props} insets={insets} />}
+      {(insets) => <WrappedComponent {...props} insets={insets} />}
     </SafeAreaConsumer>
   );
 }
