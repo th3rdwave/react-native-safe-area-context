@@ -106,3 +106,13 @@ export function SafeAreaConsumer(
 ) {
   return <SafeAreaInsetsContext.Consumer {...props} />;
 }
+
+export function withSafeAreaInsets<T>(
+  WrappedComponent: React.ComponentType<T>,
+) {
+  return (props: T) => (
+    <SafeAreaConsumer>
+      {insets => <WrappedComponent {...props} insets={insets} />}
+    </SafeAreaConsumer>
+  );
+}
