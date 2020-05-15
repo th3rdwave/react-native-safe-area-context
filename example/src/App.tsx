@@ -1,10 +1,14 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import { DevSettings } from 'react-native';
+import { enableScreens } from 'react-native-screens';
 import AsyncStorage from '@react-native-community/async-storage';
 import ReactNavigation4Example from './ReactNavigation4Example';
 import ReactNavigation5Example from './ReactNavigation5Example';
 import SimpleExample from './SimpleExample';
+import NativeStackExample from './NativeStackExample';
+
+enableScreens();
 
 const STORAGE_KEY = 'rnsac-current-example';
 
@@ -40,6 +44,9 @@ export default function App() {
     DevSettings.addMenuItem('Show React Navigation 5 Example', () => {
       setCurrentExample('react-navigation-5');
     });
+    DevSettings.addMenuItem('Show Native Stack Example', () => {
+      setCurrentExample('native-stack');
+    });
   }, []);
 
   switch (currentExample) {
@@ -49,6 +56,8 @@ export default function App() {
       return <ReactNavigation4Example />;
     case 'react-navigation-5':
       return <ReactNavigation5Example />;
+    case 'native-stack':
+      return <NativeStackExample />;
     default:
       return null;
   }
