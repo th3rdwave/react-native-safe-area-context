@@ -42,7 +42,7 @@ const Card = ({
 
 const BORDER_WIDTH = 8;
 
-const Screen = () => {
+function SimpleExampleScreen() {
   const insets = useSafeAreaInsets();
   const frame = useSafeAreaFrame();
 
@@ -79,13 +79,13 @@ const Screen = () => {
       </View>
     </>
   );
-};
+}
 
-export default function App() {
+export default function SimpleExample() {
   return (
     <View style={{ marginTop: 0, flex: 1 }}>
       <SafeAreaProvider>
-        <Screen />
+        <SimpleExampleScreen />
       </SafeAreaProvider>
     </View>
   );

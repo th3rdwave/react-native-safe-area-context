@@ -10,6 +10,10 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
+import com.swmansion.rnscreens.RNScreensPackage;
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+import com.swmansion.reanimated.ReanimatedPackage;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -27,6 +31,10 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.asList(
           new MainReactPackage(),
+          new RNScreensPackage(),
+          new RNGestureHandlerPackage(),
+          new ReanimatedPackage(),
+          new AsyncStoragePackage(),
           new SafeAreaContextPackage());
     }
 

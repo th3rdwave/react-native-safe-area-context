@@ -11,5 +11,10 @@ target "SafeAreaViewExample" do
   use_react_native!(path: $react_native_path)
 
   pod "react-native-safe-area-context", :path => $root_path
+  pod "RNCAsyncStorage", :path => "#{$node_modules}/@react-native-community/async-storage"
+  pod "RNCMaskedView", :path => "#{$node_modules}/@react-native-community/masked-view"
+  pod "RNGestureHandler", :path => "#{$node_modules}/react-native-gesture-handler"
+  pod "RNReanimated", :path => "#{$node_modules}/react-native-reanimated"
+  pod "RNScreens", :path => "#{$node_modules}/react-native-screens"
 end
 
