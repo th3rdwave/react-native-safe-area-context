@@ -3,6 +3,7 @@ import * as React from 'react';
 import { DevSettings } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import ReactNavigation4Example from './ReactNavigation4Example';
+import ReactNavigation5Example from './ReactNavigation5Example';
 import SimpleExample from './SimpleExample';
 
 const STORAGE_KEY = 'rnsac-current-example';
@@ -36,6 +37,9 @@ export default function App() {
     DevSettings.addMenuItem('Show React Navigation 4 Example', () => {
       setCurrentExample('react-navigation-4');
     });
+    DevSettings.addMenuItem('Show React Navigation 5 Example', () => {
+      setCurrentExample('react-navigation-5');
+    });
   }, []);
 
   switch (currentExample) {
@@ -43,6 +47,8 @@ export default function App() {
       return <SimpleExample />;
     case 'react-navigation-4':
       return <ReactNavigation4Example />;
+    case 'react-navigation-5':
+      return <ReactNavigation5Example />;
     default:
       return null;
   }
