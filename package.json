@@ -76,6 +76,7 @@
     "react-navigation": "^4.3.9",
     "react-navigation-stack": "^2.5.0",
     "react-navigation-tabs": "^2.8.13",
+    "react-native-safe-area-view": "1.1.1",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-screens": "^2.7.0",
     "react-native-reanimated": "^1.8.0",

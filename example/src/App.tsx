@@ -1,12 +1,13 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
-import { DevSettings } from 'react-native';
+import { DevSettings, View, Text } from 'react-native';
 import { enableScreens } from 'react-native-screens';
 import AsyncStorage from '@react-native-community/async-storage';
 import ReactNavigation4Example from './ReactNavigation4Example';
 import ReactNavigation5Example from './ReactNavigation5Example';
 import SimpleExample from './SimpleExample';
 import NativeStackExample from './NativeStackExample';
+import ReactNativeSafeAreaView from './ReactNativeSafeAreaView';
 
 enableScreens();
 
@@ -20,7 +21,7 @@ export default function App() {
   React.useEffect(() => {
     async function loadCurrentExample() {
       const example = await AsyncStorage.getItem(STORAGE_KEY);
-      setCurrentExample(example ?? 'simple');
+      setCurrentExample(example ?? null);
     }
     loadCurrentExample();
   }, []);
@@ -47,6 +48,9 @@ export default function App() {
     DevSettings.addMenuItem('Show Native Stack Example', () => {
       setCurrentExample('native-stack');
     });
+    DevSettings.addMenuItem('Show React Native Safe Area View Example', () => {
+      setCurrentExample('react-native-safe-area-view');
+    });
   }, []);
 
   switch (currentExample) {
@@ -58,7 +62,22 @@ export default function App() {
       return <ReactNavigation5Example />;
     case 'native-stack':
       return <NativeStackExample />;
+    case 'react-native-safe-area-view':
+      return <ReactNativeSafeAreaView />;
     default:
-      return null;
+      return (
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 24,
+          }}
+        >
+          <Text style={{ textAlign: 'center', fontSize: 14 }}>
+            Open the dev menu to choose an example
+          </Text>
+        </View>
+      );
   }
 }
