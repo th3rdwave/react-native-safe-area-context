@@ -91,6 +91,16 @@ export function useSafeAreaFrame(): Rect {
   return frame;
 }
 
+export function withSafeAreaInsets<T>(
+  WrappedComponent: React.ComponentType<T>,
+) {
+  return (props: T) => (
+    <SafeAreaConsumer>
+      {(insets) => <WrappedComponent {...props} insets={insets} />}
+    </SafeAreaConsumer>
+  );
+}
+
 /**
  * @deprecated
  */
@@ -107,12 +117,7 @@ export function SafeAreaConsumer(
   return <SafeAreaInsetsContext.Consumer {...props} />;
 }
 
-export function withSafeAreaInsets<T>(
-  WrappedComponent: React.ComponentType<T>,
-) {
-  return (props: T) => (
-    <SafeAreaConsumer>
-      {(insets) => <WrappedComponent {...props} insets={insets} />}
-    </SafeAreaConsumer>
-  );
-}
+/**
+ * @deprecated
+ */
+export const SafeAreaContext = SafeAreaInsetsContext;
