@@ -36,7 +36,7 @@ export default function App() {
   }, [currentExample]);
 
   React.useEffect(() => {
-    DevSettings.addMenuItem('Show SafeAreaViewExample Example', () => {
+    DevSettings.addMenuItem('Show SafeAreaView Example', () => {
       setCurrentExample('safe-area-view');
     });
     DevSettings.addMenuItem('Show Hooks Example', () => {
