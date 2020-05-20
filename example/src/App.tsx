@@ -5,9 +5,9 @@ import { enableScreens } from 'react-native-screens';
 import AsyncStorage from '@react-native-community/async-storage';
 import ReactNavigation4Example from './ReactNavigation4Example';
 import ReactNavigation5Example from './ReactNavigation5Example';
-import SimpleExample from './SimpleExample';
+import HooksExample from './HooksExample';
 import NativeStackExample from './NativeStackExample';
-import ReactNativeSafeAreaView from './ReactNativeSafeAreaView';
+import SafeAreaViewExample from './SafeAreaViewExample';
 
 enableScreens();
 
@@ -36,8 +36,11 @@ export default function App() {
   }, [currentExample]);
 
   React.useEffect(() => {
-    DevSettings.addMenuItem('Show Simple Example', () => {
-      setCurrentExample('simple');
+    DevSettings.addMenuItem('Show SafeAreaViewExample Example', () => {
+      setCurrentExample('safe-area-view');
+    });
+    DevSettings.addMenuItem('Show Hooks Example', () => {
+      setCurrentExample('hooks');
     });
     DevSettings.addMenuItem('Show React Navigation 4 Example', () => {
       setCurrentExample('react-navigation-4');
@@ -48,22 +51,19 @@ export default function App() {
     DevSettings.addMenuItem('Show Native Stack Example', () => {
       setCurrentExample('native-stack');
     });
-    DevSettings.addMenuItem('Show React Native Safe Area View Example', () => {
-      setCurrentExample('react-native-safe-area-view');
-    });
   }, []);
 
   switch (currentExample) {
-    case 'simple':
-      return <SimpleExample />;
+    case 'safe-area-view':
+      return <SafeAreaViewExample />;
+    case 'hooks':
+      return <HooksExample />;
     case 'react-navigation-4':
       return <ReactNavigation4Example />;
     case 'react-navigation-5':
       return <ReactNavigation5Example />;
     case 'native-stack':
       return <NativeStackExample />;
-    case 'react-native-safe-area-view':
-      return <ReactNativeSafeAreaView />;
     default:
       return (
         <View
