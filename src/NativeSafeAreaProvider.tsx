@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View } from 'react-native';
-import { NativeSafeAreaViewProps } from './SafeArea.types';
+import { NativeSafeAreaProviderProps } from './SafeArea.types';
 
 /**
  * TODO:
@@ -22,7 +22,7 @@ export default function NativeSafeAreaView({
   children,
   style,
   onInsetsChange,
-}: NativeSafeAreaViewProps) {
+}: NativeSafeAreaProviderProps) {
   React.useEffect(() => {
     // Skip for SSR.
     if (typeof document === 'undefined') {

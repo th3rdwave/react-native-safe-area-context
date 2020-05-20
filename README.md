@@ -93,7 +93,43 @@ function App() {
 }
 ```
 
-Usage with hooks api:
+### SafeAreaView
+
+`SafeAreaView` is a regular `View` component with the safe area edges applied as padding.
+
+If you set your own padding on the view, it will be added to the padding from the safe area.
+
+```js
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+function SomeComponent() {
+  return (
+    <SafeAreaView>
+      <View />
+    </SafeAreaView>
+  );
+}
+```
+
+#### Props
+
+All props are optional.
+
+##### `emulateUnlessSupported`
+
+`true` (default) or `false`
+
+On iOS 10, emulate the safe area using the status bar height and home indicator sizes.
+
+##### `edges`
+
+`all` (default), `none`, `top`, `right`, `bottom`, `left`, `horizontal`, `vertical`, `top-right`, `top-left`, `bottom-right`, `bottom-left`, `not-top`, `not-right`, `not-bottom`, or `not-left`
+
+Sets the edges to apply the safe area insets to.
+
+### Hooks
+
+Hooks give you direct access to the safe area insets. This is a more advanced use-case, and might perform worse than `SafeAreaView` when rotating the device.
 
 ```js
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -114,24 +150,10 @@ class ClassComponent extends React.Component {
   render() {
     return (
       <SafeAreaInsetsContext.Consumer>
-        {insets => <View style={{ paddingTop: insets.top }} />}
+        {(insets) => <View style={{ paddingTop: insets.top }} />}
       </SafeAreaInsetsContext.Consumer>
     );
   }
-}
-```
-
-Usage with `SafeAreaView`:
-
-```js
-import { SafeAreaView } from 'react-native-safe-area-context';
-
-function SomeComponent() {
-  return (
-    <SafeAreaView>
-      <View />
-    </SafeAreaView>
-  );
 }
 ```
 
@@ -141,12 +163,14 @@ If you are doing server side rendering on the web you can use `initialMetrics` t
 
 ### Optimization
 
+If you can, use `SafeAreaView`. It's implemented natively on iOS so when rotating the device, there is no delay from the asynchronous bridge. A native Android implementation is upcoming.
+
 To speed up the initial render, you can import `initialWindowMetrics` from this package and set as the `initialMetrics` prop on the provider as described in Web SSR. You cannot do this if your provider remounts, or you are using `react-native-navigation`.
 
 ```js
 import {
   SafeAreaProvider,
-  initialWindowMetrics
+  initialWindowMetrics,
 } from 'react-native-safe-area-context';
 
 function App() {
