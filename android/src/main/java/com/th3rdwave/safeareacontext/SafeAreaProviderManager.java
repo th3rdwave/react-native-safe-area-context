@@ -16,10 +16,10 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class SafeAreaViewManager extends ViewGroupManager<SafeAreaView> {
+public class SafeAreaProviderManager extends ViewGroupManager<SafeAreaProvider> {
   private final ReactApplicationContext mContext;
 
-  public SafeAreaViewManager(ReactApplicationContext context) {
+  public SafeAreaProviderManager(ReactApplicationContext context) {
     super();
 
     mContext = context;
@@ -28,22 +28,22 @@ public class SafeAreaViewManager extends ViewGroupManager<SafeAreaView> {
   @Override
   @NonNull
   public String getName() {
-    return "RNCSafeAreaView";
+    return "RNCSafeAreaProvider";
   }
 
   @Override
   @NonNull
-  public SafeAreaView createViewInstance(@NonNull ThemedReactContext context) {
-    return new SafeAreaView(context);
+  public SafeAreaProvider createViewInstance(@NonNull ThemedReactContext context) {
+    return new SafeAreaProvider(context);
   }
 
   @Override
-  protected void addEventEmitters(@NonNull ThemedReactContext reactContext, @NonNull final SafeAreaView view) {
+  protected void addEventEmitters(@NonNull ThemedReactContext reactContext, @NonNull final SafeAreaProvider view) {
     final EventDispatcher dispatcher =
         reactContext.getNativeModule(UIManagerModule.class).getEventDispatcher();
-    view.setOnInsetsChangeListener(new SafeAreaView.OnInsetsChangeListener() {
+    view.setOnInsetsChangeListener(new SafeAreaProvider.OnInsetsChangeListener() {
       @Override
-      public void onInsetsChange(SafeAreaView view, EdgeInsets insets, Rect frame) {
+      public void onInsetsChange(SafeAreaProvider view, EdgeInsets insets, Rect frame) {
         dispatcher.dispatchEvent(new InsetsChangeEvent(view.getId(), insets, frame));
       }
     });

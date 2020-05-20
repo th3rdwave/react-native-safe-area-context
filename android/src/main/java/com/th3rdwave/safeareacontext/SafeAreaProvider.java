@@ -11,16 +11,16 @@ import com.facebook.react.views.view.ReactViewGroup;
 import androidx.annotation.Nullable;
 
 @SuppressLint("ViewConstructor")
-public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnGlobalLayoutListener {
+public class SafeAreaProvider extends ReactViewGroup implements ViewTreeObserver.OnGlobalLayoutListener {
   public interface OnInsetsChangeListener {
-    void onInsetsChange(SafeAreaView view, EdgeInsets insets, Rect frame);
+    void onInsetsChange(SafeAreaProvider view, EdgeInsets insets, Rect frame);
   }
 
   private @Nullable OnInsetsChangeListener mInsetsChangeListener;
   private @Nullable EdgeInsets mLastInsets;
   private @Nullable Rect mLastFrame;
 
-  public SafeAreaView(Context context) {
+  public SafeAreaProvider(Context context) {
     super(context);
   }
 
