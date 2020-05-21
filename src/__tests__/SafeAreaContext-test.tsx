@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import * as ReactTestRenderer from 'react-test-renderer';
-import NativeSafeAreaView from '../NativeSafeAreaView';
+import NativeSafeAreaView from '../NativeSafeAreaProvider';
 import {
   SafeAreaProvider,
   useSafeAreaInsets,

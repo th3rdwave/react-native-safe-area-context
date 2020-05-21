@@ -3,9 +3,10 @@ import * as React from 'react';
 import { DevSettings, View, Text } from 'react-native';
 import { enableScreens } from 'react-native-screens';
 import AsyncStorage from '@react-native-community/async-storage';
+import HooksExample from './HooksExample';
+import SafeAreaViewExample from './SafeAreaViewExample';
 import ReactNavigation4Example from './ReactNavigation4Example';
 import ReactNavigation5Example from './ReactNavigation5Example';
-import SimpleExample from './SimpleExample';
 import NativeStackExample from './NativeStackExample';
 import ReactNativeSafeAreaView from './ReactNativeSafeAreaView';
 
@@ -36,8 +37,11 @@ export default function App() {
   }, [currentExample]);
 
   React.useEffect(() => {
-    DevSettings.addMenuItem('Show Simple Example', () => {
-      setCurrentExample('simple');
+    DevSettings.addMenuItem('Show SafeAreaView Example', () => {
+      setCurrentExample('safe-area-view');
+    });
+    DevSettings.addMenuItem('Show Hooks Example', () => {
+      setCurrentExample('hooks');
     });
     DevSettings.addMenuItem('Show React Navigation 4 Example', () => {
       setCurrentExample('react-navigation-4');
@@ -54,8 +58,10 @@ export default function App() {
   }, []);
 
   switch (currentExample) {
-    case 'simple':
-      return <SimpleExample />;
+    case 'safe-area-view':
+      return <SafeAreaViewExample />;
+    case 'hooks':
+      return <HooksExample />;
     case 'react-navigation-4':
       return <ReactNavigation4Example />;
     case 'react-navigation-5':

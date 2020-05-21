@@ -1,28 +1,20 @@
 package com.th3rdwave.safeareacontext;
 
-import android.app.Activity;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.common.MapBuilder;
-import com.facebook.react.uimanager.ThemedReactContext;
-import com.facebook.react.uimanager.UIManagerModule;
-import com.facebook.react.uimanager.ViewGroupManager;
-import com.facebook.react.uimanager.events.EventDispatcher;
-
-import java.util.Map;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.uimanager.LayoutShadowNode;
+import com.facebook.react.uimanager.ThemedReactContext;
+import com.facebook.react.uimanager.ViewGroupManager;
+import com.facebook.react.uimanager.annotations.ReactProp;
+
+import java.util.EnumSet;
+
+import javax.annotation.Nullable;
 
 public class SafeAreaViewManager extends ViewGroupManager<SafeAreaView> {
-  private final ReactApplicationContext mContext;
-
-  public SafeAreaViewManager(ReactApplicationContext context) {
+  public SafeAreaViewManager() {
     super();
-
-    mContext = context;
   }
 
   @Override
@@ -38,50 +30,40 @@ public class SafeAreaViewManager extends ViewGroupManager<SafeAreaView> {
   }
 
   @Override
-  protected void addEventEmitters(@NonNull ThemedReactContext reactContext, @NonNull final SafeAreaView view) {
-    final EventDispatcher dispatcher =
-        reactContext.getNativeModule(UIManagerModule.class).getEventDispatcher();
-    view.setOnInsetsChangeListener(new SafeAreaView.OnInsetsChangeListener() {
-      @Override
-      public void onInsetsChange(SafeAreaView view, EdgeInsets insets, Rect frame) {
-        dispatcher.dispatchEvent(new InsetsChangeEvent(view.getId(), insets, frame));
+  @NonNull
+  public SafeAreaViewShadowNode createShadowNodeInstance() {
+    return new SafeAreaViewShadowNode();
+  }
+
+  @Override
+  public Class<? extends LayoutShadowNode> getShadowNodeClass() {
+    return SafeAreaViewShadowNode.class;
+  }
+
+  @ReactProp(name = "edges")
+  public void setEdges(SafeAreaView view, @Nullable ReadableArray propList) {
+    EnumSet<SafeAreaViewEdges> edges = EnumSet.noneOf(SafeAreaViewEdges.class);
+
+    if (propList != null) {
+      for (int i = 0; i < propList.size(); i += 1) {
+        String edgeName = propList.getString(i);
+        if ("top".equals(edgeName)) {
+          edges.add(SafeAreaViewEdges.TOP);
+        } else if ("right".equals(edgeName)) {
+          edges.add(SafeAreaViewEdges.RIGHT);
+        } else if ("bottom".equals(edgeName)) {
+          edges.add(SafeAreaViewEdges.BOTTOM);
+        } else if ("left".equals(edgeName)) {
+          edges.add(SafeAreaViewEdges.LEFT);
+        }
       }
-    });
+    }
+
+    view.setEdges(edges);
   }
 
-  @Override
-  public Map<String, Object> getExportedCustomDirectEventTypeConstants() {
-    return MapBuilder.<String, Object>builder()
-        .put(InsetsChangeEvent.EVENT_NAME, MapBuilder.of("registrationName", "onInsetsChange"))
-        .build();
-  }
-
-  @Nullable
-  @Override
-  public Map<String, Object> getExportedViewConstants() {
-    Activity activity = mContext.getCurrentActivity();
-    if (activity == null) {
-      return null;
-    }
-
-    ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
-    if (decorView == null) {
-      return null;
-    }
-
-    View contentView = decorView.findViewById(android.R.id.content);
-    EdgeInsets insets = SafeAreaUtils.getSafeAreaInsets(decorView, contentView);
-    Rect frame = SafeAreaUtils.getFrame(decorView, contentView);
-    if (insets == null || frame == null) {
-      return null;
-    }
-    return MapBuilder.<String, Object>of(
-        "initialWindowMetrics",
-        MapBuilder.<String, Object>of(
-            "insets",
-            SerializationUtils.edgeInsetsToJavaMap(insets),
-            "frame",
-            SerializationUtils.rectToJavaMap(frame)));
-
+  @ReactProp(name = "emulateUnlessSupported")
+  public void setEmulateUnlessSupported(SafeAreaView view, boolean propList) {
+    // Ignore
   }
 }

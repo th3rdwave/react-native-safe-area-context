@@ -83,7 +83,45 @@ protected List<ReactPackage> getPackages() {
 
 ## Usage
 
-Add `SafeAreaProvider` in your app root component:
+`SafeAreaView` is a regular `View` component with the safe area edges applied as padding.
+
+If you set your own padding on the view, it will be added to the padding from the safe area.
+
+**If you are targeting web, you must set up `SafeAreaProvider` in as described in the hooks section**. You do not need to for native platforms.
+
+```js
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+function SomeComponent() {
+  return (
+    <SafeAreaView>
+      <View />
+    </SafeAreaView>
+  );
+}
+```
+
+### Props
+
+All props are optional.
+
+#### `emulateUnlessSupported`
+
+`true` (default) or `false`
+
+On iOS 10, emulate the safe area using the status bar height and home indicator sizes.
+
+#### `edges`
+
+Array of `top`, `right`, `bottom`, and `left`. Defaults to all.
+
+Sets the edges to apply the safe area insets to.
+
+## Hooks
+
+Hooks give you direct access to the safe area insets. This is a more advanced use-case, and might perform worse than `SafeAreaView` when rotating the device.
+
+First, add `SafeAreaProvider` in your app root component. You may need to add it in other places too, including at the root of any modals any any routes when using `react-native-screen`.
 
 ```js
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -93,7 +131,7 @@ function App() {
 }
 ```
 
-Usage with hooks api:
+You use the `useSafeAreaInsets` hook to get the insets in the form of `{ top: number, right: number, bottom: number: number, left: number }`.
 
 ```js
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -114,39 +152,27 @@ class ClassComponent extends React.Component {
   render() {
     return (
       <SafeAreaInsetsContext.Consumer>
-        {insets => <View style={{ paddingTop: insets.top }} />}
+        {(insets) => <View style={{ paddingTop: insets.top }} />}
       </SafeAreaInsetsContext.Consumer>
     );
   }
 }
 ```
 
-Usage with `SafeAreaView`:
-
-```js
-import { SafeAreaView } from 'react-native-safe-area-context';
-
-function SomeComponent() {
-  return (
-    <SafeAreaView>
-      <View />
-    </SafeAreaView>
-  );
-}
-```
-
-### Web SSR
+## Web SSR
 
 If you are doing server side rendering on the web you can use `initialMetrics` to inject insets and frame value based on the device the user has, or simply pass zero values. Since insets measurement is async it will break rendering your page content otherwise.
 
-### Optimization
+## Optimization
+
+If you can, use `SafeAreaView`. It's implemented natively so when rotating the device, there is no delay from the asynchronous bridge.
 
 To speed up the initial render, you can import `initialWindowMetrics` from this package and set as the `initialMetrics` prop on the provider as described in Web SSR. You cannot do this if your provider remounts, or you are using `react-native-navigation`.
 
 ```js
 import {
   SafeAreaProvider,
-  initialWindowMetrics
+  initialWindowMetrics,
 } from 'react-native-safe-area-context';
 
 function App() {

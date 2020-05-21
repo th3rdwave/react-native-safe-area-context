@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
-import NativeSafeAreaView from './NativeSafeAreaView';
+import NativeSafeAreaProvider from './NativeSafeAreaProvider';
 import { EdgeInsets, InsetChangedEvent, Metrics, Rect } from './SafeArea.types';
 
 export const SafeAreaInsetsContext = React.createContext<EdgeInsets | null>(
@@ -47,7 +47,7 @@ export function SafeAreaProvider({
   }, []);
 
   return (
-    <NativeSafeAreaView style={styles.fill} onInsetsChange={onInsetsChange}>
+    <NativeSafeAreaProvider style={styles.fill} onInsetsChange={onInsetsChange}>
       {insets != null ? (
         <SafeAreaFrameContext.Provider value={frame}>
           <SafeAreaInsetsContext.Provider value={insets}>
@@ -55,7 +55,7 @@ export function SafeAreaProvider({
           </SafeAreaInsetsContext.Provider>
         </SafeAreaFrameContext.Provider>
       ) : null}
-    </NativeSafeAreaView>
+    </NativeSafeAreaProvider>
   );
 }
 
