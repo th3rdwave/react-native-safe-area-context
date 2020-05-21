@@ -165,7 +165,7 @@ If you are doing server side rendering on the web you can use `initialMetrics` t
 
 ## Optimization
 
-If you can, use `SafeAreaView`. It's implemented natively on iOS so when rotating the device, there is no delay from the asynchronous bridge. A native Android implementation is upcoming.
+If you can, use `SafeAreaView`. It's implemented natively so when rotating the device, there is no delay from the asynchronous bridge.
 
 To speed up the initial render, you can import `initialWindowMetrics` from this package and set as the `initialMetrics` prop on the provider as described in Web SSR. You cannot do this if your provider remounts, or you are using `react-native-navigation`.
 
