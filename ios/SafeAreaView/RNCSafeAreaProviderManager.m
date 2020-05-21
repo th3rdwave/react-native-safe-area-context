@@ -40,7 +40,7 @@ RCT_EXPORT_VIEW_PROPERTY(onInsetsChange, RCTBubblingEventBlock)
       }
     };
   } else {
-    return @{ @"initialWindowSafeAreaInsets": [NSNull null] };
+    return @{ @"initialWindowMetrics": [NSNull null] };
   }
 }
 

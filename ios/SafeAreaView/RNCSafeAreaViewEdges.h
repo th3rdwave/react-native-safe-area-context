@@ -1,7 +1,6 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSInteger, RNCSafeAreaViewEdges) {
-  RNCSafeAreaViewEdgesNone   = 0b0000,
   RNCSafeAreaViewEdgesTop    = 0b1000,
   RNCSafeAreaViewEdgesRight  = 0b0100,
   RNCSafeAreaViewEdgesBottom = 0b0010,

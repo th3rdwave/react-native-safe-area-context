@@ -1,5 +1,3 @@
-// Simplified version of https://github.com/facebook/react-native/blob/master/React/Views/RNCSafeAreaView/RCTRNCSafeAreaView.m
-
 #import "RNCSafeAreaProvider.h"
 
 #import <React/RCTBridge.h>

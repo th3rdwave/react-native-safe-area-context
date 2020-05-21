@@ -5,7 +5,11 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 export default function ReactNativeSafeAreaView() {
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={{ flex: 1, backgroundColor: 'red', padding: 10 }}>
+      <SafeAreaView
+        style={{ flex: 1, backgroundColor: 'red', padding: 10 }}
+        // This is the default - change it to see how it works!
+        edges={['top', 'right', 'bottom', 'left']}
+      >
         <View
           style={{ flex: 1, backgroundColor: 'blue', justifyContent: 'center' }}
         >

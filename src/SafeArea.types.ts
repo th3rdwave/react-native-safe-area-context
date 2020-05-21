@@ -1,22 +1,6 @@
 import { NativeSyntheticEvent, ViewStyle, ViewProps } from 'react-native';
 
-export type Edges =
-  | 'none'
-  | 'top'
-  | 'right'
-  | 'bottom'
-  | 'left'
-  | 'horizontal'
-  | 'vertical'
-  | 'top-right'
-  | 'top-left'
-  | 'bottom-right'
-  | 'bottom-left'
-  | 'not-top'
-  | 'not-right'
-  | 'not-bottom'
-  | 'not-left'
-  | 'all';
+export type Edge = 'top' | 'right' | 'bottom' | 'left';
 
 export interface EdgeInsets {
   top: number;
@@ -50,5 +34,5 @@ export interface NativeSafeAreaProviderProps {
 export type NativeSafeAreaViewProps = ViewProps & {
   children?: React.ReactNode;
   emulateUnlessSupported?: boolean;
-  edges?: Edges;
+  edges?: Edge[];
 };

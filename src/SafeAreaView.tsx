@@ -1,32 +1,22 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from './SafeAreaContext';
-import { Edges, NativeSafeAreaViewProps } from './SafeArea.types';
+import { Edge, NativeSafeAreaViewProps } from './SafeArea.types';
 
 // prettier-ignore
 const TOP    = 0b1000,
       RIGHT  = 0b1000,
       BOTTOM = 0b1000,
-      LEFT   = 0b1000;
+      LEFT   = 0b1000,
+      ALL    = 0b1111;
 
 /* eslint-disable no-bitwise */
-const edgeBitmaskMap: Record<Edges, number> = {
-  none: 0,
-  top: TOP,
+
+const edgeBitmaskMap: Record<Edge, number> = {
+  top: 0b1000,
   right: RIGHT,
   bottom: BOTTOM,
   left: LEFT,
-  vertical: RIGHT | LEFT,
-  horizontal: TOP | BOTTOM,
-  'top-right': TOP | RIGHT,
-  'top-left': TOP | LEFT,
-  'bottom-right': BOTTOM | RIGHT,
-  'bottom-left': BOTTOM | LEFT,
-  'not-top': RIGHT | BOTTOM | LEFT,
-  'not-right': TOP | BOTTOM | LEFT,
-  'not-bottom': TOP | RIGHT | LEFT,
-  'not-left': TOP | RIGHT | BOTTOM,
-  all: TOP | RIGHT | BOTTOM | LEFT,
 };
 
 export function SafeAreaView({
@@ -36,6 +26,11 @@ export function SafeAreaView({
   ...rest
 }: NativeSafeAreaViewProps) {
   const insets = useSafeAreaInsets();
+
+  const edgeBitmask =
+    edges != null
+      ? edges.reduce((accum, edge) => accum | edgeBitmaskMap[edge], 0)
+      : ALL;
 
   const appliedStyle = React.useMemo(() => {
     const {
@@ -48,8 +43,6 @@ export function SafeAreaView({
       paddingLeft = paddingHorizontal,
     } = StyleSheet.flatten(style) as Record<string, number>;
 
-    const edgeBitmask = edgeBitmaskMap[edges ?? 'all'];
-
     const paddingStyle = {
       paddingTop: paddingTop + (edgeBitmask & TOP ? insets.top : 0),
       paddingRight: paddingRight + (edgeBitmask & RIGHT ? insets.right : 0),
@@ -58,7 +51,7 @@ export function SafeAreaView({
     };
 
     return [style, paddingStyle];
-  }, [style, edges, insets]);
+  }, [style, insets, edgeBitmask]);
 
   return <View style={appliedStyle} {...rest} />;
 }

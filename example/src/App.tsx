@@ -3,11 +3,12 @@ import * as React from 'react';
 import { DevSettings, View, Text } from 'react-native';
 import { enableScreens } from 'react-native-screens';
 import AsyncStorage from '@react-native-community/async-storage';
+import HooksExample from './HooksExample';
+import SafeAreaViewExample from './SafeAreaViewExample';
 import ReactNavigation4Example from './ReactNavigation4Example';
 import ReactNavigation5Example from './ReactNavigation5Example';
-import HooksExample from './HooksExample';
 import NativeStackExample from './NativeStackExample';
-import SafeAreaViewExample from './SafeAreaViewExample';
+import ReactNativeSafeAreaView from './ReactNativeSafeAreaView';
 
 enableScreens();
 
@@ -51,6 +52,9 @@ export default function App() {
     DevSettings.addMenuItem('Show Native Stack Example', () => {
       setCurrentExample('native-stack');
     });
+    DevSettings.addMenuItem('Show React Native Safe Area View Example', () => {
+      setCurrentExample('react-native-safe-area-view');
+    });
   }, []);
 
   switch (currentExample) {
@@ -64,6 +68,8 @@ export default function App() {
       return <ReactNavigation5Example />;
     case 'native-stack':
       return <NativeStackExample />;
+    case 'react-native-safe-area-view':
+      return <ReactNativeSafeAreaView />;
     default:
       return (
         <View
