@@ -4,7 +4,6 @@ import static com.facebook.react.uimanager.UIManagerHelper.getReactContext;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowInsets;
