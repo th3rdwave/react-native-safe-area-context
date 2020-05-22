@@ -18,7 +18,19 @@ or npm:
 npm install --save react-native-safe-area-context
 ```
 
-You then need to link the native parts of the library for the platforms you are using. The easiest way to link the library is using the CLI tool by running this command from the root of your project:
+You then need to link the native parts of the library for the platforms you are using. 
+
+#### Linking in React Native >= 0.60
+
+Linking the package is not required anymore with [Autolinking](https://github.com/react-native-community/cli/blob/master/docs/autolinking.md).
+
+- **iOS Platform:**
+
+  `$ npx pod-install`
+
+#### Linking in React Native < 0.60
+
+The easiest way to link the library is using the CLI tool by running this command from the root of your project:
 
 ```
 react-native link react-native-safe-area-context
