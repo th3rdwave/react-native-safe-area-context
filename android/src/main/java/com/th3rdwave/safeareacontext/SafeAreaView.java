@@ -1,20 +1,18 @@
 package com.th3rdwave.safeareacontext;
 
-import static com.facebook.react.uimanager.UIManagerHelper.getReactContext;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.view.ViewGroup;
+import android.content.ContextWrapper;
+import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.WindowInsets;
-
-import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.ReactContext;
-import com.facebook.react.views.view.ReactViewGroup;
 import com.facebook.react.uimanager.UIManagerModule;
+import com.facebook.react.views.view.ReactViewGroup;
 
 import java.util.EnumSet;
+
+import androidx.annotation.Nullable;
 
 @SuppressLint("ViewConstructor")
 public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnGlobalLayoutListener {
@@ -23,6 +21,17 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnG
 
   public SafeAreaView(Context context) {
     super(context);
+  }
+
+  /**
+   * UIManagerHelper.getReactContext only exists in RN 0.63+ so vendor it here for a while.
+   */
+  private static ReactContext getReactContext(View view) {
+    Context context = view.getContext();
+    if (!(context instanceof ReactContext) && context instanceof ContextWrapper) {
+      context = ((ContextWrapper) context).getBaseContext();
+    }
+    return (ReactContext) context;
   }
 
   private void updateInsets() {
