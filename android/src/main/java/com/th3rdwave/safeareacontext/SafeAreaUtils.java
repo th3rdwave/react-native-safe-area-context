@@ -19,7 +19,11 @@ import androidx.annotation.Nullable;
       return new EdgeInsets(
           insets.getSystemWindowInsetTop(),
           insets.getSystemWindowInsetRight(),
-          insets.getSystemWindowInsetBottom(),
+          // System insets are more reliable to account for notches but the
+          // system inset for bottom includes the soft keyboard which we don't
+          // want to be consistent with iOS. In practice it should always be
+          // correct since there cannot be a notch on this edge.
+          insets.getStableInsetBottom(),
           insets.getSystemWindowInsetLeft());
     } else {
       Rect visibleRect = new Rect();

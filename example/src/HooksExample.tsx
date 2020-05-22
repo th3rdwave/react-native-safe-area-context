@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, StatusBar, ScrollView } from 'react-native';
+import { View, Text, StatusBar, ScrollView, TextInput } from 'react-native';
 
 import {
   SafeAreaProvider,
@@ -63,6 +63,9 @@ function SimpleExampleScreen() {
         }}
       >
         <ScrollView style={{ flex: 1, backgroundColor: '#eee' }}>
+          <Card title="Input">
+            <TextInput style={{ backgroundColor: '#eee', borderRadius: 3 }} />
+          </Card>
           <Card title="Provider insets">
             <DataView data={insets} />
           </Card>
