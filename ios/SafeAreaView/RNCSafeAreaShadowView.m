@@ -73,6 +73,20 @@ typedef NS_ENUM(unsigned int, meta_prop_t) {
   }
 }
 
+- (void)resetInsets:(RNCSafeAreaViewMode)mode {
+  if (mode == RNCSafeAreaViewModePadding) {
+    super.paddingTop = _paddingMetaProps[META_PROP_TOP];
+    super.paddingRight = _paddingMetaProps[META_PROP_RIGHT];
+    super.paddingBottom = _paddingMetaProps[META_PROP_BOTTOM];
+    super.paddingLeft = _paddingMetaProps[META_PROP_LEFT];
+  } else if (mode == RNCSafeAreaViewModeMargin) {
+    super.marginTop = _marginMetaProps[META_PROP_TOP];
+    super.marginRight = _marginMetaProps[META_PROP_RIGHT];
+    super.marginBottom = _marginMetaProps[META_PROP_BOTTOM];
+    super.marginLeft = _marginMetaProps[META_PROP_LEFT];
+  }
+}
+
 - (void)updateInsets
 {
   if (_localData == nil) {
@@ -101,7 +115,6 @@ typedef NS_ENUM(unsigned int, meta_prop_t) {
     super.paddingLeft = (YGValue){insetLeft + left, YGUnitPoint};
   } else if (mode == RNCSafeAreaViewModeMargin) {
     [self extractEdges:_marginMetaProps top:&top right:&right bottom:&bottom left:&left];
-    NSLog(@"MARGIN %f %f", insetLeft, left);
     super.marginTop = (YGValue){insetTop + top, YGUnitPoint};
     super.marginRight = (YGValue){insetRight + right, YGUnitPoint};
     super.marginBottom = (YGValue){insetBottom + bottom, YGUnitPoint};
@@ -115,8 +128,10 @@ typedef NS_ENUM(unsigned int, meta_prop_t) {
     [localData isKindOfClass:[RNCSafeAreaViewLocalData class]],
     @"Local data object for `RCTRNCSafeAreaShadowView` must be `RCTRNCSafeAreaViewLocalData` instance."
   );
-    
-  // FIXME - Unset padding*/margin* props if mode changes
+
+  if (_localData != nil && _localData.mode != localData.mode) {
+    [self resetInsets:_localData.mode];
+  }
   
   _localData = localData;
   [self updateInsets];
