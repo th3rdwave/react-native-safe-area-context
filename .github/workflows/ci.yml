@@ -7,72 +7,68 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Use Node.js 12.x
+      - name: Use Node.js 14.x
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
-      - name: Install yarn
-        run: npm install -g yarn
-      - name: Get yarn cache
+          node-version: 14.x
+      - name: Restore yarn workspaces
         id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - uses: actions/cache@v1
+        uses: actions/cache@master
         with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
       - name: Install dependencies
-        run: yarn install
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn install --no-progress --non-interactive
       - name: Run tests
         run: yarn test
   android-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Use Node.js 12.x
+      - name: Use Node.js 14.x
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
-      - name: Install yarn
-        run: npm install -g yarn
-      - name: Get yarn cache
+          node-version: 14.x
+      - name: Restore yarn workspaces
         id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - uses: actions/cache@v1
+        uses: actions/cache@master
         with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
       - name: Install dependencies
-        run: yarn install
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn install --no-progress --non-interactive
       - name: Build android example app
         run: cd example/android && ./gradlew assembleDebug
   ios-build:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Use Node.js 12.x
+      - name: Use Node.js 14.x
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 14.x
       - uses: actions/setup-ruby@v1
         with:
           ruby-version: '2.x'
       - name: Install cocoapods
         run: gem install cocoapods
-      - name: Install yarn
-        run: npm install -g yarn
-      - name: Get yarn cache
+      - name: Restore yarn workspaces
         id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - uses: actions/cache@v1
+        uses: actions/cache@master
         with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+      - name: Install dependencies
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn install --no-progress --non-interactive
       - name: Install dependencies
         run: yarn install
       - name: Install pods
