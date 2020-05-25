@@ -4,12 +4,14 @@
 #import <React/RCTUIManager.h>
 
 #import "RNCSafeAreaViewLocalData.h"
+#import "RNCSafeAreaViewMode.h"
 #import "RNCSafeAreaViewEdges.h"
 #import "RCTView+SafeAreaCompat.h"
 
 @implementation RNCSafeAreaView {
   __weak RCTBridge *_bridge;
   UIEdgeInsets _currentSafeAreaInsets;
+  RNCSafeAreaViewMode _mode;
   RNCSafeAreaViewEdges _edges;
 }
 
@@ -19,6 +21,7 @@
     _bridge = bridge;
     // Defaults
     _emulateUnlessSupported = YES;
+    _mode = RNCSafeAreaViewModePadding;
     _edges = RNCSafeAreaViewEdgesAll;
   }
 
@@ -39,18 +42,14 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
 
   return [NSString stringWithFormat:@"%@; RNCSafeAreaInsets = %@; appliedRNCSafeAreaInsets = %@>",
           superDescription,
-          NSStringFromUIEdgeInsets([self realOrEmulateSafeAreaInsets:self.emulateUnlessSupported]),
+          NSStringFromUIEdgeInsets([self parentOrEmulateSafeAreaInsets:self.emulateUnlessSupported]),
           NSStringFromUIEdgeInsets(_currentSafeAreaInsets)];
 }
 
 - (void)safeAreaInsetsDidChange
 {
+  [super safeAreaInsetsDidChange];
   [self invalidateSafeAreaInsets];
-}
-
-- (void)invalidateSafeAreaInsets
-{
-  [self setSafeAreaInsets:[self realOrEmulateSafeAreaInsets:self.emulateUnlessSupported]];
 }
 
 - (void)layoutSubviews
@@ -62,21 +61,24 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
   }
 }
 
-- (void)updateLocalData
+- (void)invalidateSafeAreaInsets
 {
-  RNCSafeAreaViewLocalData *localData = [[RNCSafeAreaViewLocalData alloc] initWithInsets:_currentSafeAreaInsets
-                                                                                   edges:_edges];
-  [_bridge.uiManager setLocalData:localData forView:self];
-}
+  UIEdgeInsets safeAreaInsets = [self parentOrEmulateSafeAreaInsets:self.emulateUnlessSupported];
 
-- (void)setSafeAreaInsets:(UIEdgeInsets)safeAreaInsets
-{
   if (UIEdgeInsetsEqualToEdgeInsetsWithThreshold(safeAreaInsets, _currentSafeAreaInsets, 1.0 / RCTScreenScale())) {
     return;
   }
 
   _currentSafeAreaInsets = safeAreaInsets;
   [self updateLocalData];
+}
+
+- (void)updateLocalData
+{
+  RNCSafeAreaViewLocalData *localData = [[RNCSafeAreaViewLocalData alloc] initWithInsets:_currentSafeAreaInsets
+                                                                                    mode:_mode
+                                                                                   edges:_edges];
+  [_bridge.uiManager setLocalData:localData forView:self];
 }
 
 - (void)setEmulateUnlessSupported:(BOOL)emulateUnlessSupported
@@ -94,9 +96,13 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
   [self invalidateSafeAreaInsets];
 }
 
+- (void)setMode:(RNCSafeAreaViewMode)mode {
+    _mode = mode;
+    [self updateLocalData];
+}
+
 - (void)setEdges:(RNCSafeAreaViewEdges)edges {
   _edges = edges;
-  
   [self updateLocalData];
 }
 
