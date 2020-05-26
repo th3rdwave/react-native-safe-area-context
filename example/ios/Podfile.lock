@@ -185,7 +185,7 @@ PODS:
     - React-cxxreact (= 0.63.0-rc.0)
     - React-jsi (= 0.63.0-rc.0)
   - React-jsinspector (0.63.0-rc.0)
-  - react-native-safe-area-context (1.0.0):
+  - react-native-safe-area-context (2.0.2):
     - React
   - React-RCTActionSheet (0.63.0-rc.0):
     - React-Core/RCTActionSheetHeaders (= 0.63.0-rc.0)
@@ -382,7 +382,7 @@ SPEC CHECKSUMS:
   React-jsi: 87b6b899f6c81c29487d0416969c261b73f46a2d
   React-jsiexecutor: 0ca3a8a0a65f9eb9aec3273c4cf44f6d31277937
   React-jsinspector: 09b8cb3fefdf81b2889a13cc1a645e905e514ddb
-  react-native-safe-area-context: a346c75f2288147527365ce27b59ca6d38c27805
+  react-native-safe-area-context: 3cecc12a70698e46b5357f04c7cc8826ef7422e1
   React-RCTActionSheet: b6d2445d7317359997ed0c650421d0a0b9dd58cb
   React-RCTAnimation: 2f48bd93a4f5317cd5ab7189c6b5e469b60fb7bf
   React-RCTBlob: b8da9c90135ee183f3ad35b521313390370b5ed2
