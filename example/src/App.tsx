@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
-import { DevSettings, View, Text } from 'react-native';
+import { DevSettings, View, Text, StatusBar } from 'react-native';
 import { enableScreens } from 'react-native-screens';
 import AsyncStorage from '@react-native-community/async-storage';
 import HooksExample from './HooksExample';
@@ -18,6 +18,7 @@ export default function App() {
   const [currentExample, setCurrentExample] = React.useState<string | null>(
     null,
   );
+  const [statusBarHidden, setStatusBarHidden] = React.useState(false);
 
   React.useEffect(() => {
     async function loadCurrentExample() {
@@ -37,6 +38,9 @@ export default function App() {
   }, [currentExample]);
 
   React.useEffect(() => {
+    DevSettings.addMenuItem('Toggle Status Bar', () => {
+      setStatusBarHidden((s) => !s);
+    });
     DevSettings.addMenuItem('Show SafeAreaView Example', () => {
       setCurrentExample('safe-area-view');
     });
@@ -57,21 +61,29 @@ export default function App() {
     });
   }, []);
 
+  let content: React.ReactElement<unknown>;
   switch (currentExample) {
     case 'safe-area-view':
-      return <SafeAreaViewExample />;
+      content = <SafeAreaViewExample />;
+      break;
     case 'hooks':
-      return <HooksExample />;
+      content = <HooksExample />;
+      break;
     case 'react-navigation-4':
-      return <ReactNavigation4Example />;
+      content = <ReactNavigation4Example />;
+      break;
     case 'react-navigation-5':
-      return <ReactNavigation5Example />;
+      content = <ReactNavigation5Example />;
+      break;
     case 'native-stack':
-      return <NativeStackExample />;
+      content = <NativeStackExample />;
+
+      break;
     case 'react-native-safe-area-view':
-      return <ReactNativeSafeAreaView />;
+      content = <ReactNativeSafeAreaView />;
+      break;
     default:
-      return (
+      content = (
         <View
           style={{
             flex: 1,
@@ -85,5 +97,13 @@ export default function App() {
           </Text>
         </View>
       );
+      break;
   }
+
+  return (
+    <>
+      <StatusBar hidden={statusBarHidden} />
+      {content}
+    </>
+  );
 }

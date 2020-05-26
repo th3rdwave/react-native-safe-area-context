@@ -1,14 +1,14 @@
 import { UIManager } from 'react-native';
 import { Metrics } from './SafeArea.types';
 
-const RNCSafeAreaViewConfig = UIManager.getViewManagerConfig(
-  'RNCSafeAreaView',
+const RNCSafeAreaProviderConfig = UIManager.getViewManagerConfig(
+  'RNCSafeAreaProvider',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ) as any;
 
-export const initialWindowMetrics = (RNCSafeAreaViewConfig != null &&
-RNCSafeAreaViewConfig.Constants != null
-  ? RNCSafeAreaViewConfig.Constants.initialWindowMetrics
+export const initialWindowMetrics = (RNCSafeAreaProviderConfig != null &&
+RNCSafeAreaProviderConfig.Constants != null
+  ? RNCSafeAreaProviderConfig.Constants.initialWindowMetrics
   : null) as Metrics | null;
 
 /**

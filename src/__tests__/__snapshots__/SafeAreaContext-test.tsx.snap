@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SafeAreaProvider does not render child until inset values are received 1`] = `
+exports[`SafeAreaContext does not render child until inset values are received 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
@@ -11,7 +11,7 @@ exports[`SafeAreaProvider does not render child until inset values are received 
 />
 `;
 
-exports[`SafeAreaProvider renders 1`] = `
+exports[`SafeAreaContext renders 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
@@ -22,7 +22,7 @@ exports[`SafeAreaProvider renders 1`] = `
 />
 `;
 
-exports[`SafeAreaProvider renders child when inset values are received 1`] = `
+exports[`SafeAreaContext renders child when inset values are received 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
@@ -33,7 +33,7 @@ exports[`SafeAreaProvider renders child when inset values are received 1`] = `
 />
 `;
 
-exports[`SafeAreaProvider renders child when inset values are received 2`] = `
+exports[`SafeAreaContext renders child when inset values are received 2`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
@@ -59,7 +59,7 @@ exports[`SafeAreaProvider renders child when inset values are received 2`] = `
 </RNCSafeAreaProvider>
 `;
 
-exports[`SafeAreaProvider supports setting initial insets 1`] = `
+exports[`SafeAreaContext supports setting initial insets 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
@@ -85,7 +85,7 @@ exports[`SafeAreaProvider supports setting initial insets 1`] = `
 </RNCSafeAreaProvider>
 `;
 
-exports[`SafeAreaProvider uses inner insets 1`] = `
+exports[`SafeAreaContext uses inner insets 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
@@ -120,7 +120,7 @@ exports[`SafeAreaProvider uses inner insets 1`] = `
 </RNCSafeAreaProvider>
 `;
 
-exports[`SafeAreaProvider uses parent insets when available 1`] = `
+exports[`SafeAreaContext uses parent insets when available 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={

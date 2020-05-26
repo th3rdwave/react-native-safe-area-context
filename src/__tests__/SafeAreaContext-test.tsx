@@ -37,7 +37,7 @@ const PrintInsetsTestView = () => {
   );
 };
 
-describe('SafeAreaProvider', () => {
+describe('SafeAreaContext', () => {
   it('renders', () => {
     const component = ReactTestRenderer.create(<SafeAreaProvider />);
     expect(component).toMatchSnapshot();

@@ -1,6 +1,6 @@
 {
   "name": "react-native-safe-area-context",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A flexible way to handle safe area, also works on Android and web.",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
@@ -8,11 +8,12 @@
   "types": "lib/typescript/src/index.d.ts",
   "sideEffects": false,
   "files": [
-    "/src",
-    "/lib",
-    "/android",
-    "/ios",
-    "/*.podspec"
+    "src",
+    "lib",
+    "android",
+    "ios",
+    "*.podspec",
+    "!**/__tests__"
   ],
   "author": "Janic Duplessis <janicduplessis@gmail.com>",
   "contributors": [
