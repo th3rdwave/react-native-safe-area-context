@@ -2,7 +2,7 @@ import { UIManager } from 'react-native';
 import { Metrics } from './SafeArea.types';
 
 const RNCSafeAreaViewConfig = UIManager.getViewManagerConfig(
-  'RNCSafeAreaView',
+  'RNCSafeAreaProvider',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ) as any;
 
