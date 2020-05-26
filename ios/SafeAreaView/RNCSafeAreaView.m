@@ -42,7 +42,7 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
 
   return [NSString stringWithFormat:@"%@; RNCSafeAreaInsets = %@; appliedRNCSafeAreaInsets = %@>",
           superDescription,
-          NSStringFromUIEdgeInsets([self parentOrEmulateSafeAreaInsets:self.emulateUnlessSupported]),
+          NSStringFromUIEdgeInsets([self viewControllerOrEmulateSafeAreaInsets:self.emulateUnlessSupported]),
           NSStringFromUIEdgeInsets(_currentSafeAreaInsets)];
 }
 
@@ -63,7 +63,7 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
 
 - (void)invalidateSafeAreaInsets
 {
-  UIEdgeInsets safeAreaInsets = [self parentOrEmulateSafeAreaInsets:self.emulateUnlessSupported];
+  UIEdgeInsets safeAreaInsets = [self viewControllerOrEmulateSafeAreaInsets:self.emulateUnlessSupported];
 
   if (UIEdgeInsetsEqualToEdgeInsetsWithThreshold(safeAreaInsets, _currentSafeAreaInsets, 1.0 / RCTScreenScale())) {
     return;

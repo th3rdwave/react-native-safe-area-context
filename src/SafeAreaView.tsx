@@ -22,6 +22,7 @@ const edgeBitmaskMap: Record<Edge, number> = {
 export function SafeAreaView({
   style,
   emulateUnlessSupported: _emulateUnlessSupported,
+  mode,
   edges,
   ...rest
 }: NativeSafeAreaViewProps) {
@@ -33,25 +34,53 @@ export function SafeAreaView({
       : ALL;
 
   const appliedStyle = React.useMemo(() => {
-    const {
-      padding = 0,
-      paddingVertical = padding,
-      paddingHorizontal = padding,
-      paddingTop = paddingVertical,
-      paddingRight = paddingHorizontal,
-      paddingBottom = paddingVertical,
-      paddingLeft = paddingHorizontal,
-    } = StyleSheet.flatten(style) as Record<string, number>;
+    const insetTop = edgeBitmask & TOP ? insets.top : 0;
+    const insetRight = edgeBitmask & RIGHT ? insets.right : 0;
+    const insetBottom = edgeBitmask & BOTTOM ? insets.bottom : 0;
+    const insetLeft = edgeBitmask & LEFT ? insets.left : 0;
 
-    const paddingStyle = {
-      paddingTop: paddingTop + (edgeBitmask & TOP ? insets.top : 0),
-      paddingRight: paddingRight + (edgeBitmask & RIGHT ? insets.right : 0),
-      paddingBottom: paddingBottom + (edgeBitmask & BOTTOM ? insets.bottom : 0),
-      paddingLeft: paddingLeft + (edgeBitmask & LEFT ? insets.left : 0),
-    };
+    const flatStyle = StyleSheet.flatten(style) as Record<string, number>;
 
-    return [style, paddingStyle];
-  }, [style, insets, edgeBitmask]);
+    if (mode === 'margin') {
+      const {
+        margin = 0,
+        marginVertical = margin,
+        marginHorizontal = margin,
+        marginTop = marginVertical,
+        marginRight = marginHorizontal,
+        marginBottom = marginVertical,
+        marginLeft = marginHorizontal,
+      } = flatStyle;
+
+      const marginStyle = {
+        marginTop: marginTop + insetTop,
+        marginRight: marginRight + insetRight,
+        marginBottom: marginBottom + insetBottom,
+        marginLeft: marginLeft + insetLeft,
+      };
+
+      return [style, marginStyle];
+    } else {
+      const {
+        padding = 0,
+        paddingVertical = padding,
+        paddingHorizontal = padding,
+        paddingTop = paddingVertical,
+        paddingRight = paddingHorizontal,
+        paddingBottom = paddingVertical,
+        paddingLeft = paddingHorizontal,
+      } = flatStyle;
+
+      const paddingStyle = {
+        paddingTop: paddingTop + insetTop,
+        paddingRight: paddingRight + insetRight,
+        paddingBottom: paddingBottom + insetBottom,
+        paddingLeft: paddingLeft + insetLeft,
+      };
+
+      return [style, paddingStyle];
+    }
+  }, [style, insets, mode, edgeBitmask]);
 
   return <View style={appliedStyle} {...rest} />;
 }

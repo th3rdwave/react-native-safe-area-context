@@ -3,6 +3,7 @@ package com.th3rdwave.safeareacontext;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
@@ -16,6 +17,7 @@ import androidx.annotation.Nullable;
 
 @SuppressLint("ViewConstructor")
 public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnGlobalLayoutListener {
+  private SafeAreaViewMode mMode = SafeAreaViewMode.PADDING;
   private @Nullable EdgeInsets mInsets;
   private @Nullable EnumSet<SafeAreaViewEdges> mEdges;
 
@@ -40,7 +42,7 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnG
               ? mEdges
               : EnumSet.allOf(SafeAreaViewEdges.class);
 
-      SafeAreaViewLocalData localData = new SafeAreaViewLocalData(mInsets, edges);
+      SafeAreaViewLocalData localData = new SafeAreaViewLocalData(mInsets, mMode, edges);
 
       ReactContext reactContext = getReactContext(this);
       UIManagerModule uiManager = reactContext.getNativeModule(UIManagerModule.class);
@@ -50,13 +52,18 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnG
     }
   }
 
+  public void setMode(SafeAreaViewMode mode) {
+    mMode = mode;
+    updateInsets();
+  }
+
   public void setEdges(EnumSet<SafeAreaViewEdges> edges) {
     mEdges = edges;
     updateInsets();
   }
 
   private void maybeUpdateInsets() {
-    EdgeInsets edgeInsets = SafeAreaUtils.getSafeAreaInsets(getRootView(), this);
+    EdgeInsets edgeInsets = SafeAreaUtils.getSafeAreaInsets(getRootView());
     if (edgeInsets != null && (mInsets == null || !mInsets.equalsToEdgeInsets(edgeInsets))) {
       mInsets = edgeInsets;
       updateInsets();

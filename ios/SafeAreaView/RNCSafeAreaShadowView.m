@@ -21,6 +21,7 @@ typedef NS_ENUM(unsigned int, meta_prop_t) {
 
 @implementation RNCSafeAreaShadowView {
   RNCSafeAreaViewLocalData *_localData;
+  bool _needsUpdate;
   YGValue _paddingMetaProps[META_PROP_COUNT];
   YGValue _marginMetaProps[META_PROP_COUNT];
 }
@@ -29,6 +30,7 @@ typedef NS_ENUM(unsigned int, meta_prop_t) {
 {
   self = [super init];
   if (self) {
+    _needsUpdate = false;
     for (unsigned int ii = 0; ii < META_PROP_COUNT; ii++) {
       _paddingMetaProps[ii] = YGValueUndefined;
       _marginMetaProps[ii] = YGValueUndefined;
@@ -73,7 +75,7 @@ typedef NS_ENUM(unsigned int, meta_prop_t) {
   }
 }
 
-- (void)resetInsets:(RNCSafeAreaViewMode)mode {
+- (void)resetInsetsForMode:(RNCSafeAreaViewMode)mode {
   if (mode == RNCSafeAreaViewModePadding) {
     super.paddingTop = _paddingMetaProps[META_PROP_TOP];
     super.paddingRight = _paddingMetaProps[META_PROP_RIGHT];
@@ -122,6 +124,15 @@ typedef NS_ENUM(unsigned int, meta_prop_t) {
   }
 }
 
+- (void)didSetProps:(NSArray<NSString *> *)changedProps
+{
+  if (_needsUpdate) {
+    _needsUpdate = false;
+    [self updateInsets];
+  }
+  [super didSetProps:changedProps];
+}
+
 - (void)setLocalData:(RNCSafeAreaViewLocalData *)localData
 {
   RCTAssert(
@@ -130,16 +141,17 @@ typedef NS_ENUM(unsigned int, meta_prop_t) {
   );
 
   if (_localData != nil && _localData.mode != localData.mode) {
-    [self resetInsets:_localData.mode];
+    [self resetInsetsForMode:_localData.mode];
   }
   
   _localData = localData;
+  _needsUpdate = false;
   [self updateInsets];
   
   if (_localData.mode == RNCSafeAreaViewModePadding) {
-    [self didSetProps:@[@"paddingTop", @"paddingRight", @"paddingBottom", @"paddingLeft"]];
+    [super didSetProps:@[@"paddingTop", @"paddingRight", @"paddingBottom", @"paddingLeft"]];
   } else {
-    [self didSetProps:@[@"marginTop", @"marginRight", @"marginBottom", @"marginLeft"]];
+    [super didSetProps:@[@"marginTop", @"marginRight", @"marginBottom", @"marginLeft"]];
   }
 }
 
@@ -147,14 +159,14 @@ typedef NS_ENUM(unsigned int, meta_prop_t) {
 - (void)setPadding##edge:(YGValue)value                 \
 {                                                       \
   [super setPadding##edge:value];                       \
+  _needsUpdate = true;                                  \
   _paddingMetaProps[META_PROP_##metaProp] = value;      \
-  [self updateInsets];                                  \
 }                                                       \
 - (void)setMargin##edge:(YGValue)value                  \
 {                                                       \
   [super setMargin##edge:value];                        \
+  _needsUpdate = true;                                  \
   _marginMetaProps[META_PROP_##metaProp] = value;       \
-  [self updateInsets];                                  \
 }
 
 SHADOW_VIEW_MARGIN_PADDING_PROP(, ALL);

@@ -36,7 +36,7 @@ import androidx.annotation.Nullable;
     }
   }
 
-  static @Nullable EdgeInsets getSafeAreaInsets(View rootView, View view) {
+  static @Nullable EdgeInsets getSafeAreaInsets(View rootView) {
     EdgeInsets windowInsets = getRootWindowInsetsCompat(rootView);
     if (windowInsets == null) {
       return null;
@@ -45,13 +45,11 @@ import androidx.annotation.Nullable;
     // Calculate the part of the view that overlaps with window insets.
     float windowWidth = rootView.getWidth();
     float windowHeight = rootView.getHeight();
-    Rect visibleRect = new Rect();
-    view.getGlobalVisibleRect(visibleRect);
 
-    windowInsets.top = Math.max(windowInsets.top - visibleRect.top, 0);
-    windowInsets.left = Math.max(windowInsets.left - visibleRect.left, 0);
-    windowInsets.bottom = Math.max(visibleRect.top + view.getHeight() + windowInsets.bottom - windowHeight, 0);
-    windowInsets.right = Math.max(visibleRect.left + view.getWidth() + windowInsets.right - windowWidth, 0);
+    windowInsets.top = Math.max(windowInsets.top, 0);
+    windowInsets.left = Math.max(windowInsets.left, 0);
+    windowInsets.bottom = Math.max(rootView.getHeight() + windowInsets.bottom - windowHeight, 0);
+    windowInsets.right = Math.max(rootView.getWidth() + windowInsets.right - windowWidth, 0);
     return windowInsets;
   }
 

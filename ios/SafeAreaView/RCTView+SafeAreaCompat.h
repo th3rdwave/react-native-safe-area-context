@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface RCTView(SafeAreaCompat)
 
 - (BOOL)nativeSafeAreaSupport;
-- (UIEdgeInsets)parentOrEmulateSafeAreaInsets:(BOOL)emulate;
+- (UIEdgeInsets)viewControllerOrEmulateSafeAreaInsets:(BOOL)emulate;
 
 @end
 
