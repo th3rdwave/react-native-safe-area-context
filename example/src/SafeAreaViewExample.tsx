@@ -50,7 +50,10 @@ export default function ReactNativeSafeAreaView() {
 
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle={top ? 'light-content' : 'dark-content'} />
+      <StatusBar
+        barStyle={top ? 'light-content' : 'dark-content'}
+        backgroundColor="transparent"
+      />
       <View style={styles.background}>
         <SafeAreaView
           style={[
