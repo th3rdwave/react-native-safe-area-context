@@ -18,7 +18,7 @@ or npm:
 npm install --save react-native-safe-area-context
 ```
 
-You then need to link the native parts of the library for the platforms you are using. 
+You then need to link the native parts of the library for the platforms you are using.
 
 #### Linking in React Native >= 0.60
 
@@ -95,9 +95,11 @@ protected List<ReactPackage> getPackages() {
 
 ## Usage
 
-`SafeAreaView` is a regular `View` component with the safe area edges applied as padding.
+`SafeAreaView` is a regular `View` component with the safe area edges applied as padding - or margins if you prefer.
 
-If you set your own padding on the view, it will be added to the padding from the safe area.
+If you set your own padding or margin on the view, it will be added to the padding or margin from the safe area.
+
+For the moment, you can't put paddings or margins as percent values - regardless of where your safe areas are being applied.
 
 **If you are targeting web, you must set up `SafeAreaProvider` in as described in the hooks section**. You do not need to for native platforms.
 
@@ -122,6 +124,12 @@ All props are optional.
 `true` (default) or `false`
 
 On iOS 10, emulate the safe area using the status bar height and home indicator sizes.
+
+#### `mode`
+
+`padding` (default) or `margin`
+
+Apply the safe area to either the padding or the margin.
 
 #### `edges`
 

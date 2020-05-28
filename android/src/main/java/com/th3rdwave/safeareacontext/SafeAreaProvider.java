@@ -25,7 +25,7 @@ public class SafeAreaProvider extends ReactViewGroup implements ViewTreeObserver
   }
 
   private void maybeUpdateInsets() {
-    EdgeInsets edgeInsets = SafeAreaUtils.getSafeAreaInsets(getRootView(), this);
+    EdgeInsets edgeInsets = SafeAreaUtils.getSafeAreaInsets(getRootView());
     Rect frame = SafeAreaUtils.getFrame((ViewGroup) getRootView(), this);
     if (edgeInsets != null && frame != null &&
         (mLastInsets == null ||

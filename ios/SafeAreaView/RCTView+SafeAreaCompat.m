@@ -9,12 +9,12 @@
   return [self respondsToSelector:@selector(safeAreaInsets)];
 }
 
-- (UIEdgeInsets)realOrEmulateSafeAreaInsets:(BOOL)emulate
+- (UIEdgeInsets)viewControllerOrEmulateSafeAreaInsets:(BOOL)emulate
 {
   #if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000 /* __IPHONE_11_0 */
   if (self.nativeSafeAreaSupport) {
     if (@available(iOS 11.0, *)) {
-       return self.safeAreaInsets;
+      return self.reactViewController.view.safeAreaInsets;
     }
   }
   #endif

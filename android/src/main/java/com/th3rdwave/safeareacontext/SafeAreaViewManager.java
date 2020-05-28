@@ -40,6 +40,15 @@ public class SafeAreaViewManager extends ViewGroupManager<SafeAreaView> {
     return SafeAreaViewShadowNode.class;
   }
 
+  @ReactProp(name = "mode")
+  public void setMode(SafeAreaView view, String mode) {
+    if ("padding".equals(mode)) {
+      view.setMode(SafeAreaViewMode.PADDING);
+    } else if ("margin".equals(mode)) {
+      view.setMode(SafeAreaViewMode.MARGIN);
+    }
+  }
+
   @ReactProp(name = "edges")
   public void setEdges(SafeAreaView view, @Nullable ReadableArray propList) {
     EnumSet<SafeAreaViewEdges> edges = EnumSet.noneOf(SafeAreaViewEdges.class);

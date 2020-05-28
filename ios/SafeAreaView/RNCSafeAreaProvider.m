@@ -24,7 +24,7 @@
     return;
   }
 
-  UIEdgeInsets safeAreaInsets = [self realOrEmulateSafeAreaInsets:true];
+  UIEdgeInsets safeAreaInsets = [self viewControllerOrEmulateSafeAreaInsets:true];
   CGRect frame = [self convertRect:self.bounds toView:nil];
 
   if (
