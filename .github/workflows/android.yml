@@ -1,0 +1,38 @@
+name: Android build
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '.github/workflows/android.yml'
+      - 'android/**'
+      - 'example/android/**'
+  pull_request:
+    paths:
+      - '.github/workflows/android.yml'
+      - 'android/**'
+      - 'example/android/**'
+
+jobs:
+  android-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: Restore yarn workspaces
+        id: yarn-cache
+        uses: actions/cache@master
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+      - name: Install dependencies
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn install --no-progress --non-interactive
+      - name: Build android example app
+        run: cd example/android && ./gradlew assembleDebug
