@@ -3,13 +3,13 @@ package com.th3rdwave.safeareacontext;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.uimanager.UIManagerModule;
-import com.facebook.react.util.RNLog;
 import com.facebook.react.views.view.ReactViewGroup;
 
 import java.util.EnumSet;
@@ -88,7 +88,7 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnP
       }
       // Timed out waiting.
       if (waitTime >= MAX_WAIT_TIME_NANO) {
-        RNLog.w(getReactContext(this), "SafeAreaView: Timed out waiting for layout.");
+        Log.w("SafeAreaView", "Timed out waiting for layout.");
       }
     }
   }
