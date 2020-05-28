@@ -9,6 +9,7 @@ import android.view.ViewTreeObserver;
 
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.uimanager.UIManagerModule;
+import com.facebook.react.util.RNLog;
 import com.facebook.react.views.view.ReactViewGroup;
 
 import java.util.EnumSet;
@@ -55,14 +56,18 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnP
     }
   }
 
+  // 1 second
+  private static final long MAX_WAIT_TIME_NANO = 5000000000L;
+
   private void waitForReactLayout() {
     // Block the main thread until the native module thread is finished with
     // its current tasks. To do this we use the done boolean as a lock and enqueue
     // a task on the native modules thread. When the task runs we can unblock the
     // main thread. This should be safe as long as the native modules thread
     // does not block waiting on the main thread.
-    // TODO: Investigate perf impact.
     final AtomicBoolean done = new AtomicBoolean(false);
+    final long startTime = System.nanoTime();
+    long waitTime = 0L;
     getReactContext(this).runOnNativeModulesQueueThread(new Runnable() {
       @Override
       public void run() {
@@ -73,12 +78,17 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnP
       }
     });
     synchronized (done) {
-      while (!done.get()) {
+      while (!done.get() && waitTime < MAX_WAIT_TIME_NANO) {
         try {
-          done.wait();
+          done.wait(MAX_WAIT_TIME_NANO / 1000000L);
         } catch (InterruptedException e) {
           e.printStackTrace();
         }
+        waitTime = System.nanoTime() - startTime;
+      }
+      // Timed out waiting.
+      if (waitTime >= MAX_WAIT_TIME_NANO) {
+        RNLog.w(getReactContext(this), "SafeAreaView: Timed out waiting for layout.");
       }
     }
   }
