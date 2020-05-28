@@ -111,11 +111,7 @@ export function useSafeArea(): EdgeInsets {
 /**
  * @deprecated
  */
-export function SafeAreaConsumer(
-  props: React.ComponentProps<typeof SafeAreaInsetsContext.Consumer>,
-) {
-  return <SafeAreaInsetsContext.Consumer {...props} />;
-}
+export const SafeAreaConsumer = SafeAreaInsetsContext.Consumer;
 
 /**
  * @deprecated
