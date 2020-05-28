@@ -56,7 +56,7 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnP
     }
   }
 
-  // 1 second
+  // 5 seconds
   private static final long MAX_WAIT_TIME_NANO = 5000000000L;
 
   private void waitForReactLayout() {
