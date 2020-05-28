@@ -21,7 +21,7 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnP
   private SafeAreaViewMode mMode = SafeAreaViewMode.PADDING;
   private @Nullable EdgeInsets mInsets;
   private @Nullable EnumSet<SafeAreaViewEdges> mEdges;
-  private @Nullable View mRootView;
+  private @Nullable View mProviderView;
 
   public SafeAreaView(Context context) {
     super(context);
@@ -94,10 +94,10 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnP
   }
 
   private boolean maybeUpdateInsets() {
-    if (mRootView == null) {
+    if (mProviderView == null) {
       return false;
     }
-    EdgeInsets edgeInsets = SafeAreaUtils.getSafeAreaInsets(mRootView);
+    EdgeInsets edgeInsets = SafeAreaUtils.getSafeAreaInsets(mProviderView);
     if (edgeInsets != null && (mInsets == null || !mInsets.equalsToEdgeInsets(edgeInsets))) {
       mInsets = edgeInsets;
       updateInsets();
@@ -121,9 +121,9 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnP
   protected void onAttachedToWindow() {
     super.onAttachedToWindow();
 
-    mRootView = findProvider();
+    mProviderView = findProvider();
 
-    mRootView.getViewTreeObserver().addOnPreDrawListener(this);
+    mProviderView.getViewTreeObserver().addOnPreDrawListener(this);
     maybeUpdateInsets();
   }
 
@@ -131,10 +131,10 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnP
   protected void onDetachedFromWindow() {
     super.onDetachedFromWindow();
 
-    if (mRootView != null) {
-      mRootView.getViewTreeObserver().removeOnPreDrawListener(this);
+    if (mProviderView != null) {
+      mProviderView.getViewTreeObserver().removeOnPreDrawListener(this);
     }
-    mRootView = null;
+    mProviderView = null;
   }
 
   @Override
