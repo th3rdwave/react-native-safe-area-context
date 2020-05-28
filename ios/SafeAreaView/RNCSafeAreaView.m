@@ -7,12 +7,14 @@
 #import "RNCSafeAreaViewMode.h"
 #import "RNCSafeAreaViewEdges.h"
 #import "RCTView+SafeAreaCompat.h"
+#import "RNCSafeAreaProvider.h"
 
 @implementation RNCSafeAreaView {
   __weak RCTBridge *_bridge;
   UIEdgeInsets _currentSafeAreaInsets;
   RNCSafeAreaViewMode _mode;
   RNCSafeAreaViewEdges _edges;
+  __weak UIView * _Nullable _providerView;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge
@@ -61,9 +63,18 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
   }
 }
 
+- (void)didMoveToWindow
+{
+  _providerView = [self findNearestProvider];
+  [self invalidateSafeAreaInsets];
+}
+
 - (void)invalidateSafeAreaInsets
 {
-  UIEdgeInsets safeAreaInsets = [self.reactViewController.view safeAreaInsetsOrEmulate:self.emulateUnlessSupported];
+  if (_providerView == nil) {
+    return;
+  }
+  UIEdgeInsets safeAreaInsets = [_providerView safeAreaInsetsOrEmulate:self.emulateUnlessSupported];
 
   if (UIEdgeInsetsEqualToEdgeInsetsWithThreshold(safeAreaInsets, _currentSafeAreaInsets, 1.0 / RCTScreenScale())) {
     return;
@@ -71,6 +82,18 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
 
   _currentSafeAreaInsets = safeAreaInsets;
   [self updateLocalData];
+}
+
+- (UIView *)findNearestProvider
+{
+  UIView *current = self.reactSuperview;
+  while (current != nil) {
+    if ([current isKindOfClass:RNCSafeAreaProvider.class] ) {
+      return current;
+    }
+    current = current.reactSuperview;
+  }
+  return self;
 }
 
 - (void)updateLocalData
@@ -96,12 +119,14 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
   [self invalidateSafeAreaInsets];
 }
 
-- (void)setMode:(RNCSafeAreaViewMode)mode {
+- (void)setMode:(RNCSafeAreaViewMode)mode
+{
     _mode = mode;
     [self updateLocalData];
 }
 
-- (void)setEdges:(RNCSafeAreaViewEdges)edges {
+- (void)setEdges:(RNCSafeAreaViewEdges)edges
+{
   _edges = edges;
   [self updateLocalData];
 }
