@@ -2,6 +2,7 @@ package com.th3rdwave.safeareacontext;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
@@ -11,7 +12,7 @@ import com.facebook.react.views.view.ReactViewGroup;
 import androidx.annotation.Nullable;
 
 @SuppressLint("ViewConstructor")
-public class SafeAreaProvider extends ReactViewGroup implements ViewTreeObserver.OnGlobalLayoutListener {
+public class SafeAreaProvider extends ReactViewGroup implements View.OnLayoutChangeListener {
   public interface OnInsetsChangeListener {
     void onInsetsChange(SafeAreaProvider view, EdgeInsets insets, Rect frame);
   }
@@ -19,13 +20,17 @@ public class SafeAreaProvider extends ReactViewGroup implements ViewTreeObserver
   private @Nullable OnInsetsChangeListener mInsetsChangeListener;
   private @Nullable EdgeInsets mLastInsets;
   private @Nullable Rect mLastFrame;
+  private @Nullable View mRootView;
 
   public SafeAreaProvider(Context context) {
     super(context);
   }
 
   private void maybeUpdateInsets() {
-    EdgeInsets edgeInsets = SafeAreaUtils.getSafeAreaInsets(getRootView());
+    if (mRootView == null) {
+      return;
+    }
+    EdgeInsets edgeInsets = SafeAreaUtils.getSafeAreaInsets(mRootView);
     Rect frame = SafeAreaUtils.getFrame((ViewGroup) getRootView(), this);
     if (edgeInsets != null && frame != null &&
         (mLastInsets == null ||
@@ -42,7 +47,9 @@ public class SafeAreaProvider extends ReactViewGroup implements ViewTreeObserver
   protected void onAttachedToWindow() {
     super.onAttachedToWindow();
 
-    getViewTreeObserver().addOnGlobalLayoutListener(this);
+    mRootView = SafeAreaUtils.getFragmentRootView(this);
+
+    mRootView.addOnLayoutChangeListener(this);
     maybeUpdateInsets();
   }
 
@@ -50,11 +57,14 @@ public class SafeAreaProvider extends ReactViewGroup implements ViewTreeObserver
   protected void onDetachedFromWindow() {
     super.onDetachedFromWindow();
 
-    getViewTreeObserver().removeOnGlobalLayoutListener(this);
+    if (mRootView != null) {
+      mRootView.removeOnLayoutChangeListener(this);
+    }
+    mRootView = null;
   }
 
   @Override
-  public void onGlobalLayout() {
+  public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
     maybeUpdateInsets();
   }
 

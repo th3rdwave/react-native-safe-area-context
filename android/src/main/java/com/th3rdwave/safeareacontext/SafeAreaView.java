@@ -15,10 +15,11 @@ import java.util.EnumSet;
 import androidx.annotation.Nullable;
 
 @SuppressLint("ViewConstructor")
-public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnGlobalLayoutListener {
+public class SafeAreaView extends ReactViewGroup implements View.OnLayoutChangeListener {
   private SafeAreaViewMode mMode = SafeAreaViewMode.PADDING;
   private @Nullable EdgeInsets mInsets;
   private @Nullable EnumSet<SafeAreaViewEdges> mEdges;
+  private @Nullable View mRootView;
 
   public SafeAreaView(Context context) {
     super(context);
@@ -62,7 +63,7 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnG
   }
 
   private void maybeUpdateInsets() {
-    EdgeInsets edgeInsets = SafeAreaUtils.getSafeAreaInsets(getRootView());
+    EdgeInsets edgeInsets = SafeAreaUtils.getSafeAreaInsets(SafeAreaUtils.getFragmentRootView(this));
     if (edgeInsets != null && (mInsets == null || !mInsets.equalsToEdgeInsets(edgeInsets))) {
       mInsets = edgeInsets;
       updateInsets();
@@ -73,7 +74,9 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnG
   protected void onAttachedToWindow() {
     super.onAttachedToWindow();
 
-    getViewTreeObserver().addOnGlobalLayoutListener(this);
+    mRootView = SafeAreaUtils.getFragmentRootView(this);
+
+    mRootView.addOnLayoutChangeListener(this);
     maybeUpdateInsets();
   }
 
@@ -81,17 +84,14 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnG
   protected void onDetachedFromWindow() {
     super.onDetachedFromWindow();
 
-    getViewTreeObserver().removeOnGlobalLayoutListener(this);
+    if (mRootView != null) {
+      mRootView.removeOnLayoutChangeListener(this);
+    }
+    mRootView = null;
   }
 
   @Override
-  public void onGlobalLayout() {
+  public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
     maybeUpdateInsets();
-  }
-
-  @Override
-  protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-    maybeUpdateInsets();
-    super.onLayout(changed, left, top, right, bottom);
   }
 }

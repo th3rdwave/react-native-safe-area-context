@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.view.WindowInsets;
 
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 /* package */ class SafeAreaUtils {
 
@@ -36,7 +39,32 @@ import androidx.annotation.Nullable;
     }
   }
 
-  static @Nullable EdgeInsets getSafeAreaInsets(View rootView) {
+  /**
+   * Returns the root view of the nearest fragment or the activity
+   * root view if not inside a fragment.
+   */
+  static View getFragmentRootView(View view) {
+    Fragment fragment;
+    try {
+      fragment = FragmentManager.findFragment(view);
+    } catch (IllegalStateException ex) {
+      return view.getRootView();
+    }
+    View rootView = fragment.getView();
+    // When using CoordinatorLayout the content view will be the first child. This
+    // will allow getting proper insets if it contains a Toolbar.
+    if (rootView instanceof CoordinatorLayout) {
+      return ((CoordinatorLayout) rootView).getChildAt(0);
+    }
+    return rootView;
+  }
+
+  static @Nullable EdgeInsets getSafeAreaInsets(View view) {
+    // The view has not been layout yet.
+    if (view.getHeight() == 0) {
+      return null;
+    }
+    View rootView = view.getRootView();
     EdgeInsets windowInsets = getRootWindowInsetsCompat(rootView);
     if (windowInsets == null) {
       return null;
@@ -45,11 +73,13 @@ import androidx.annotation.Nullable;
     // Calculate the part of the view that overlaps with window insets.
     float windowWidth = rootView.getWidth();
     float windowHeight = rootView.getHeight();
+    Rect visibleRect = new Rect();
+    view.getGlobalVisibleRect(visibleRect);
 
-    windowInsets.top = Math.max(windowInsets.top, 0);
-    windowInsets.left = Math.max(windowInsets.left, 0);
-    windowInsets.bottom = Math.max(rootView.getHeight() + windowInsets.bottom - windowHeight, 0);
-    windowInsets.right = Math.max(rootView.getWidth() + windowInsets.right - windowWidth, 0);
+    windowInsets.top = Math.max(windowInsets.top - visibleRect.top, 0);
+    windowInsets.left = Math.max(windowInsets.left - visibleRect.left, 0);
+    windowInsets.bottom = Math.max(visibleRect.top + view.getHeight() + windowInsets.bottom - windowHeight, 0);
+    windowInsets.right = Math.max(visibleRect.left + view.getWidth() + windowInsets.right - windowWidth, 0);
     return windowInsets;
   }
 
