@@ -1,6 +1,6 @@
 {
   "name": "react-native-safe-area-context",
-  "version": "3.0.0-beta.0",
+  "version": "3.0.0-beta.1",
   "description": "A flexible way to handle safe area, also works on Android and web.",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
