@@ -7,9 +7,6 @@ import android.view.ViewGroup;
 import android.view.WindowInsets;
 
 import androidx.annotation.Nullable;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 /* package */ class SafeAreaUtils {
 
@@ -37,26 +34,6 @@ import androidx.fragment.app.FragmentManager;
           rootView.getHeight() - visibleRect.bottom,
           visibleRect.left);
     }
-  }
-
-  /**
-   * Returns the root view of the nearest fragment or the activity
-   * root view if not inside a fragment.
-   */
-  static View getFragmentRootView(View view) {
-    Fragment fragment;
-    try {
-      fragment = FragmentManager.findFragment(view);
-    } catch (IllegalStateException ex) {
-      return view.getRootView();
-    }
-    View rootView = fragment.getView();
-    // When using CoordinatorLayout the content view will be the first child. This
-    // will allow getting proper insets if it contains a Toolbar.
-    if (rootView instanceof CoordinatorLayout) {
-      return ((CoordinatorLayout) rootView).getChildAt(0);
-    }
-    return rootView;
   }
 
   static @Nullable EdgeInsets getSafeAreaInsets(View view) {
