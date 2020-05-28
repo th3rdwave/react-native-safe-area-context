@@ -212,7 +212,7 @@ React Context with the value of the safe area insets.
 
 Can be used with class components:
 
-```
+```js
 import { SafeAreaInsetsContext } from 'react-native-safe-area-context';
 
 class ClassComponent extends React.Component {
