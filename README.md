@@ -95,7 +95,7 @@ The [SafeAreaProvider](#safeareaprovider) component is a `View` from where inset
 
 ### Consumers
 
-Consumers are components and hooks that allow using inset values provider by the nearest parent [Provider](#providers). Values are always relative to a provider and not to these components.
+Consumers are components and hooks that allow using inset values provided by the nearest parent [Provider](#providers). Values are always relative to a provider and not to these components.
 
 - [SafeAreaView](#safeareaview) is the preferred way to consume insets. This is a regular `View` with insets applied as extra padding or margin. It offers better performance by applying insets natively and avoids flickers that can happen with the other JS based consumers.
 
