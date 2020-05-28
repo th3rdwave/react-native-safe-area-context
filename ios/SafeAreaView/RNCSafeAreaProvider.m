@@ -24,7 +24,7 @@
     return;
   }
 
-  UIEdgeInsets safeAreaInsets = [self viewControllerOrEmulateSafeAreaInsets:true];
+  UIEdgeInsets safeAreaInsets = [self.reactViewController.view safeAreaInsetsOrEmulate:true];
   CGRect frame = [self convertRect:self.bounds toView:nil];
 
   if (
