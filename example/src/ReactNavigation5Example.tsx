@@ -1,64 +1,21 @@
-import * as React from 'react';
-import { Text, View, Button } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import {
-  createStackNavigator,
-  StackScreenProps,
-} from '@react-navigation/stack';
-
-type Routes = {
-  Home: undefined;
-  Details: undefined;
-  Settings: undefined;
-};
-
-function HomeScreen({ navigation }: StackScreenProps<Routes, 'Home'>) {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home Screen</Text>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Details')}
-      />
-    </View>
-  );
-}
-
-function SettingsScreen({ navigation }: StackScreenProps<Routes, 'Settings'>) {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings Screen</Text>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Details')}
-      />
-    </View>
-  );
-}
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import * as React from 'react';
+import ReactNavigationDetailScreen from './components/ReactNavigationDetailScreen';
+import ReactNavigationHomeScreen from './components/ReactNavigationHomeScreen';
+import ReactNavigationSettingsScreen from './components/ReactNavigationSettingsScreen';
+import { SafeAreaProvider } from 'react-native-safe-area-view';
+import ReactNavigationModalDetailScreen from './components/ReactNavigationModalDetailScreen';
 
 const Tab = createBottomTabNavigator();
 
 function TabsScreen() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
+      <Tab.Screen name="Home" component={ReactNavigationHomeScreen} />
+      <Tab.Screen name="Settings" component={ReactNavigationSettingsScreen} />
     </Tab.Navigator>
-  );
-}
-
-function DetailsScreen({ navigation }: StackScreenProps<Routes, 'Details'>) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
-      <Button
-        title="Go to Details... again"
-        onPress={() => navigation.push('Details')}
-      />
-      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-    </View>
   );
 }
 
@@ -66,11 +23,30 @@ const Stack = createStackNavigator();
 
 export default function ReactNavigation5Example() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Tabs" component={TabsScreen} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <Stack.Navigator
+          mode="modal"
+          headerMode="screen"
+          screenOptions={{ headerShown: false }}
+        >
+          <Stack.Screen name="Root">
+            {() => (
+              <Stack.Navigator headerMode="screen">
+                <Stack.Screen name="Tabs" component={TabsScreen} />
+                <Stack.Screen
+                  name="Details"
+                  component={ReactNavigationDetailScreen}
+                />
+              </Stack.Navigator>
+            )}
+          </Stack.Screen>
+          <Stack.Screen
+            name="ModalDetails"
+            component={ReactNavigationModalDetailScreen}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
