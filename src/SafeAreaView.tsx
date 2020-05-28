@@ -21,7 +21,6 @@ const edgeBitmaskMap: Record<Edge, number> = {
 
 export function SafeAreaView({
   style,
-  emulateUnlessSupported: _emulateUnlessSupported,
   mode,
   edges,
   ...rest

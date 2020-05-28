@@ -33,7 +33,6 @@ export interface NativeSafeAreaProviderProps {
 
 export type NativeSafeAreaViewProps = ViewProps & {
   children?: React.ReactNode;
-  emulateUnlessSupported?: boolean;
   mode?: 'padding' | 'margin';
   edges?: Edge[];
 };
