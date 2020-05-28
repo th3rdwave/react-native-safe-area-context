@@ -6,16 +6,8 @@ A flexible way to handle safe area, also works on Android and Web!
 
 ## Getting started
 
-Install the library using either Yarn:
-
 ```
-yarn add react-native-safe-area-context
-```
-
-or npm:
-
-```
-npm install --save react-native-safe-area-context
+npm install react-native-safe-area-context
 ```
 
 You then need to link the native parts of the library for the platforms you are using.
@@ -95,53 +87,27 @@ protected List<ReactPackage> getPackages() {
 
 ## Usage
 
-`SafeAreaView` is a regular `View` component with the safe area edges applied as padding - or margins if you prefer.
+This library has 2 important concepts, if you are familiar with React Context this is very similar.
 
-If you set your own padding or margin on the view, it will be added to the padding or margin from the safe area.
+### Providers
 
-For the moment, you can't put paddings or margins as percent values - regardless of where your safe areas are being applied.
+The [SafeAreaProvider](#safeareaprovider) component is a `View` from where insets provided by [Consumers](#consumers) are relative to. This means that if this view overlaps with any system elements (status bar, notches, etc.) these values will be provided to descendent consumers. Usually you will have one provider at the top of your app.
 
-**If you are targeting web, you must set up `SafeAreaProvider` in as described in the hooks section**. You do not need to for native platforms.
+### Consumers
 
-```js
-import { SafeAreaView } from 'react-native-safe-area-context';
+Consumers are components and hooks that allow using inset values provider by the nearest parent [Provider](#providers). Values are always relative to a provider and not to these components.
 
-function SomeComponent() {
-  return (
-    <SafeAreaView>
-      <View />
-    </SafeAreaView>
-  );
-}
-```
+- [SafeAreaView](#safeareaview) is the preferred way to consume insets. This is a regular `View` with insets applied as extra padding or margin. It offers better performance by applying insets natively and avoids flickers that can happen with the other JS based consumers.
 
-### Props
+- [useSafeAreaInsets](#usesafeareainsets) offers more flexibility, but can cause some layout flicker in certain cases. Use this if you need more control over how insets are applied.
 
-All props are optional.
+## API
 
-#### `emulateUnlessSupported`
+### SafeAreaProvider
 
-`true` (default) or `false`
+You should add `SafeAreaProvider` in your app root component. You may need to add it in other places like the root of modals and routes when using `react-native-screen`.
 
-On iOS 10, emulate the safe area using the status bar height and home indicator sizes.
-
-#### `mode`
-
-`padding` (default) or `margin`
-
-Apply the safe area to either the padding or the margin.
-
-#### `edges`
-
-Array of `top`, `right`, `bottom`, and `left`. Defaults to all.
-
-Sets the edges to apply the safe area insets to.
-
-## Hooks
-
-Hooks give you direct access to the safe area insets. This is a more advanced use-case, and might perform worse than `SafeAreaView` when rotating the device.
-
-First, add `SafeAreaProvider` in your app root component. You may need to add it in other places too, including at the root of any modals any any routes when using `react-native-screen`.
+#### Example
 
 ```js
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -151,7 +117,77 @@ function App() {
 }
 ```
 
-You use the `useSafeAreaInsets` hook to get the insets in the form of `{ top: number, right: number, bottom: number: number, left: number }`.
+#### Props
+
+Accepts all [View](https://reactnative.dev/docs/view#props) props. Has a default style of `{flex: 1}`.
+
+##### `initialMetrics`
+
+Optional, defaults to `null`.
+
+Can be used to provide the initial value for frame and insets, this allows rendering immediatly. See [optimization](#optimization) for more information on how to use this prop.
+
+
+### SafeAreaView
+
+`SafeAreaView` is a regular `View` component with the safe area insets applied as padding or margin.
+
+Padding or margin styles are added to the insets, for example `style={{paddingTop: 10}}` on a `SafeAreaView` that has insets of 20 will result in a top padding of 30.
+
+#### Example
+
+```js
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+function SomeComponent() {
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'red' }}>
+      <View style={{ flex: 1, backgroundColor: 'blue' }} />
+    </SafeAreaView>
+  );
+}
+```
+
+### Props
+
+Accepts all [View](https://reactnative.dev/docs/view#props) props.
+
+##### `edges`
+
+Optional, array of `top`, `right`, `bottom`, and `left`. Defaults to all.
+
+Sets the edges to apply the safe area insets to.
+
+For example if you don't want insets to apply to the top edge because the view does not touch the top of the screen you can use:
+
+```js
+<SafeAreaView edges={['right', 'bottom', 'left']} />
+```
+
+##### `mode`
+
+Optional, `padding` (default) or `margin`.
+
+Apply the safe area to either the padding or the margin.
+
+This can be useful for example to create a safe area aware separator component:
+
+```js
+<SafeAreaView mode="margin" style={{ height: 1, backgroundColor: '#eee' }} />
+```
+
+##### `emulateUnlessSupported`
+
+Optional, `true` (default) or `false`.
+
+On iOS 10, emulate the safe area using the status bar height and home indicator sizes.
+
+
+### useSafeAreaInsets
+
+Returns the safe area insets of the nearest provider. This allows manipulating the inset values from JavaScript. Note that insets are not updated synchronously so it might cause a slight delay for example when rotating the screen.
+
+Object with `{ top: number, right: number, bottom: number: number, left: number }`.
 
 ```js
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -159,13 +195,24 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 function HookComponent() {
   const insets = useSafeAreaInsets();
 
-  return <View style={{ paddingTop: insets.top }} />;
+  return <View style={{ paddingBottom: Math.max(insets.bottom, 16) }} />;
 }
 ```
 
-Usage with consumer api:
 
-```js
+### useSafeAreaFrame
+
+Returns the frame of the nearest provider. This can be used as an alternative to the `Dimensions` module.
+
+Object with `{ x: number, y: number, width: number, height: number }`
+
+### `SafeAreaInsetsContext`
+
+React Context with the value of the safe area insets.
+
+Can be used with class components:
+
+```
 import { SafeAreaInsetsContext } from 'react-native-safe-area-context';
 
 class ClassComponent extends React.Component {
@@ -178,6 +225,45 @@ class ClassComponent extends React.Component {
   }
 }
 ```
+
+### `withSafeAreaInsets`
+
+Higher order component that provides safe area insets as the `insets` prop. 
+
+### `SafeAreaFrameContext`
+
+React Context with the value of the safe area frame.
+
+### `initialWindowMetrics`
+
+Insets and frame of the window on initial render. This can be used with the `initialMetrics` from `SafeAreaProvider`. See [optimization](#optimization) for more information.
+
+Object with:
+
+```ts
+{
+  frame: { x: number, y: number, width: number, height: number },
+  insets: { top: number, left: number, right: number, bottom: number },
+}
+```
+
+## Deprecated apis
+
+### useSafeArea
+
+Use `useSafeAreaInsets` intead.
+
+### SafeAreaConsumer
+
+Use `SafeAreaInsetsContext.Consumer` instead.
+
+### SafeAreaContext
+
+Use `SafeAreaInsetsContext` instead.
+
+### initialWindowSafeAreaInsets
+
+Use `initialWindowMetrics` instead.
 
 ## Web SSR
 
@@ -204,6 +290,19 @@ function App() {
 }
 ```
 
-## Resources
+## Testing
 
-- Great article about how this library can be used: https://dev.to/brunolemos/adding-notch-support-to-your-react-native-android-app-3ci3
+You can use `initialMetrics` to provide mock data for frame and insets.
+
+```js
+export function TestSafeAreaProvider() {
+  return (
+    <SafeAreaProvider
+      initialMetrics={{
+        frame: { x: 0, y: 0, width: 0, height: 0 },
+        insets: { top: 0, left: 0, right: 0, bottom: 0 },
+      }}
+    />
+  );
+}
+```
