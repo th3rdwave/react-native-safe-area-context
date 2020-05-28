@@ -32,7 +32,11 @@ export default function NativeStackExample() {
           <Stack.Screen name="Root">
             {() => (
               <Stack.Navigator>
-                <Stack.Screen name="Tabs" component={TabsScreen} />
+                <Stack.Screen
+                  name="Tabs"
+                  component={TabsScreen}
+                  options={{ title: 'Native Stack' }}
+                />
                 <Stack.Screen
                   name="Details"
                   component={ReactNavigationDetailScreen}

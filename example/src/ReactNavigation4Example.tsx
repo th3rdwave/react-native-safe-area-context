@@ -12,6 +12,10 @@ const TabNavigator = createBottomTabNavigator({
   Settings: ReactNavigationSettingsScreen,
 });
 
+TabNavigator.navigationOptions = {
+  title: 'React Navigation 4',
+};
+
 const AppNavigator = createStackNavigator(
   {
     Tabs: TabNavigator,

@@ -28,12 +28,16 @@ export default function ReactNavigation5Example() {
         <Stack.Navigator
           mode="modal"
           headerMode="screen"
-          screenOptions={{ headerShown: false }}
+          screenOptions={{ headerShown: false, gestureEnabled: true }}
         >
           <Stack.Screen name="Root">
             {() => (
               <Stack.Navigator headerMode="screen">
-                <Stack.Screen name="Tabs" component={TabsScreen} />
+                <Stack.Screen
+                  name="Tabs"
+                  component={TabsScreen}
+                  options={{ title: 'React Navigation 5' }}
+                />
                 <Stack.Screen
                   name="Details"
                   component={ReactNavigationDetailScreen}

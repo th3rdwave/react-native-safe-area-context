@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.view.View;
+import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 
 import com.facebook.react.bridge.ReactContext;
@@ -11,11 +12,12 @@ import com.facebook.react.uimanager.UIManagerModule;
 import com.facebook.react.views.view.ReactViewGroup;
 
 import java.util.EnumSet;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.annotation.Nullable;
 
 @SuppressLint("ViewConstructor")
-public class SafeAreaView extends ReactViewGroup implements View.OnLayoutChangeListener {
+public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnPreDrawListener {
   private SafeAreaViewMode mMode = SafeAreaViewMode.PADDING;
   private @Nullable EdgeInsets mInsets;
   private @Nullable EnumSet<SafeAreaViewEdges> mEdges;
@@ -48,6 +50,35 @@ public class SafeAreaView extends ReactViewGroup implements View.OnLayoutChangeL
       UIManagerModule uiManager = reactContext.getNativeModule(UIManagerModule.class);
       if (uiManager != null) {
         uiManager.setViewLocalData(getId(), localData);
+        waitForReactLayout();
+      }
+    }
+  }
+
+  private void waitForReactLayout() {
+    // Block the main thread until the native module thread is finished with
+    // its current tasks. To do this we use the done boolean as a lock and enqueue
+    // a task on the native modules thread. When the task runs we can unblock the
+    // main thread. This should be safe as long as the native modules thread
+    // does not block waiting on the main thread.
+    // TODO: Investigate perf impact.
+    final AtomicBoolean done = new AtomicBoolean(false);
+    getReactContext(this).runOnNativeModulesQueueThread(new Runnable() {
+      @Override
+      public void run() {
+        synchronized (done) {
+          done.set(true);
+          done.notify();
+        }
+      }
+    });
+    synchronized (done) {
+      while (!done.get()) {
+        try {
+          done.wait();
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
       }
     }
   }
@@ -62,21 +93,37 @@ public class SafeAreaView extends ReactViewGroup implements View.OnLayoutChangeL
     updateInsets();
   }
 
-  private void maybeUpdateInsets() {
-    EdgeInsets edgeInsets = SafeAreaUtils.getSafeAreaInsets(SafeAreaUtils.getFragmentRootView(this));
+  private boolean maybeUpdateInsets() {
+    if (mRootView == null) {
+      return false;
+    }
+    EdgeInsets edgeInsets = SafeAreaUtils.getSafeAreaInsets(mRootView);
     if (edgeInsets != null && (mInsets == null || !mInsets.equalsToEdgeInsets(edgeInsets))) {
       mInsets = edgeInsets;
       updateInsets();
+      return true;
     }
+    return false;
+  }
+
+  private View findProvider() {
+    ViewParent current = getParent();
+    while (current != null) {
+      if (current instanceof SafeAreaProvider) {
+        return (View) current;
+      }
+      current = current.getParent();
+    }
+    return this;
   }
 
   @Override
   protected void onAttachedToWindow() {
     super.onAttachedToWindow();
 
-    mRootView = SafeAreaUtils.getFragmentRootView(this);
+    mRootView = findProvider();
 
-    mRootView.addOnLayoutChangeListener(this);
+    mRootView.getViewTreeObserver().addOnPreDrawListener(this);
     maybeUpdateInsets();
   }
 
@@ -85,13 +132,17 @@ public class SafeAreaView extends ReactViewGroup implements View.OnLayoutChangeL
     super.onDetachedFromWindow();
 
     if (mRootView != null) {
-      mRootView.removeOnLayoutChangeListener(this);
+      mRootView.getViewTreeObserver().removeOnPreDrawListener(this);
     }
     mRootView = null;
   }
 
   @Override
-  public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-    maybeUpdateInsets();
+  public boolean onPreDraw() {
+    boolean didUpdate = maybeUpdateInsets();
+    if (didUpdate) {
+      requestLayout();
+    }
+    return !didUpdate;
   }
 }
