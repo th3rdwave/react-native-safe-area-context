@@ -69,9 +69,4 @@ public class SafeAreaViewManager extends ViewGroupManager<SafeAreaView> {
 
     view.setEdges(edges);
   }
-
-  @ReactProp(name = "emulateUnlessSupported")
-  public void setEmulateUnlessSupported(SafeAreaView view, boolean propList) {
-    // Ignore
-  }
 }

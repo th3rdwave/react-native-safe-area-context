@@ -17,7 +17,7 @@ BOOL UIEdgeInsetsEqualToEdgeInsetsWithThreshold(UIEdgeInsets insets1, UIEdgeInse
   return [self respondsToSelector:@selector(safeAreaInsets)];
 }
 
-- (UIEdgeInsets)safeAreaInsetsOrEmulate:(BOOL)emulate
+- (UIEdgeInsets)safeAreaInsetsOrEmulate
 {
   #if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000 /* __IPHONE_11_0 */
   if (self.nativeSafeAreaSupport) {
@@ -26,7 +26,7 @@ BOOL UIEdgeInsetsEqualToEdgeInsetsWithThreshold(UIEdgeInsets insets1, UIEdgeInse
     }
   }
   #endif
-  return emulate ? self.emulatedSafeAreaInsets : UIEdgeInsetsZero;
+  return self.emulatedSafeAreaInsets;
 }
 
 - (UIEdgeInsets)emulatedSafeAreaInsets

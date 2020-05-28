@@ -22,7 +22,6 @@
   if (self = [super initWithFrame:CGRectZero]) {
     _bridge = bridge;
     // Defaults
-    _emulateUnlessSupported = YES;
     _mode = RNCSafeAreaViewModePadding;
     _edges = RNCSafeAreaViewEdgesAll;
   }
@@ -44,7 +43,7 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
 
   return [NSString stringWithFormat:@"%@; RNCSafeAreaInsets = %@; appliedRNCSafeAreaInsets = %@>",
           superDescription,
-          NSStringFromUIEdgeInsets([self.reactViewController.view safeAreaInsetsOrEmulate:self.emulateUnlessSupported]),
+          NSStringFromUIEdgeInsets([_providerView safeAreaInsetsOrEmulate]),
           NSStringFromUIEdgeInsets(_currentSafeAreaInsets)];
 }
 
@@ -58,7 +57,7 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
 {
   [super layoutSubviews];
 
-  if (!self.nativeSafeAreaSupport && self.emulateUnlessSupported) {
+  if (!self.nativeSafeAreaSupport) {
     [self invalidateSafeAreaInsets];
   }
 }
@@ -74,7 +73,7 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
   if (_providerView == nil) {
     return;
   }
-  UIEdgeInsets safeAreaInsets = [_providerView safeAreaInsetsOrEmulate:self.emulateUnlessSupported];
+  UIEdgeInsets safeAreaInsets = [_providerView safeAreaInsetsOrEmulate];
 
   if (UIEdgeInsetsEqualToEdgeInsetsWithThreshold(safeAreaInsets, _currentSafeAreaInsets, 1.0 / RCTScreenScale())) {
     return;
@@ -104,25 +103,10 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
   [_bridge.uiManager setLocalData:localData forView:self];
 }
 
-- (void)setEmulateUnlessSupported:(BOOL)emulateUnlessSupported
-{
-  if (_emulateUnlessSupported == emulateUnlessSupported) {
-    return;
-  }
-
-  _emulateUnlessSupported = emulateUnlessSupported;
-
-  if ([self nativeSafeAreaSupport]) {
-    return;
-  }
-
-  [self invalidateSafeAreaInsets];
-}
-
 - (void)setMode:(RNCSafeAreaViewMode)mode
 {
-    _mode = mode;
-    [self updateLocalData];
+  _mode = mode;
+  [self updateLocalData];
 }
 
 - (void)setEdges:(RNCSafeAreaViewEdges)edges

@@ -178,12 +178,6 @@ This can be useful for example to create a safe area aware separator component:
 <SafeAreaView mode="margin" style={{ height: 1, backgroundColor: '#eee' }} />
 ```
 
-##### `emulateUnlessSupported`
-
-Optional, `true` (default) or `false`.
-
-On iOS 10, emulate the safe area using the status bar height and home indicator sizes.
-
 
 ### useSafeAreaInsets
 
@@ -230,7 +224,7 @@ class ClassComponent extends React.Component {
 
 ### `withSafeAreaInsets`
 
-Higher order component that provides safe area insets as the `insets` prop. 
+Higher order component that provides safe area insets as the `insets` prop.
 
 ### `SafeAreaFrameContext`
 

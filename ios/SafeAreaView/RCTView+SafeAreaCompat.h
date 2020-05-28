@@ -9,7 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIView(SafeAreaCompat)
 
 - (BOOL)nativeSafeAreaSupport;
-- (UIEdgeInsets)safeAreaInsetsOrEmulate:(BOOL)emulate;
+- (UIEdgeInsets)safeAreaInsetsOrEmulate;
 
 @end
 
