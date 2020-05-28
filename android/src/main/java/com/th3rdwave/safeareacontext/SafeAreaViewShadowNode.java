@@ -1,24 +1,17 @@
 package com.th3rdwave.safeareacontext;
 
-import android.util.Log;
-
-import androidx.annotation.Nullable;
-
 import com.facebook.react.bridge.Dynamic;
-import com.facebook.react.bridge.DynamicFromObject;
-import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableType;
-import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.common.MapBuilder;
-import com.facebook.react.uimanager.ReactStylesDiffMap;
+import com.facebook.react.uimanager.LayoutShadowNode;
+import com.facebook.react.uimanager.NativeViewHierarchyOptimizer;
 import com.facebook.react.uimanager.PixelUtil;
 import com.facebook.react.uimanager.Spacing;
-import com.facebook.react.uimanager.annotations.ReactPropGroup;
-import com.facebook.react.uimanager.LayoutShadowNode;
 import com.facebook.react.uimanager.ViewProps;
-import com.facebook.react.uimanager.NativeViewHierarchyOptimizer;
+import com.facebook.react.uimanager.annotations.ReactPropGroup;
 
 import java.util.EnumSet;
+
+import androidx.annotation.Nullable;
 
 public class SafeAreaViewShadowNode extends LayoutShadowNode {
   private @Nullable SafeAreaViewLocalData mLocalData;
@@ -136,7 +129,6 @@ public class SafeAreaViewShadowNode extends LayoutShadowNode {
       mNeedsUpdate = false;
       updateInsets();
     }
-//    updateInsets();
 
     super.onBeforeLayout(nativeViewHierarchyOptimizer);
   }
@@ -162,43 +154,41 @@ public class SafeAreaViewShadowNode extends LayoutShadowNode {
   // Names needs to reflect exact order in LayoutShadowNode.java
   @Override
   @ReactPropGroup(
-          names = {
-                  ViewProps.PADDING,
-                  ViewProps.PADDING_VERTICAL,
-                  ViewProps.PADDING_HORIZONTAL,
-                  ViewProps.PADDING_START,
-                  ViewProps.PADDING_END,
-                  ViewProps.PADDING_TOP,
-                  ViewProps.PADDING_BOTTOM,
-                  ViewProps.PADDING_LEFT,
-                  ViewProps.PADDING_RIGHT,
-          })
+    names = {
+      ViewProps.PADDING,
+      ViewProps.PADDING_VERTICAL,
+      ViewProps.PADDING_HORIZONTAL,
+      ViewProps.PADDING_START,
+      ViewProps.PADDING_END,
+      ViewProps.PADDING_TOP,
+      ViewProps.PADDING_BOTTOM,
+      ViewProps.PADDING_LEFT,
+      ViewProps.PADDING_RIGHT,
+    })
   public void setPaddings(int index, Dynamic padding) {
     int spacingType = ViewProps.PADDING_MARGIN_SPACING_TYPES[index];
     mPaddings[spacingType] = padding.getType() == ReadableType.Number ? (float) padding.asDouble() : Float.NaN;
     super.setPaddings(index, padding);
     mNeedsUpdate = true;
-//    updateInsets();
   }
 
   @Override
   @ReactPropGroup(
-          names = {
-                  ViewProps.MARGIN,
-                  ViewProps.MARGIN_VERTICAL,
-                  ViewProps.MARGIN_HORIZONTAL,
-                  ViewProps.MARGIN_START,
-                  ViewProps.MARGIN_END,
-                  ViewProps.MARGIN_TOP,
-                  ViewProps.MARGIN_BOTTOM,
-                  ViewProps.MARGIN_LEFT,
-                  ViewProps.MARGIN_RIGHT,
-          })
+    names = {
+      ViewProps.MARGIN,
+      ViewProps.MARGIN_VERTICAL,
+      ViewProps.MARGIN_HORIZONTAL,
+      ViewProps.MARGIN_START,
+      ViewProps.MARGIN_END,
+      ViewProps.MARGIN_TOP,
+      ViewProps.MARGIN_BOTTOM,
+      ViewProps.MARGIN_LEFT,
+      ViewProps.MARGIN_RIGHT,
+    })
   public void setMargins(int index, Dynamic margin) {
     int spacingType = ViewProps.PADDING_MARGIN_SPACING_TYPES[index];
     mMargins[spacingType] = margin.getType() == ReadableType.Number ? (float) margin.asDouble() : Float.NaN;
     super.setMargins(index, margin);
     mNeedsUpdate = true;
-//    updateInsets();
   }
 }

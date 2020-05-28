@@ -3,7 +3,6 @@ package com.th3rdwave.safeareacontext;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
