@@ -1,6 +1,7 @@
 package com.th3rdwave.safeareacontext;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.uimanager.LayoutShadowNode;
@@ -9,8 +10,6 @@ import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
 
 import java.util.EnumSet;
-
-import javax.annotation.Nullable;
 
 public class SafeAreaViewManager extends ViewGroupManager<SafeAreaView> {
   public SafeAreaViewManager() {
@@ -41,7 +40,7 @@ public class SafeAreaViewManager extends ViewGroupManager<SafeAreaView> {
   }
 
   @ReactProp(name = "mode")
-  public void setMode(SafeAreaView view, String mode) {
+  public void setMode(SafeAreaView view, @Nullable String mode) {
     if ("padding".equals(mode)) {
       view.setMode(SafeAreaViewMode.PADDING);
     } else if ("margin".equals(mode)) {
