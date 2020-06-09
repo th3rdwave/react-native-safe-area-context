@@ -185,7 +185,7 @@ This can be useful for example to create a safe area aware separator component:
 
 Returns the safe area insets of the nearest provider. This allows manipulating the inset values from JavaScript. Note that insets are not updated synchronously so it might cause a slight delay for example when rotating the screen.
 
-Object with `{ top: number, right: number, bottom: number: number, left: number }`.
+Object with `{ top: number, right: number, bottom: number, left: number }`.
 
 ```js
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
