@@ -3,7 +3,6 @@ import { Metrics } from './SafeArea.types';
 
 const RNCSafeAreaProviderConfig = UIManager.getViewManagerConfig(
   'RNCSafeAreaProvider',
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ) as any;
 
 export const initialWindowMetrics = (RNCSafeAreaProviderConfig != null &&
