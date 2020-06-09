@@ -2,9 +2,10 @@ import * as React from 'react';
 import { Button, Text } from 'react-native';
 import { ScreenProps } from '../types/Navigation';
 import { SafeAreaViewVisualizer } from './SafeAreaViewVisualizer';
-import { wrapScreen } from './wrapScreen';
 
-function ReactNavigationHomeScreen({ navigation }: ScreenProps<'Home'>) {
+export default function ReactNavigationHomeScreen({
+  navigation,
+}: ScreenProps<'Home'>) {
   return (
     <SafeAreaViewVisualizer>
       <Text>Home Screen</Text>
@@ -19,5 +20,3 @@ function ReactNavigationHomeScreen({ navigation }: ScreenProps<'Home'>) {
     </SafeAreaViewVisualizer>
   );
 }
-
-export default wrapScreen(ReactNavigationHomeScreen);

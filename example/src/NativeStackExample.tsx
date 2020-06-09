@@ -7,15 +7,22 @@ import ReactNavigationDetailScreen from './components/ReactNavigationDetailScree
 import ReactNavigationHomeScreen from './components/ReactNavigationHomeScreen';
 import ReactNavigationModalDetailScreen from './components/ReactNavigationModalDetailScreen';
 import ReactNavigationSettingsScreen from './components/ReactNavigationSettingsScreen';
-import { wrapScreen } from './components/wrapScreen';
+import { withProvider } from './components/withProvider';
+
+const HomeScreenWithProvider = withProvider(ReactNavigationHomeScreen);
+const SettingsScreenWithProvider = withProvider(ReactNavigationSettingsScreen);
+const DetailScreenWithProvider = withProvider(ReactNavigationDetailScreen);
+const ModalDetailScreenWithProvider = withProvider(
+  ReactNavigationModalDetailScreen,
+);
 
 const Tab = createBottomTabNavigator();
 
-const TabsScreen = wrapScreen(() => {
+const TabsScreenWithProvider = withProvider(() => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Home" component={ReactNavigationHomeScreen} />
-      <Tab.Screen name="Settings" component={ReactNavigationSettingsScreen} />
+      <Tab.Screen name="Home" component={HomeScreenWithProvider} />
+      <Tab.Screen name="Settings" component={SettingsScreenWithProvider} />
     </Tab.Navigator>
   );
 });
@@ -34,19 +41,19 @@ export default function NativeStackExample() {
               <Stack.Navigator>
                 <Stack.Screen
                   name="Tabs"
-                  component={TabsScreen}
+                  component={TabsScreenWithProvider}
                   options={{ title: 'Native Stack' }}
                 />
                 <Stack.Screen
                   name="Details"
-                  component={ReactNavigationDetailScreen}
+                  component={DetailScreenWithProvider}
                 />
               </Stack.Navigator>
             )}
           </Stack.Screen>
           <Stack.Screen
             name="ModalDetails"
-            component={ReactNavigationModalDetailScreen}
+            component={ModalDetailScreenWithProvider}
           />
         </Stack.Navigator>
       </NavigationContainer>

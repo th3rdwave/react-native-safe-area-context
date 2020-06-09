@@ -2,9 +2,10 @@ import * as React from 'react';
 import { Button, Text } from 'react-native';
 import { ScreenProps } from '../types/Navigation';
 import { SafeAreaViewVisualizer } from './SafeAreaViewVisualizer';
-import { wrapScreen } from './wrapScreen';
 
-function ReactNavigationDetailScreen({ navigation }: ScreenProps<'Details'>) {
+export default function ReactNavigationDetailScreen({
+  navigation,
+}: ScreenProps<'Details'>) {
   const isV5 = typeof navigation.setOptions === 'function';
   const [headerShown, setHeaderShown] = React.useState(true);
 
@@ -34,5 +35,3 @@ function ReactNavigationDetailScreen({ navigation }: ScreenProps<'Details'>) {
     </SafeAreaViewVisualizer>
   );
 }
-
-export default wrapScreen(ReactNavigationDetailScreen);

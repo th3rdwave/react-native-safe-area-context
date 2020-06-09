@@ -2,9 +2,8 @@ import * as React from 'react';
 import { Button, Text } from 'react-native';
 import { ScreenProps } from '../types/Navigation';
 import { SafeAreaViewVisualizer } from './SafeAreaViewVisualizer';
-import { wrapScreen } from './wrapScreen';
 
-function ReactNavigationModalDetailScreen({
+export default function ReactNavigationModalDetailScreen({
   navigation,
 }: ScreenProps<'ModalDetails'>) {
   const isV5 = typeof navigation.setOptions === 'function';
@@ -36,5 +35,3 @@ function ReactNavigationModalDetailScreen({
     </SafeAreaViewVisualizer>
   );
 }
-
-export default wrapScreen(ReactNavigationModalDetailScreen);

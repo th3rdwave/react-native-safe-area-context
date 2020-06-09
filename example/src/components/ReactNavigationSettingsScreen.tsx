@@ -2,9 +2,8 @@ import * as React from 'react';
 import { Button, Text } from 'react-native';
 import { ScreenProps } from '../types/Navigation';
 import { SafeAreaViewVisualizer } from './SafeAreaViewVisualizer';
-import { wrapScreen } from './wrapScreen';
 
-function ReactNavigationSettingsScreen({
+export default function ReactNavigationSettingsScreen({
   navigation,
 }: ScreenProps<'Settings'>) {
   return (
@@ -21,5 +20,3 @@ function ReactNavigationSettingsScreen({
     </SafeAreaViewVisualizer>
   );
 }
-
-export default wrapScreen(ReactNavigationSettingsScreen);
