@@ -4,9 +4,12 @@ exports[`SafeAreaView can override padding styles 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    Object {
-      "flex": 1,
-    }
+    Array [
+      Object {
+        "flex": 1,
+      },
+      undefined,
+    ]
   }
 >
   <RNCSafeAreaView
@@ -25,9 +28,12 @@ exports[`SafeAreaView renders 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    Object {
-      "flex": 1,
-    }
+    Array [
+      Object {
+        "flex": 1,
+      },
+      undefined,
+    ]
   }
 >
   <RNCSafeAreaView>

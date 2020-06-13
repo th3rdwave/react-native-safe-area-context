@@ -4,9 +4,12 @@ exports[`SafeAreaContext does not render child until inset values are received 1
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    Object {
-      "flex": 1,
-    }
+    Array [
+      Object {
+        "flex": 1,
+      },
+      undefined,
+    ]
   }
 />
 `;
@@ -15,9 +18,12 @@ exports[`SafeAreaContext renders 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    Object {
-      "flex": 1,
-    }
+    Array [
+      Object {
+        "flex": 1,
+      },
+      undefined,
+    ]
   }
 />
 `;
@@ -26,9 +32,12 @@ exports[`SafeAreaContext renders child when inset values are received 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    Object {
-      "flex": 1,
-    }
+    Array [
+      Object {
+        "flex": 1,
+      },
+      undefined,
+    ]
   }
 />
 `;
@@ -37,9 +46,12 @@ exports[`SafeAreaContext renders child when inset values are received 2`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    Object {
-      "flex": 1,
-    }
+    Array [
+      Object {
+        "flex": 1,
+      },
+      undefined,
+    ]
   }
 >
   <View
@@ -63,9 +75,12 @@ exports[`SafeAreaContext supports setting initial insets 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    Object {
-      "flex": 1,
-    }
+    Array [
+      Object {
+        "flex": 1,
+      },
+      undefined,
+    ]
   }
 >
   <View
@@ -89,17 +104,23 @@ exports[`SafeAreaContext uses inner insets 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    Object {
-      "flex": 1,
-    }
+    Array [
+      Object {
+        "flex": 1,
+      },
+      undefined,
+    ]
   }
 >
   <RNCSafeAreaProvider
     onInsetsChange={[Function]}
     style={
-      Object {
-        "flex": 1,
-      }
+      Array [
+        Object {
+          "flex": 1,
+        },
+        undefined,
+      ]
     }
   >
     <View
@@ -124,17 +145,23 @@ exports[`SafeAreaContext uses parent insets when available 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    Object {
-      "flex": 1,
-    }
+    Array [
+      Object {
+        "flex": 1,
+      },
+      undefined,
+    ]
   }
 >
   <RNCSafeAreaProvider
     onInsetsChange={[Function]}
     style={
-      Object {
-        "flex": 1,
-      }
+      Array [
+        Object {
+          "flex": 1,
+        },
+        undefined,
+      ]
     }
   >
     <View
