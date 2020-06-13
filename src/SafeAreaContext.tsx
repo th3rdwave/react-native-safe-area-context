@@ -40,13 +40,35 @@ export function SafeAreaProvider({
         height: Dimensions.get('window').height,
       },
   );
-  const onInsetsChange = React.useCallback((event: InsetChangedEvent) => {
-    // Backwards compat with old native code that won't send frame.
-    if (event.nativeEvent.frame != null) {
-      setFrame(event.nativeEvent.frame);
-    }
-    setInsets(event.nativeEvent.insets);
-  }, []);
+  const onInsetsChange = React.useCallback(
+    (event: InsetChangedEvent) => {
+      const {
+        nativeEvent: { frame: nextFrame, insets: nextInsets },
+      } = event;
+
+      if (
+        // Backwards compat with old native code that won't send frame.
+        nextFrame &&
+        (nextFrame.height !== frame.height ||
+          nextFrame.width !== frame.width ||
+          nextFrame.x !== frame.x ||
+          nextFrame.y !== frame.y)
+      ) {
+        setFrame(nextFrame);
+      }
+
+      if (
+        !insets ||
+        nextInsets.bottom !== insets.bottom ||
+        nextInsets.left !== insets.left ||
+        nextInsets.right !== insets.right ||
+        nextInsets.top !== insets.top
+      ) {
+        setInsets(nextInsets);
+      }
+    },
+    [frame, insets],
+  );
 
   return (
     <NativeSafeAreaProvider
