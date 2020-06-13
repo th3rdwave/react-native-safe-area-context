@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Dimensions } from 'react-native';
+import { Dimensions, StyleProp, StyleSheet, ViewStyle } from 'react-native';
 import NativeSafeAreaProvider from './NativeSafeAreaProvider';
 import { EdgeInsets, InsetChangedEvent, Metrics, Rect } from './SafeArea.types';
 
@@ -16,12 +16,14 @@ export interface SafeAreaViewProps {
    * @deprecated
    */
   initialSafeAreaInsets?: EdgeInsets | null;
+  style?: StyleProp<ViewStyle>;
 }
 
 export function SafeAreaProvider({
   children,
   initialMetrics,
   initialSafeAreaInsets,
+  style,
 }: SafeAreaViewProps) {
   const parentInsets = useParentSafeAreaInsets();
   const parentFrame = useParentSafeAreaFrame();
@@ -47,7 +49,10 @@ export function SafeAreaProvider({
   }, []);
 
   return (
-    <NativeSafeAreaProvider style={styles.fill} onInsetsChange={onInsetsChange}>
+    <NativeSafeAreaProvider
+      style={[styles.fill, style]}
+      onInsetsChange={onInsetsChange}
+    >
       {insets != null ? (
         <SafeAreaFrameContext.Provider value={frame}>
           <SafeAreaInsetsContext.Provider value={insets}>

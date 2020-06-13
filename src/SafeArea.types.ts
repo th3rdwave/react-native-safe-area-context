@@ -1,4 +1,9 @@
-import { NativeSyntheticEvent, ViewStyle, ViewProps } from 'react-native';
+import {
+  NativeSyntheticEvent,
+  StyleProp,
+  ViewProps,
+  ViewStyle,
+} from 'react-native';
 
 export type Edge = 'top' | 'right' | 'bottom' | 'left';
 
@@ -27,7 +32,7 @@ export type InsetChangeNativeCallback = (event: InsetChangedEvent) => void;
 
 export interface NativeSafeAreaProviderProps {
   children?: React.ReactNode;
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
   onInsetsChange: InsetChangeNativeCallback;
 }
 
