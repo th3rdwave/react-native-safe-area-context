@@ -121,7 +121,7 @@ export function useSafeAreaFrame(): Rect {
 export function withSafeAreaInsets<T>(
   WrappedComponent: React.ComponentType<T>,
 ) {
-  return React.forwardRef((props: T,ref:React.Ref<T>) => (
+  return React.forwardRef((props: T, ref: React.Ref<T>) => (
     <SafeAreaConsumer>
       {(insets) => <WrappedComponent {...props} insets={insets} ref={ref} />}
     </SafeAreaConsumer>
