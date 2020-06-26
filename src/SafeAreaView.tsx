@@ -20,7 +20,7 @@ const edgeBitmaskMap: Record<Edge, number> = {
 };
 
 export function SafeAreaView({
-  style,
+  style = {},
   mode,
   edges,
   ...rest
