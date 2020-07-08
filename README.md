@@ -304,3 +304,17 @@ export function TestSafeAreaProvider() {
   );
 }
 ```
+
+### Testing With Enzyme
+
+If you are using [`enzyme`](https://github.com/enzymejs/enzyme) and testing a component that uses
+`useSafeAreaInsets` or other hooks requiring the `SafeAreaProvider`, you may need to provide
+`initialSafeAreaInsets` to ensure the `SafeAreaProvider` renders its children:
+
+```js
+const wrapper = shallow(
+  <SafeAreaProvider initialSafeAreaInsets={{ top: 0, left: 0, right: 0, bottom: 0 }}
+    <ComponentUnderTest />
+  </SafeAreaProvider>
+)
+```
