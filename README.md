@@ -290,31 +290,20 @@ function App() {
 
 ## Testing
 
-You can use `initialMetrics` to provide mock data for frame and insets.
+When testing components nested under `SafeAreaProvider`, ensure to pass `initialMetrics` to
+provide mock data for frame and insets and ensure the provider renders its children.
 
 ```js
-export function TestSafeAreaProvider() {
+export function TestSafeAreaProvider({ children }) {
   return (
     <SafeAreaProvider
       initialMetrics={{
         frame: { x: 0, y: 0, width: 0, height: 0 },
         insets: { top: 0, left: 0, right: 0, bottom: 0 },
       }}
-    />
+    >
+      {children}
+    </SafeAreaProvider>
   );
 }
-```
-
-### Testing With Enzyme
-
-If you are using [`enzyme`](https://github.com/enzymejs/enzyme) and testing a component that uses
-`useSafeAreaInsets` or other hooks requiring the `SafeAreaProvider`, you may need to provide
-`initialSafeAreaInsets` to ensure the `SafeAreaProvider` renders its children:
-
-```js
-const wrapper = shallow(
-  <SafeAreaProvider initialSafeAreaInsets={{ top: 0, left: 0, right: 0, bottom: 0 }}
-    <ComponentUnderTest />
-  </SafeAreaProvider>
-)
 ```
