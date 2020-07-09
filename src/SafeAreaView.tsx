@@ -5,15 +5,15 @@ import { Edge, NativeSafeAreaViewProps } from './SafeArea.types';
 
 // prettier-ignore
 const TOP    = 0b1000,
-      RIGHT  = 0b1000,
-      BOTTOM = 0b1000,
-      LEFT   = 0b1000,
+      RIGHT  = 0b0100,
+      BOTTOM = 0b0010,
+      LEFT   = 0b0001,
       ALL    = 0b1111;
 
 /* eslint-disable no-bitwise */
 
 const edgeBitmaskMap: Record<Edge, number> = {
-  top: 0b1000,
+  top: TOP,
   right: RIGHT,
   bottom: BOTTOM,
   left: LEFT,
