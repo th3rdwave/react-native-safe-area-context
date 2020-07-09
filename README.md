@@ -263,6 +263,10 @@ Use `SafeAreaInsetsContext` instead.
 
 Use `initialWindowMetrics` instead.
 
+### initialSafeAreaInsets
+
+Use `initialMetrics` instead.
+
 ## Web SSR
 
 If you are doing server side rendering on the web you can use `initialMetrics` to inject insets and frame value based on the device the user has, or simply pass zero values. Since insets measurement is async it will break rendering your page content otherwise.
