@@ -13,6 +13,7 @@
     "android",
     "ios",
     "*.podspec",
+    "react-native.config.js",
     "!**/__tests__"
   ],
   "author": "Janic Duplessis <janicduplessis@gmail.com>",
