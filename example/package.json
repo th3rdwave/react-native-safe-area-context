@@ -3,20 +3,20 @@
   "dependencies": {
     "@react-native-community/async-storage": "^1.10.1",
     "@react-native-community/masked-view": "^0.1.10",
+    "@react-navigation/bottom-tabs": "^5.4.4",
     "@react-navigation/native": "^5.3.2",
     "@react-navigation/stack": "^5.3.6",
-    "@react-navigation/bottom-tabs": "^5.4.4",
     "expo": "^37.0.8",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-native": "^0.63.0-rc.0",
+    "react-native-gesture-handler": "^1.6.1",
+    "react-native-reanimated": "^1.8.0",
+    "react-native-safe-area-view": "^1.1.1",
+    "react-native-screens": "^2.7.0",
     "react-native-web": "^0.12.2",
     "react-navigation": "^4.3.9",
     "react-navigation-stack": "^2.5.0",
-    "react-navigation-tabs": "^2.8.13",
-    "react-native-gesture-handler": "^1.6.1",
-    "react-native-screens": "^2.7.0",
-    "react-native-reanimated": "^1.8.0",
-    "react-native-safe-area-view": "^1.1.1"
+    "react-navigation-tabs": "^2.8.13"
   }
 }

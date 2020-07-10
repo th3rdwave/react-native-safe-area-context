@@ -1,6 +1,6 @@
 # react-native-safe-area-context
 
-[![npm](https://img.shields.io/npm/v/react-native-safe-area-context)](https://www.npmjs.com/package/react-native-safe-area-context) ![Supports Android, iOS and web](https://img.shields.io/badge/platforms-android%20%7C%20ios%20%7C%20web-lightgrey.svg) ![MIT License](https://img.shields.io/npm/l/react-native-safe-area-context.svg)
+[![npm](https://img.shields.io/npm/v/react-native-safe-area-context)](https://www.npmjs.com/package/react-native-safe-area-context) ![Supports Android, iOS, web, macOS and Windows](https://img.shields.io/badge/platforms-android%20%7C%20ios%20%7C%20web%20%7C%20macos%20%7C%20windows-lightgrey.svg) ![MIT License](https://img.shields.io/npm/l/react-native-safe-area-context.svg)
 
 [![JavaScript tests](https://github.com/th3rdwave/react-native-safe-area-context/workflows/JavaScript%20tests/badge.svg)](https://github.com/th3rdwave/react-native-safe-area-context/actions?query=workflow%3AJavaScript%20tests) [![iOS build](https://github.com/th3rdwave/react-native-safe-area-context/workflows/iOS%20build/badge.svg)](https://github.com/th3rdwave/react-native-safe-area-context/actions?query=workflow%3AiOS%20build) [![Android build](https://github.com/th3rdwave/react-native-safe-area-context/workflows/Android%20build/badge.svg)](https://github.com/th3rdwave/react-native-safe-area-context/actions?query=workflow%3AAndroid%20build)
 
@@ -131,7 +131,6 @@ Optional, defaults to `null`.
 
 Can be used to provide the initial value for frame and insets, this allows rendering immediatly. See [optimization](#optimization) for more information on how to use this prop.
 
-
 ### SafeAreaView
 
 `SafeAreaView` is a regular `View` component with the safe area insets applied as padding or margin.
@@ -180,7 +179,6 @@ This can be useful for example to create a safe area aware separator component:
 <SafeAreaView mode="margin" style={{ height: 1, backgroundColor: '#eee' }} />
 ```
 
-
 ### useSafeAreaInsets
 
 Returns the safe area insets of the nearest provider. This allows manipulating the inset values from JavaScript. Note that insets are not updated synchronously so it might cause a slight delay for example when rotating the screen.
@@ -196,7 +194,6 @@ function HookComponent() {
   return <View style={{ paddingBottom: Math.max(insets.bottom, 16) }} />;
 }
 ```
-
 
 ### useSafeAreaFrame
 
