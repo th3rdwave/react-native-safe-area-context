@@ -58,7 +58,7 @@ export function SafeAreaView({
         marginLeft: marginLeft + insetLeft,
       };
 
-      return [style, marginStyle];
+      return [flatStyle, marginStyle];
     } else {
       const {
         padding = 0,
@@ -77,7 +77,7 @@ export function SafeAreaView({
         paddingLeft: paddingLeft + insetLeft,
       };
 
-      return [style, paddingStyle];
+      return [flatStyle, paddingStyle];
     }
   }, [style, insets, mode, edgeBitmask]);
 
