@@ -304,3 +304,7 @@ export function TestSafeAreaProvider({ children }) {
   );
 }
 ```
+
+## Contributing
+
+See the [Contributing Guide](CONTRIBUTING.md)
