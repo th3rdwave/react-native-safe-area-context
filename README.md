@@ -151,7 +151,7 @@ function SomeComponent() {
 }
 ```
 
-### Props
+#### Props
 
 Accepts all [View](https://reactnative.dev/docs/view#props) props.
 
