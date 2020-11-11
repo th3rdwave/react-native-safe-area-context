@@ -14,7 +14,8 @@
     "ios",
     "*.podspec",
     "react-native.config.js",
-    "!**/__tests__"
+    "!**/__tests__",
+    "!example"
   ],
   "author": "Janic Duplessis <janicduplessis@gmail.com>",
   "contributors": [
