@@ -6,8 +6,10 @@ import { EdgeInsets, InsetChangedEvent, Metrics, Rect } from './SafeArea.types';
 export const SafeAreaInsetsContext = React.createContext<EdgeInsets | null>(
   null,
 );
+SafeAreaInsetsContext.displayName = 'SafeAreaInsetsContext';
 
 export const SafeAreaFrameContext = React.createContext<Rect | null>(null);
+SafeAreaFrameContext.displayName = 'SafeAreaFrameContext';
 
 export interface SafeAreaViewProps {
   children?: React.ReactNode;
