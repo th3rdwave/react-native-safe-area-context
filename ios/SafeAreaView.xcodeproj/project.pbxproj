@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		19AC186D23048EBB0093B581 /* RNCSafeAreaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AC186C23048EBB0093B581 /* RNCSafeAreaView.m */; };
 		2EF2DACC23198DA400BBA425 /* RNCSafeAreaViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF2DACB23198DA400BBA425 /* RNCSafeAreaViewManager.m */; };
+		456B6CDC25B3B45F002C1C0C /* RNCSafeAreaProviderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 456B6CCF25B3B45F002C1C0C /* RNCSafeAreaProviderManager.m */; };
+		456B6CDD25B3B45F002C1C0C /* RNCSafeAreaShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 456B6CD225B3B45F002C1C0C /* RNCSafeAreaShadowView.m */; };
+		456B6CDE25B3B45F002C1C0C /* RNCSafeAreaViewEdges.m in Sources */ = {isa = PBXBuildFile; fileRef = 456B6CD325B3B45F002C1C0C /* RNCSafeAreaViewEdges.m */; };
+		456B6CDF25B3B45F002C1C0C /* RCTView+SafeAreaCompat.m in Sources */ = {isa = PBXBuildFile; fileRef = 456B6CD525B3B45F002C1C0C /* RCTView+SafeAreaCompat.m */; };
+		456B6CE025B3B45F002C1C0C /* RNCSafeAreaViewMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 456B6CD825B3B45F002C1C0C /* RNCSafeAreaViewMode.m */; };
+		456B6CE125B3B45F002C1C0C /* RNCSafeAreaViewLocalData.m in Sources */ = {isa = PBXBuildFile; fileRef = 456B6CDA25B3B45F002C1C0C /* RNCSafeAreaViewLocalData.m */; };
+		456B6CE225B3B45F002C1C0C /* RNCSafeAreaProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 456B6CDB25B3B45F002C1C0C /* RNCSafeAreaProvider.m */; };
 		C923EDBC220C2C1A00D3100F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C923EDBB220C2C1A00D3100F /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +37,20 @@
 		19AC186C23048EBB0093B581 /* RNCSafeAreaView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RNCSafeAreaView.m; path = SafeAreaView/RNCSafeAreaView.m; sourceTree = "<group>"; };
 		2EF2DACA23198DA300BBA425 /* RNCSafeAreaViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNCSafeAreaViewManager.h; path = SafeAreaView/RNCSafeAreaViewManager.h; sourceTree = "<group>"; };
 		2EF2DACB23198DA400BBA425 /* RNCSafeAreaViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNCSafeAreaViewManager.m; path = SafeAreaView/RNCSafeAreaViewManager.m; sourceTree = "<group>"; };
+		456B6CCE25B3B45F002C1C0C /* RNCSafeAreaShadowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNCSafeAreaShadowView.h; path = SafeAreaView/RNCSafeAreaShadowView.h; sourceTree = "<group>"; };
+		456B6CCF25B3B45F002C1C0C /* RNCSafeAreaProviderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNCSafeAreaProviderManager.m; path = SafeAreaView/RNCSafeAreaProviderManager.m; sourceTree = "<group>"; };
+		456B6CD025B3B45F002C1C0C /* RNCSafeAreaProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNCSafeAreaProvider.h; path = SafeAreaView/RNCSafeAreaProvider.h; sourceTree = "<group>"; };
+		456B6CD125B3B45F002C1C0C /* RNCSafeAreaViewLocalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNCSafeAreaViewLocalData.h; path = SafeAreaView/RNCSafeAreaViewLocalData.h; sourceTree = "<group>"; };
+		456B6CD225B3B45F002C1C0C /* RNCSafeAreaShadowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNCSafeAreaShadowView.m; path = SafeAreaView/RNCSafeAreaShadowView.m; sourceTree = "<group>"; };
+		456B6CD325B3B45F002C1C0C /* RNCSafeAreaViewEdges.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNCSafeAreaViewEdges.m; path = SafeAreaView/RNCSafeAreaViewEdges.m; sourceTree = "<group>"; };
+		456B6CD425B3B45F002C1C0C /* RNCSafeAreaViewEdges.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNCSafeAreaViewEdges.h; path = SafeAreaView/RNCSafeAreaViewEdges.h; sourceTree = "<group>"; };
+		456B6CD525B3B45F002C1C0C /* RCTView+SafeAreaCompat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "RCTView+SafeAreaCompat.m"; path = "SafeAreaView/RCTView+SafeAreaCompat.m"; sourceTree = "<group>"; };
+		456B6CD625B3B45F002C1C0C /* RNCSafeAreaViewMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNCSafeAreaViewMode.h; path = SafeAreaView/RNCSafeAreaViewMode.h; sourceTree = "<group>"; };
+		456B6CD725B3B45F002C1C0C /* RNCSafeAreaProviderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNCSafeAreaProviderManager.h; path = SafeAreaView/RNCSafeAreaProviderManager.h; sourceTree = "<group>"; };
+		456B6CD825B3B45F002C1C0C /* RNCSafeAreaViewMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNCSafeAreaViewMode.m; path = SafeAreaView/RNCSafeAreaViewMode.m; sourceTree = "<group>"; };
+		456B6CD925B3B45F002C1C0C /* RCTView+SafeAreaCompat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "RCTView+SafeAreaCompat.h"; path = "SafeAreaView/RCTView+SafeAreaCompat.h"; sourceTree = "<group>"; };
+		456B6CDA25B3B45F002C1C0C /* RNCSafeAreaViewLocalData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNCSafeAreaViewLocalData.m; path = SafeAreaView/RNCSafeAreaViewLocalData.m; sourceTree = "<group>"; };
+		456B6CDB25B3B45F002C1C0C /* RNCSafeAreaProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNCSafeAreaProvider.m; path = SafeAreaView/RNCSafeAreaProvider.m; sourceTree = "<group>"; };
 		C923EDBB220C2C1A00D3100F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -56,6 +77,20 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				456B6CD925B3B45F002C1C0C /* RCTView+SafeAreaCompat.h */,
+				456B6CD525B3B45F002C1C0C /* RCTView+SafeAreaCompat.m */,
+				456B6CD025B3B45F002C1C0C /* RNCSafeAreaProvider.h */,
+				456B6CDB25B3B45F002C1C0C /* RNCSafeAreaProvider.m */,
+				456B6CD725B3B45F002C1C0C /* RNCSafeAreaProviderManager.h */,
+				456B6CCF25B3B45F002C1C0C /* RNCSafeAreaProviderManager.m */,
+				456B6CCE25B3B45F002C1C0C /* RNCSafeAreaShadowView.h */,
+				456B6CD225B3B45F002C1C0C /* RNCSafeAreaShadowView.m */,
+				456B6CD425B3B45F002C1C0C /* RNCSafeAreaViewEdges.h */,
+				456B6CD325B3B45F002C1C0C /* RNCSafeAreaViewEdges.m */,
+				456B6CD125B3B45F002C1C0C /* RNCSafeAreaViewLocalData.h */,
+				456B6CDA25B3B45F002C1C0C /* RNCSafeAreaViewLocalData.m */,
+				456B6CD625B3B45F002C1C0C /* RNCSafeAreaViewMode.h */,
+				456B6CD825B3B45F002C1C0C /* RNCSafeAreaViewMode.m */,
 				2EF2DACA23198DA300BBA425 /* RNCSafeAreaViewManager.h */,
 				2EF2DACB23198DA400BBA425 /* RNCSafeAreaViewManager.m */,
 				19AC186B23048EBB0093B581 /* RNCSafeAreaView.h */,
@@ -130,8 +165,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				456B6CE125B3B45F002C1C0C /* RNCSafeAreaViewLocalData.m in Sources */,
+				456B6CDF25B3B45F002C1C0C /* RCTView+SafeAreaCompat.m in Sources */,
+				456B6CDE25B3B45F002C1C0C /* RNCSafeAreaViewEdges.m in Sources */,
+				456B6CDC25B3B45F002C1C0C /* RNCSafeAreaProviderManager.m in Sources */,
+				456B6CE025B3B45F002C1C0C /* RNCSafeAreaViewMode.m in Sources */,
 				2EF2DACC23198DA400BBA425 /* RNCSafeAreaViewManager.m in Sources */,
+				456B6CDD25B3B45F002C1C0C /* RNCSafeAreaShadowView.m in Sources */,
 				19AC186D23048EBB0093B581 /* RNCSafeAreaView.m in Sources */,
+				456B6CE225B3B45F002C1C0C /* RNCSafeAreaProvider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
