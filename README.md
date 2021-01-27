@@ -246,7 +246,7 @@ Object with:
 
 ### useSafeArea
 
-Use `useSafeAreaInsets` intead.
+Use `useSafeAreaInsets` instead.
 
 ### SafeAreaConsumer
 
