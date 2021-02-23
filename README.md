@@ -107,7 +107,7 @@ Consumers are components and hooks that allow using inset values provided by the
 
 ### SafeAreaProvider
 
-You should add `SafeAreaProvider` in your app root component. You may need to add it in other places like the root of modals and routes when using `react-native-screen`.
+You should add `SafeAreaProvider` in your app root component. You may need to add it in other places like the root of modals and routes when using [`react-native-screens`](https://github.com/software-mansion/react-native-screens).
 
 Note that providers should not be inside a `View` that is animated with `Animated` or inside a `ScrollView` since it can cause very frequent updates.
 
