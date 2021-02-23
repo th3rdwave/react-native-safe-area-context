@@ -54,7 +54,7 @@ RCT_EXPORT_VIEW_PROPERTY(onInsetsChange, RCTDirectEventBlock)
           @"height": @(window.frame.size.height),
         },
       }
-    } };
+    } ;
   }
 }
 
