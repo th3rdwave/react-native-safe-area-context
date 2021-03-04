@@ -87,6 +87,9 @@ protected List<ReactPackage> getPackages() {
 
 </details>
 
+**Note**
+Before 3.1.9 release of safe-area-context, Building for React Native 0.59 would not work due to missing header files. Use >= 3.1.9 to work around that.
+
 ## Usage
 
 This library has 2 important concepts, if you are familiar with React Context this is very similar.
