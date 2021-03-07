@@ -245,6 +245,8 @@ Object with:
 }
 ```
 
+**NOTE:** This value can be null or out of date as it is computed when the native module is created.
+
 ## Deprecated apis
 
 ### useSafeArea
