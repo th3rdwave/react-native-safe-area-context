@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "react-native-safe-area-context": ["./src"]
-    }
+    },
+    "outDir": "./build"
   },
   "exclude": ["node_modules"]
 }
