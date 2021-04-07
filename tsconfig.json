@@ -5,6 +5,7 @@
     "example/**/*.ts",
     "example/**/*.tsx"
   ],
+  "extends": "expo-module-scripts/tsconfig.base",
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
@@ -17,7 +18,7 @@
     "paths": {
       "react-native-safe-area-context": ["./src"]
     },
-    "outDir": "./build"
+    "outDir": "./build",
   },
   "exclude": ["node_modules"]
 }
