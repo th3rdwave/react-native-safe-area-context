@@ -7,13 +7,6 @@
   ],
   "extends": "expo-module-scripts/tsconfig.base",
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "strict": true,
-    "moduleResolution": "node",
-    "skipLibCheck": true,
-    "lib": ["dom", "es2015", "es2016", "esnext"],
-    "jsx": "react-native",
     "baseUrl": ".",
     "paths": {
       "react-native-safe-area-context": ["./src"]
