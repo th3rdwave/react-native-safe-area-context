@@ -3,7 +3,7 @@ name: JavaScript tests
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - '.github/workflows/js.yml'
       - 'yarn.lock'
@@ -31,7 +31,7 @@ jobs:
           node-version: 14.x
       - name: Restore yarn workspaces
         id: yarn-cache
-        uses: actions/cache@master
+        uses: actions/cache@v2
         with:
           path: |
             node_modules

@@ -3,7 +3,7 @@ name: iOS build
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - '.github/workflows/ios.yml'
       - 'ios/**'
@@ -29,7 +29,7 @@ jobs:
         run: gem install cocoapods
       - name: Restore yarn workspaces
         id: yarn-cache
-        uses: actions/cache@master
+        uses: actions/cache@v2
         with:
           path: |
             node_modules
