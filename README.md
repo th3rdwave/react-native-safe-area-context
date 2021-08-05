@@ -309,6 +309,18 @@ export function TestSafeAreaProvider({ children }) {
   );
 }
 ```
+  
+For jest, you can provide the following mock in your jest setup file:
+  
+```js
+jest.mock('react-native-safe-area-context', () => ({
+  ...jest.requireActual('react-native-safe-area-context'),
+  initialWindowMetrics: {
+    frame: { height: 844, width: 390, x: 0, y: 0 },
+    insets: { bottom: 34, left: 0, right: 0, top: 47 },
+  },
+}));
+```
 
 ## Contributing
 
