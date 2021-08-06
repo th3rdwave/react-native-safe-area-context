@@ -292,8 +292,35 @@ function App() {
 
 ## Testing
 
-When testing components nested under `SafeAreaProvider`, ensure to pass `initialMetrics` to
-provide mock data for frame and insets and ensure the provider renders its children.
+This library includes a built in mock for Jest. It will use the following metrics by default:
+
+```js
+{
+  frame: {
+    width: 320,
+    height: 640,
+    x: 0,
+    y: 0,
+  },
+  insets: {
+    left: 0,
+    right: 0,
+    bottom: 0,
+    top: 0,
+  },
+}
+```
+
+To use it, add the following code to the jest setup file:
+
+```js
+import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock';
+
+jest.mock('react-native-safe-area-context', () => mockSafeAreaContext);
+```
+
+To have more control over the test values it is also possible to pass `initialMetrics` to
+`SafeAreaProvider` to provide mock data for frame and insets.
 
 ```js
 export function TestSafeAreaProvider({ children }) {
@@ -308,18 +335,6 @@ export function TestSafeAreaProvider({ children }) {
     </SafeAreaProvider>
   );
 }
-```
-  
-For jest, you can provide the following mock in your jest setup file:
-  
-```js
-jest.mock('react-native-safe-area-context', () => ({
-  ...jest.requireActual('react-native-safe-area-context'),
-  initialWindowMetrics: {
-    frame: { height: 844, width: 390, x: 0, y: 0 },
-    insets: { bottom: 34, left: 0, right: 0, top: 47 },
-  },
-}));
 ```
 
 ## Contributing
