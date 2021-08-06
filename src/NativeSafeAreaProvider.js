@@ -2,7 +2,10 @@
  * @flow strict-local
  */
 
-import type { DirectEventHandler } from 'react-native/Libraries/Types/CodegenTypes';
+import type {
+  DirectEventHandler,
+  Double,
+} from 'react-native/Libraries/Types/CodegenTypes';
 
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import type { HostComponent } from 'react-native/Libraries/Renderer/shims/ReactNativeTypes';
@@ -11,16 +14,16 @@ import type { ViewProps } from 'react-native/Libraries/Components/View/ViewPropT
 
 type Event = $ReadOnly<{|
   insets: $ReadOnly<{|
-    top: number,
-    right: number,
-    bottom: number,
-    left: number,
+    top: Double,
+    right: Double,
+    bottom: Double,
+    left: Double,
   |}>,
   frame: $ReadOnly<{|
-    x: number,
-    y: number,
-    width: number,
-    height: number,
+    x: Double,
+    y: Double,
+    width: Double,
+    height: Double,
   |}>,
 |}>;
 
@@ -30,6 +33,6 @@ type NativeProps = $ReadOnly<{|
   onInsetsChange?: ?DirectEventHandler<Event, 'paperInsetsChange'>,
 |}>;
 
-export default (codegenNativeComponent<NativeProps>('SafeAreaProvider', {
+export default (codegenNativeComponent<NativeProps>('RNCSafeAreaProvider', {
   interfaceOnly: true,
 }): HostComponent<NativeProps>);

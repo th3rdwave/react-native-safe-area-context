@@ -64,3 +64,6 @@ lib/
 # Expo
 web-build
 .expo
+
+# Codegen
+ios/RNSafeAreaContextSpec

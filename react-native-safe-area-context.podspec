@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
 
   s.authors      = package['author']
   s.homepage     = package['homepage']
-  s.platforms    = { :ios => "9.0", :tvos => "9.2" }
+  s.platforms    = { :ios => "11.0", :tvos => "11.0" }
 
   s.source       = { :git => "https://github.com/th3rdwave/react-native-safe-area-context.git", :tag => "v#{s.version}" }
   s.source_files  = "ios/**/*.{h,m}"
@@ -20,7 +20,8 @@ Pod::Spec.new do |s|
 
   use_react_native_codegen!(s, {
     :react_native_path => "../react-native",
-    :js_srcs_dir => "./src",
-    :modules_output_dir => "./ios/RNSafeAreaContextSpec"
+    :js_srcs_dir => "src",
+    :modules_output_dir => "ios/RNSafeAreaContextSpec",
+    :components_output_dir => "ios/RNSafeAreaContextSpec",
   })
 end

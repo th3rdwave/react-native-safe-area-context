@@ -3,12 +3,17 @@ $node_modules = "#{$root_path}/node_modules"
 $react_native_path = "#{$node_modules}/react-native"
 
 require_relative "#{$node_modules}/react-native/scripts/react_native_pods"
-require_relative "#{$node_modules}/@react-native-community/cli-platform-ios/native_modules"
 
-platform :ios, "10.0"
+platform :ios, "11.0"
 
 target "SafeAreaViewExample" do
-  use_react_native!(path: $react_native_path)
+  use_react_native!(
+    :path => $react_native_path,
+    # to enable hermes on iOS, change `false` to `true` and then install pods
+    :hermes_enabled => false
+  )
+
+  # use_flipper!()
 
   pod "react-native-safe-area-context", :path => $root_path
   pod "RNCAsyncStorage", :path => "#{$node_modules}/@react-native-community/async-storage"
@@ -16,5 +21,9 @@ target "SafeAreaViewExample" do
   pod "RNGestureHandler", :path => "#{$node_modules}/react-native-gesture-handler"
   pod "RNReanimated", :path => "#{$node_modules}/react-native-reanimated"
   pod "RNScreens", :path => "#{$node_modules}/react-native-screens"
+
+  post_install do |installer|
+    react_native_post_install(installer)
+  end
 end
 
