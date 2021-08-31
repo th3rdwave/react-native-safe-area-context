@@ -59,9 +59,8 @@ describe('SafeAreaContext', () => {
       </SafeAreaProvider>,
     );
     expect(component).toMatchSnapshot();
-    const { onInsetsChange } = component.root.findByType(
-      NativeSafeAreaView,
-    ).props;
+    const { onInsetsChange } =
+      component.root.findByType(NativeSafeAreaView).props;
     ReactTestRenderer.act(() => {
       onInsetsChange({
         nativeEvent: TEST_METRICS_1,

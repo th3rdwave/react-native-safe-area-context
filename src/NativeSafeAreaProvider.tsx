@@ -32,12 +32,8 @@ export default function NativeSafeAreaView({
     const element = createContextElement();
     document.body.appendChild(element);
     const onEnd = () => {
-      const {
-        paddingTop,
-        paddingBottom,
-        paddingLeft,
-        paddingRight,
-      } = window.getComputedStyle(element);
+      const { paddingTop, paddingBottom, paddingLeft, paddingRight } =
+        window.getComputedStyle(element);
 
       const insets = {
         top: paddingTop ? parseInt(paddingTop, 10) : 0,

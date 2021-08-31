@@ -5,10 +5,12 @@ const RNCSafeAreaProviderConfig = UIManager.getViewManagerConfig(
   'RNCSafeAreaProvider',
 ) as any;
 
-export const initialWindowMetrics = (RNCSafeAreaProviderConfig != null &&
-RNCSafeAreaProviderConfig.Constants != null
-  ? RNCSafeAreaProviderConfig.Constants.initialWindowMetrics
-  : null) as Metrics | null;
+export const initialWindowMetrics = (
+  RNCSafeAreaProviderConfig != null &&
+  RNCSafeAreaProviderConfig.Constants != null
+    ? RNCSafeAreaProviderConfig.Constants.initialWindowMetrics
+    : null
+) as Metrics | null;
 
 /**
  * @deprecated
