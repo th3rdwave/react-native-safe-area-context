@@ -10,28 +10,42 @@ Use yarn to install development dependencies.
 yarn install
 ```
 
-If you plan to develop on iOS you will also need to install pods for the example app.
+If you don't have bundler installed:
+
+```
+gem install bundler
+```
+
+Move to the `example` directory and install dependencies there too.
 
 ```sh
-cd example/ios && npx pod install
+cd example
+yarn install
+bundle install
+```
+
+```sh
+cd ios && bundle exec pod install
 ```
 
 ### Example app
 
 Start the example app to test your changes. You can use one of the following commands from the repo root, depending on the platform you want to use.
 
+From the `example` directory:
+
 #### iOS
 
 ```sh
-yarn example:ios
+yarn ios
 ```
 
-I also recommend opening `example/ios/SafeAreaViewExample.xcworkspace` in Xcode if you need to make changes to native code.
+I also recommend opening `example/ios/example.xcworkspace` in Xcode if you need to make changes to native code.
 
 #### Android
 
 ```sh
-yarn example:android
+yarn android
 ```
 
 I also recommend opening `example/android` in Android Studio if you need to make changes to native code.

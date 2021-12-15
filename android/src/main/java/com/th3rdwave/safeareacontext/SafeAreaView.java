@@ -9,6 +9,9 @@ import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 
 import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.WritableNativeMap;
+import com.facebook.react.uimanager.FabricViewStateManager;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.facebook.react.views.view.ReactViewGroup;
 
@@ -18,14 +21,20 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import androidx.annotation.Nullable;
 
 @SuppressLint("ViewConstructor")
-public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnPreDrawListener {
+public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnPreDrawListener, FabricViewStateManager.HasFabricViewStateManager {
   private SafeAreaViewMode mMode = SafeAreaViewMode.PADDING;
   private @Nullable EdgeInsets mInsets;
   private @Nullable EnumSet<SafeAreaViewEdges> mEdges;
   private @Nullable View mProviderView;
+  private final FabricViewStateManager mFabricViewStateManager = new FabricViewStateManager();
 
   public SafeAreaView(Context context) {
     super(context);
+  }
+
+  @Override
+  public FabricViewStateManager getFabricViewStateManager() {
+    return mFabricViewStateManager;
   }
 
   /**
@@ -41,17 +50,29 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnP
 
   private void updateInsets() {
     if (mInsets != null) {
-      EnumSet<SafeAreaViewEdges> edges = mEdges != null
+      final EnumSet<SafeAreaViewEdges> edges = mEdges != null
               ? mEdges
               : EnumSet.allOf(SafeAreaViewEdges.class);
+      final EdgeInsets insets = mInsets;
+      final SafeAreaViewMode mode = mMode;
+      if (mFabricViewStateManager.hasStateWrapper()) {
+        mFabricViewStateManager.setState(new FabricViewStateManager.StateUpdateCallback() {
+          @Override
+          public WritableMap getStateUpdate() {
+            WritableMap map = new WritableNativeMap();
+            map.putMap("insets", SerializationUtils.edgeInsetsToJsMap(insets));
+            return map;
+          }
+        });
+      } else  {
+        SafeAreaViewLocalData localData = new SafeAreaViewLocalData(mInsets, mMode, edges);
 
-      SafeAreaViewLocalData localData = new SafeAreaViewLocalData(mInsets, mMode, edges);
-
-      ReactContext reactContext = getReactContext(this);
-      UIManagerModule uiManager = reactContext.getNativeModule(UIManagerModule.class);
-      if (uiManager != null) {
-        uiManager.setViewLocalData(getId(), localData);
-        waitForReactLayout();
+        ReactContext reactContext = getReactContext(this);
+        UIManagerModule uiManager = reactContext.getNativeModule(UIManagerModule.class);
+        if (uiManager != null) {
+          uiManager.setViewLocalData(getId(), localData);
+          waitForReactLayout();
+        }
       }
     }
   }

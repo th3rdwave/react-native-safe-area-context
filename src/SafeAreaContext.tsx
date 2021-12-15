@@ -1,7 +1,12 @@
 import * as React from 'react';
 import { Dimensions, StyleProp, StyleSheet, ViewStyle } from 'react-native';
-import NativeSafeAreaProvider from './NativeSafeAreaProvider';
-import { EdgeInsets, InsetChangedEvent, Metrics, Rect } from './SafeArea.types';
+import { NativeSafeAreaProvider } from './NativeSafeAreaProvider';
+import type {
+  EdgeInsets,
+  InsetChangedEvent,
+  Metrics,
+  Rect,
+} from './SafeArea.types';
 
 export const SafeAreaInsetsContext = React.createContext<EdgeInsets | null>(
   null,

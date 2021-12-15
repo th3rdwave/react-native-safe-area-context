@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import * as ReactTestRenderer from 'react-test-renderer';
 import { SafeAreaProvider } from '../SafeAreaContext';
 import { SafeAreaView } from '../SafeAreaView';
-import { Metrics } from '../SafeArea.types';
+import type { Metrics } from '../SafeArea.types';
 
 const INITIAL_METRICS: Metrics = {
   insets: { top: 1, left: 2, right: 3, bottom: 4 },

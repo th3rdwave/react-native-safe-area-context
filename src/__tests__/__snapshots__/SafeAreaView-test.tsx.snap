@@ -13,6 +13,14 @@ exports[`SafeAreaView can override padding styles 1`] = `
   }
 >
   <RNCSafeAreaView
+    edges={
+      Array [
+        "bottom",
+        "left",
+        "right",
+        "top",
+      ]
+    }
     style={
       Object {
         "paddingTop": 0,
@@ -36,7 +44,16 @@ exports[`SafeAreaView renders 1`] = `
     ]
   }
 >
-  <RNCSafeAreaView>
+  <RNCSafeAreaView
+    edges={
+      Array [
+        "bottom",
+        "left",
+        "right",
+        "top",
+      ]
+    }
+  >
     <View />
   </RNCSafeAreaView>
 </RNCSafeAreaProvider>
