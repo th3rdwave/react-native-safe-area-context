@@ -97,6 +97,9 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
 
 - (void)updateLocalData
 {
+  if (_providerView == nil) {
+    return;
+  }
   RNCSafeAreaViewLocalData *localData = [[RNCSafeAreaViewLocalData alloc] initWithInsets:_currentSafeAreaInsets
                                                                                     mode:_mode
                                                                                    edges:_edges];
