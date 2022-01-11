@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const MOCK_INITIAL_METRICS = {
   frame: {
@@ -20,6 +20,12 @@ const RNSafeAreaContext = jest.requireActual('react-native-safe-area-context');
 export default {
   ...RNSafeAreaContext,
   initialWindowMetrics: MOCK_INITIAL_METRICS,
+  useSafeAreaInsets: () => {
+    return MOCK_INITIAL_METRICS.insets;
+  },
+  useSafeAreaFrame: () => {
+    return MOCK_INITIAL_METRICS.frame;
+  },
   // Provide a simpler implementation with default values.
   SafeAreaProvider: ({ children, initialMetrics }) => {
     return (
