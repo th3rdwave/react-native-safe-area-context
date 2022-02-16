@@ -26,13 +26,14 @@ export default function ReactNavigation5Example() {
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator
-          mode="modal"
-          headerMode="screen"
-          screenOptions={{ headerShown: false, gestureEnabled: true }}
+          screenOptions={{
+            headerShown: false,
+            gestureEnabled: true,
+          }}
         >
           <Stack.Screen name="Root">
             {() => (
-              <Stack.Navigator headerMode="screen">
+              <Stack.Navigator>
                 <Stack.Screen
                   name="Tabs"
                   component={TabsScreen}
