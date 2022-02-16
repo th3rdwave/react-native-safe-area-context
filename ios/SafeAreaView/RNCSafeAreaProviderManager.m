@@ -20,8 +20,10 @@ RCT_EXPORT_VIEW_PROPERTY(onInsetsChange, RCTDirectEventBlock)
 
 - (NSDictionary *)constantsToExport
 {
-  UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-  if (@available(iOS 11.0, *)) {
+  UIWindow *window = RCTKeyWindow();
+  if (window == nil) {
+    return @{@"initialWindowMetrics" : [NSNull null]};
+  } else if (@available(iOS 11.0, *)) {
     UIEdgeInsets safeAreaInsets = window.safeAreaInsets;
     return @{
       @"initialWindowMetrics" : @{
