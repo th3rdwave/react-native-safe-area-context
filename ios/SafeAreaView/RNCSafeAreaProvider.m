@@ -2,7 +2,7 @@
 
 #import <React/RCTBridge.h>
 #import <React/RCTUIManager.h>
-#import "RCTView+SafeAreaCompat.h"
+#import "RNCSafeAreaUtils.h"
 
 @implementation RNCSafeAreaProvider {
   UIEdgeInsets _currentSafeAreaInsets;
@@ -23,7 +23,7 @@
     return;
   }
 
-  UIEdgeInsets safeAreaInsets = [self safeAreaInsetsOrEmulate];
+  UIEdgeInsets safeAreaInsets = self.safeAreaInsets;
   CGRect frame = [self convertRect:self.bounds toView:nil];
 
   if (_initialInsetsSent &&
