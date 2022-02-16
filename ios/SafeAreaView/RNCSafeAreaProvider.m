@@ -4,8 +4,7 @@
 #import <React/RCTUIManager.h>
 #import "RCTView+SafeAreaCompat.h"
 
-@implementation RNCSafeAreaProvider
-{
+@implementation RNCSafeAreaProvider {
   UIEdgeInsets _currentSafeAreaInsets;
   CGRect _currentFrame;
   BOOL _initialInsetsSent;
@@ -27,11 +26,9 @@
   UIEdgeInsets safeAreaInsets = [self safeAreaInsetsOrEmulate];
   CGRect frame = [self convertRect:self.bounds toView:nil];
 
-  if (
-    _initialInsetsSent &&
-    UIEdgeInsetsEqualToEdgeInsetsWithThreshold(safeAreaInsets, _currentSafeAreaInsets, 1.0 / RCTScreenScale()) &&
-    CGRectEqualToRect(frame, _currentFrame)
-  ) {
+  if (_initialInsetsSent &&
+      UIEdgeInsetsEqualToEdgeInsetsWithThreshold(safeAreaInsets, _currentSafeAreaInsets, 1.0 / RCTScreenScale()) &&
+      CGRectEqualToRect(frame, _currentFrame)) {
     return;
   }
 
@@ -40,17 +37,17 @@
   _currentFrame = frame;
 
   self.onInsetsChange(@{
-    @"insets": @{
-      @"top": @(safeAreaInsets.top),
-      @"right": @(safeAreaInsets.right),
-      @"bottom": @(safeAreaInsets.bottom),
-      @"left": @(safeAreaInsets.left),
+    @"insets" : @{
+      @"top" : @(safeAreaInsets.top),
+      @"right" : @(safeAreaInsets.right),
+      @"bottom" : @(safeAreaInsets.bottom),
+      @"left" : @(safeAreaInsets.left),
     },
-    @"frame": @{
-      @"x": @(frame.origin.x),
-      @"y": @(frame.origin.y),
-      @"width": @(frame.size.width),
-      @"height": @(frame.size.height),
+    @"frame" : @{
+      @"x" : @(frame.origin.x),
+      @"y" : @(frame.origin.y),
+      @"width" : @(frame.size.width),
+      @"height" : @(frame.size.height),
     },
   });
 }

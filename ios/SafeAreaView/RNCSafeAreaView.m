@@ -3,18 +3,18 @@
 #import <React/RCTBridge.h>
 #import <React/RCTUIManager.h>
 
-#import "RNCSafeAreaViewLocalData.h"
-#import "RNCSafeAreaViewMode.h"
-#import "RNCSafeAreaViewEdges.h"
 #import "RCTView+SafeAreaCompat.h"
 #import "RNCSafeAreaProvider.h"
+#import "RNCSafeAreaViewEdges.h"
+#import "RNCSafeAreaViewLocalData.h"
+#import "RNCSafeAreaViewMode.h"
 
 @implementation RNCSafeAreaView {
   __weak RCTBridge *_bridge;
   UIEdgeInsets _currentSafeAreaInsets;
   RNCSafeAreaViewMode _mode;
   RNCSafeAreaViewEdges _edges;
-  __weak UIView * _Nullable _providerView;
+  __weak UIView *_Nullable _providerView;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge
@@ -42,9 +42,9 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
   }
 
   return [NSString stringWithFormat:@"%@; RNCSafeAreaInsets = %@; appliedRNCSafeAreaInsets = %@>",
-          superDescription,
-          NSStringFromUIEdgeInsets([_providerView safeAreaInsetsOrEmulate]),
-          NSStringFromUIEdgeInsets(_currentSafeAreaInsets)];
+                                    superDescription,
+                                    NSStringFromUIEdgeInsets([_providerView safeAreaInsetsOrEmulate]),
+                                    NSStringFromUIEdgeInsets(_currentSafeAreaInsets)];
 }
 
 - (void)safeAreaInsetsDidChange
@@ -87,7 +87,7 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
 {
   UIView *current = self.reactSuperview;
   while (current != nil) {
-    if ([current isKindOfClass:RNCSafeAreaProvider.class] ) {
+    if ([current isKindOfClass:RNCSafeAreaProvider.class]) {
       return current;
     }
     current = current.reactSuperview;
