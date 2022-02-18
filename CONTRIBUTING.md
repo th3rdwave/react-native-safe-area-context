@@ -40,7 +40,7 @@ From the `example` directory:
 yarn ios
 ```
 
-I also recommend opening `example/ios/example.xcworkspace` in Xcode if you need to make changes to native code.
+I also recommend opening `example/ios/SafeAreaViewExample.xcworkspace` in Xcode if you need to make changes to native code.
 
 #### Android
 

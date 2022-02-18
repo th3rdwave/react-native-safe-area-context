@@ -8,11 +8,13 @@ on:
       - '.github/workflows/ios.yml'
       - 'ios/**'
       - 'example/ios/**'
+      - 'fabric-example/ios/**'
   pull_request:
     paths:
       - '.github/workflows/ios.yml'
       - 'ios/**'
       - 'example/ios/**'
+      - 'fabric-example/ios/**'
 jobs:
   ios-build:
     runs-on: macos-latest
@@ -37,5 +39,17 @@ jobs:
         run: bundle exec pod install
         working-directory: example/ios
       - name: Build ios example app
-        run: xcodebuild -scheme example -workspace example.xcworkspace ONLY_ACTIVE_ARCH=NO -sdk iphonesimulator -configuration Debug
+        run: xcodebuild -scheme SafeAreaViewExample -workspace SafeAreaViewExample.xcworkspace ONLY_ACTIVE_ARCH=NO -sdk iphonesimulator -configuration Debug
         working-directory: example/ios
+      - name: Install fabric example app dependencies
+        run: yarn install
+        working-directory: fabric-example
+      - name: Install fabric example app gems
+        run: bundle install
+        working-directory: fabric-example
+      - name: Install fabric pods
+        run: bundle exec pod install
+        working-directory: fabric-example/ios
+      - name: Build ios fabric example app
+        run: xcodebuild -scheme FabricExample -workspace FabricExample.xcworkspace ONLY_ACTIVE_ARCH=NO -sdk iphonesimulator -configuration Debug
+        working-directory: fabric-example/ios

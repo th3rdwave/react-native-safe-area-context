@@ -7,10 +7,12 @@
 #endif
 
 #import <UIKit/UIKit.h>
-
+#import <React/RCTUtils.h>
 #if RCT_USE_CODEGEN
 #import <SafeAreaContextSpec/SafeAreaContextSpec.h>
+#endif
 
+#if RCT_USE_CODEGEN
 using namespace facebook::react;
 
 @interface RNCSafeAreaContext () <NativeSafeAreaContextSpec>

@@ -8,11 +8,13 @@ on:
       - '.github/workflows/android.yml'
       - 'android/**'
       - 'example/android/**'
+      - 'fabric-example/android/**'
   pull_request:
     paths:
       - '.github/workflows/android.yml'
       - 'android/**'
       - 'example/android/**'
+      - 'fabric-example/android/**'
 
 jobs:
   android-build:
@@ -39,3 +41,9 @@ jobs:
       - name: Build android example app
         run: ./gradlew assembleDebug
         working-directory: example/android
+      - name: Install fabric example app dependencies
+        run: yarn install
+        working-directory: fabric-example
+      - name: Build android example app
+        run: ./gradlew assembleDebug
+        working-directory: fabric-example/android
