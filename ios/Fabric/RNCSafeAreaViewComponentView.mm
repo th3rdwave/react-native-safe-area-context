@@ -47,15 +47,28 @@ using namespace facebook::react;
                                     NSStringFromUIEdgeInsets(_currentSafeAreaInsets)];
 }
 
-- (void)safeAreaInsetsDidChange
-{
-  [super safeAreaInsetsDidChange];
-  [self updateStateIfNecessary];
-}
-
 - (void)didMoveToWindow
 {
+  UIView *previousProviderView = _providerView;
   _providerView = [self findNearestProvider];
+
+  [self updateStateIfNecessary];
+
+  if (previousProviderView != _providerView) {
+    [NSNotificationCenter.defaultCenter
+     removeObserver:self
+     name:RNCSafeAreaDidChange
+     object:previousProviderView];
+    [NSNotificationCenter.defaultCenter
+     addObserver:self
+     selector:@selector(safeAreaProviderInsetsDidChange:)
+     name:RNCSafeAreaDidChange
+     object:_providerView];
+  }
+}
+
+- (void)safeAreaProviderInsetsDidChange:(NSNotification *)notification
+{
   [self updateStateIfNecessary];
 }
 
@@ -122,6 +135,8 @@ using namespace facebook::react;
 - (void)prepareForRecycle
 {
   [super prepareForRecycle];
+
+  [NSNotificationCenter.defaultCenter removeObserver:self];
   _state.reset();
   _providerView = nil;
   _currentSafeAreaInsets = UIEdgeInsetsZero;

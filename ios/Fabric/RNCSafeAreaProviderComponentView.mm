@@ -55,6 +55,11 @@ using namespace facebook::react;
   _currentSafeAreaInsets = safeAreaInsets;
   _currentFrame = frame;
 
+  [NSNotificationCenter.defaultCenter
+   postNotificationName:RNCSafeAreaDidChange
+   object:self
+   userInfo:nil];
+
   if (_eventEmitter) {
     RNCSafeAreaProviderEventEmitter::OnInsetsChange event = {
         .insets =

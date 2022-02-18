@@ -51,11 +51,10 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
 {
   UIView *previousProviderView = _providerView;
   _providerView = [self findNearestProvider];
-  BOOL providerViewDidChange = previousProviderView != _providerView;
 
   [self invalidateSafeAreaInsets];
 
-  if (providerViewDidChange) {
+  if (previousProviderView != _providerView) {
     [NSNotificationCenter.defaultCenter
      removeObserver:self
      name:RNCSafeAreaDidChange
@@ -66,6 +65,11 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
      name:RNCSafeAreaDidChange
      object:_providerView];
   }
+}
+
+- (void)safeAreaProviderInsetsDidChange:(NSNotification *)notification
+{
+  [self invalidateSafeAreaInsets];
 }
 
 - (void)invalidateSafeAreaInsets
@@ -116,11 +120,6 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
 {
   _edges = edges;
   [self updateLocalData];
-}
-
-- (void)safeAreaProviderInsetsDidChange:(NSNotification *)notification
-{
-  [self invalidateSafeAreaInsets];
 }
 
 @end

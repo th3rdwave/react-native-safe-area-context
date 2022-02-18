@@ -10,15 +10,9 @@
   BOOL _initialInsetsSent;
 }
 
-NSString * const RNCSafeAreaDidChange = @"RNCSafeAreaDidChange";
-
 - (void)safeAreaInsetsDidChange
 {
   [self invalidateSafeAreaInsets];
-  [NSNotificationCenter.defaultCenter
-   postNotificationName:RNCSafeAreaDidChange
-   object:self
-   userInfo:nil];
 }
 
 - (void)invalidateSafeAreaInsets
@@ -41,6 +35,11 @@ NSString * const RNCSafeAreaDidChange = @"RNCSafeAreaDidChange";
   _initialInsetsSent = YES;
   _currentSafeAreaInsets = safeAreaInsets;
   _currentFrame = frame;
+
+  [NSNotificationCenter.defaultCenter
+   postNotificationName:RNCSafeAreaDidChange
+   object:self
+   userInfo:nil];
 
   self.onInsetsChange(@{
     @"insets" : @{
