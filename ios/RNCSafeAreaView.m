@@ -47,16 +47,25 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
                                     NSStringFromUIEdgeInsets(_currentSafeAreaInsets)];
 }
 
-- (void)safeAreaInsetsDidChange
-{
-  [super safeAreaInsetsDidChange];
-  [self invalidateSafeAreaInsets];
-}
-
 - (void)didMoveToWindow
 {
+  UIView *previousProviderView = _providerView;
   _providerView = [self findNearestProvider];
+  BOOL providerViewDidChange = previousProviderView != _providerView;
+
   [self invalidateSafeAreaInsets];
+
+  if (providerViewDidChange) {
+    [NSNotificationCenter.defaultCenter
+     removeObserver:self
+     name:RNCSafeAreaDidChange
+     object:previousProviderView];
+    [NSNotificationCenter.defaultCenter
+     addObserver:self
+     selector:@selector(safeAreaProviderInsetsDidChange:)
+     name:RNCSafeAreaDidChange
+     object:_providerView];
+  }
 }
 
 - (void)invalidateSafeAreaInsets
@@ -107,6 +116,11 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
 {
   _edges = edges;
   [self updateLocalData];
+}
+
+- (void)safeAreaProviderInsetsDidChange:(NSNotification *)notification
+{
+  [self invalidateSafeAreaInsets];
 }
 
 @end
