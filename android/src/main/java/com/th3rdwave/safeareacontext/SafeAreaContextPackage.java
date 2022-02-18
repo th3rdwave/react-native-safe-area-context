@@ -18,6 +18,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// Fool autolinking for older versions that do not support TurboReactPackage.
+// public class SafeAreaContextPackage implements ReactPackage {
 public class SafeAreaContextPackage extends TurboReactPackage {
   @Override
   public NativeModule getModule(String name, ReactApplicationContext reactContext) {
