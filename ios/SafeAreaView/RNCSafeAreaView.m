@@ -3,8 +3,8 @@
 #import <React/RCTBridge.h>
 #import <React/RCTUIManager.h>
 
+#import "RCTView+SafeAreaCompat.h"
 #import "RNCSafeAreaProvider.h"
-#import "RNCSafeAreaUtils.h"
 #import "RNCSafeAreaViewEdges.h"
 #import "RNCSafeAreaViewLocalData.h"
 #import "RNCSafeAreaViewMode.h"
@@ -43,7 +43,7 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
 
   return [NSString stringWithFormat:@"%@; RNCSafeAreaInsets = %@; appliedRNCSafeAreaInsets = %@>",
                                     superDescription,
-                                    NSStringFromUIEdgeInsets(_providerView.safeAreaInsets),
+                                    NSStringFromUIEdgeInsets([_providerView safeAreaInsetsOrEmulate]),
                                     NSStringFromUIEdgeInsets(_currentSafeAreaInsets)];
 }
 
@@ -51,6 +51,15 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
 {
   [super safeAreaInsetsDidChange];
   [self invalidateSafeAreaInsets];
+}
+
+- (void)layoutSubviews
+{
+  [super layoutSubviews];
+
+  if (!self.nativeSafeAreaSupport) {
+    [self invalidateSafeAreaInsets];
+  }
 }
 
 - (void)didMoveToWindow
@@ -64,7 +73,7 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
   if (_providerView == nil) {
     return;
   }
-  UIEdgeInsets safeAreaInsets = _providerView.safeAreaInsets;
+  UIEdgeInsets safeAreaInsets = [_providerView safeAreaInsetsOrEmulate];
 
   if (UIEdgeInsetsEqualToEdgeInsetsWithThreshold(safeAreaInsets, _currentSafeAreaInsets, 1.0 / RCTScreenScale())) {
     return;

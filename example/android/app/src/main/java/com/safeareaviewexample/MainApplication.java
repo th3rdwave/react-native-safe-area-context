@@ -14,8 +14,6 @@ import com.swmansion.rnscreens.RNScreensPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.swmansion.reanimated.ReanimatedPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
-import com.facebook.react.bridge.JSIModulePackage;
-import com.swmansion.reanimated.ReanimatedJSIModulePackage;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -38,11 +36,6 @@ public class MainApplication extends Application implements ReactApplication {
           new ReanimatedPackage(),
           new AsyncStoragePackage(),
           new SafeAreaContextPackage());
-    }
-
-    @Override
-    protected JSIModulePackage getJSIModulePackage() {
-      return new ReanimatedJSIModulePackage();
     }
 
     @Override
