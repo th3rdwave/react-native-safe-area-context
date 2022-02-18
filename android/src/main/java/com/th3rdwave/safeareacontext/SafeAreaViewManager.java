@@ -5,15 +5,30 @@ import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.uimanager.LayoutShadowNode;
+import com.facebook.react.uimanager.ReactStylesDiffMap;
+import com.facebook.react.uimanager.StateWrapper;
 import com.facebook.react.uimanager.ThemedReactContext;
+import com.facebook.react.uimanager.ViewGroupManager;
+import com.facebook.react.uimanager.ViewManagerDelegate;
 import com.facebook.react.uimanager.annotations.ReactProp;
-import com.facebook.react.views.view.ReactViewManager;
+import com.facebook.react.viewmanagers.RNCSafeAreaViewManagerDelegate;
+import com.facebook.react.viewmanagers.RNCSafeAreaViewManagerInterface;
 
 import java.util.EnumSet;
 
-public class SafeAreaViewManager extends ReactViewManager {
+public class SafeAreaViewManager extends ViewGroupManager<SafeAreaView> implements RNCSafeAreaViewManagerInterface<SafeAreaView> {
+  private final ViewManagerDelegate<SafeAreaView> mDelegate;
+
   public SafeAreaViewManager() {
     super();
+
+    mDelegate = new RNCSafeAreaViewManagerDelegate<>(this);
+  }
+
+  @Nullable
+  @Override
+  protected ViewManagerDelegate<SafeAreaView> getDelegate() {
+    return mDelegate;
   }
 
   @Override
@@ -68,5 +83,12 @@ public class SafeAreaViewManager extends ReactViewManager {
     }
 
     view.setEdges(edges);
+  }
+
+  @Nullable
+  @Override
+  public Object updateState(@NonNull SafeAreaView view, ReactStylesDiffMap props, @Nullable StateWrapper stateWrapper) {
+    view.getFabricViewStateManager().setStateWrapper(stateWrapper);
+    return null;
   }
 }

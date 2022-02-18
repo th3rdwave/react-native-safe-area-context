@@ -1,3 +1,1 @@
-import { CompatNativeSafeAreaProvider } from './CompatNativeSafeAreaProvider';
-
-export default CompatNativeSafeAreaProvider;
+export { CompatNativeSafeAreaProvider as NativeSafeAreaProvider } from './CompatNativeSafeAreaProvider';

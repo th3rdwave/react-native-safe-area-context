@@ -25,6 +25,9 @@ public class SafeAreaProvider extends ReactViewGroup implements ViewTreeObserver
   }
 
   private void maybeUpdateInsets() {
+    if (mInsetsChangeListener == null) {
+      return;
+    }
     EdgeInsets edgeInsets = SafeAreaUtils.getSafeAreaInsets(this);
     Rect frame = SafeAreaUtils.getFrame((ViewGroup) getRootView(), this);
     if (edgeInsets != null && frame != null &&
@@ -32,7 +35,8 @@ public class SafeAreaProvider extends ReactViewGroup implements ViewTreeObserver
             mLastFrame == null ||
             !mLastInsets.equalsToEdgeInsets(edgeInsets) ||
             !mLastFrame.equalsToRect(frame))) {
-      Assertions.assertNotNull(mInsetsChangeListener).onInsetsChange(this, edgeInsets, frame);
+
+      mInsetsChangeListener.onInsetsChange(this, edgeInsets, frame);
       mLastInsets = edgeInsets;
       mLastFrame = frame;
     }
@@ -62,5 +66,6 @@ public class SafeAreaProvider extends ReactViewGroup implements ViewTreeObserver
 
   public void setOnInsetsChangeListener(OnInsetsChangeListener listener) {
     mInsetsChangeListener = listener;
+    maybeUpdateInsets();
   }
 }

@@ -123,16 +123,7 @@ public class SafeAreaViewShadowNode extends LayoutShadowNode {
     }
   }
 
-  // The signature for onBeforeLayout is different in RN 0.59.
-  // Remove when we drop support for this version and add back @Override and super call to
-  // onBeforeLayout(NativeViewHierarchyOptimizer).
-  public void onBeforeLayout() {
-    if (mNeedsUpdate) {
-      mNeedsUpdate = false;
-      updateInsets();
-    }
-  }
-
+  @Override
   public void onBeforeLayout(NativeViewHierarchyOptimizer nativeViewHierarchyOptimizer) {
     if (mNeedsUpdate) {
       mNeedsUpdate = false;

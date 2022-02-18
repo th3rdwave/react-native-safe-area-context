@@ -11,8 +11,8 @@ import com.facebook.react.uimanager.events.RCTEventEmitter;
   private EdgeInsets mInsets;
   private Rect mFrame;
 
-  InsetsChangeEvent(int viewTag, EdgeInsets insets, Rect frame) {
-    super(viewTag);
+  InsetsChangeEvent(int surfaceId, int viewTag, EdgeInsets insets, Rect frame) {
+    super(surfaceId, viewTag);
 
     mInsets = insets;
     mFrame = frame;

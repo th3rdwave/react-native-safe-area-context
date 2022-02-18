@@ -1,10 +1,12 @@
 package com.th3rdwave.safeareacontext;
 
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.PixelUtil;
 
+import java.util.EnumSet;
 import java.util.Map;
 
 /* package */ class SerializationUtils {

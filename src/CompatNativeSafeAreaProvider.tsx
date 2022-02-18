@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View } from 'react-native';
-import { NativeSafeAreaProviderProps } from './SafeArea.types';
+import type { NativeSafeAreaProviderProps } from './SafeArea.types';
 import useWindowDimensions from './useWindowDimensions';
 
 export function CompatNativeSafeAreaProvider({
