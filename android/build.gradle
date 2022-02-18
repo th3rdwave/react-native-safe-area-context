@@ -87,7 +87,7 @@ android {
                 ]
             } else {
                 srcDirs += [
-                    "build/generated/source/codegen/java"
+                    "src/paper/java"
                 ]
             }
         }
