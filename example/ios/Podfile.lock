@@ -272,7 +272,7 @@ PODS:
   - React-jsinspector (0.67.2)
   - React-logger (0.67.2):
     - glog
-  - react-native-safe-area-context (4.0.0):
+  - react-native-safe-area-context (4.0.1-rc.0):
     - RCT-Folly (= 2021.06.28.00-v2)
     - RCTRequired
     - RCTTypeSafety
@@ -396,7 +396,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
-  - react-native-safe-area-context (from `../../`)
+  - react-native-safe-area-context (from `../..`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -467,7 +467,7 @@ EXTERNAL SOURCES:
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-safe-area-context:
-    :path: "../../"
+    :path: "../.."
   React-perflogger:
     :path: "../node_modules/react-native/ReactCommon/reactperflogger"
   React-RCTActionSheet:
@@ -532,7 +532,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 52beb652bbc61201bd70cbe4f0b8edb607e8da4f
   React-jsinspector: 595f76eba2176ebd8817a1fffd47b84fbdab9383
   React-logger: 23de8ea0f44fa00ee77e96060273225607fd4d78
-  react-native-safe-area-context: c07660c78caa6cc91a2cbd8c4fd970edd1c3f110
+  react-native-safe-area-context: f10d2c578a65baf3b65fa7575559c4c979f70d51
   React-perflogger: 3c9bb7372493e49036f07a82c44c8cf65cbe88db
   React-RCTActionSheet: 052606483045a408693aa7e864410b4a052f541a
   React-RCTAnimation: 08d4cac13222bb1348c687a0158dfd3b577cdb63
@@ -551,6 +551,6 @@ SPEC CHECKSUMS:
   Yoga: 9b6696970c3289e8dea34b3eda93f23e61fb8121
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 87a189d49cbe67b8f36aca92a9c64258f12f7b4b
+PODFILE CHECKSUM: fd0313b19adf0ec1ad3c72b770f5ff50969bb952
 
 COCOAPODS: 1.11.2

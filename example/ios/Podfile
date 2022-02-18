@@ -16,8 +16,6 @@ target 'SafeAreaViewExample' do
     :app_path => "#{Dir.pwd}/.."
   )
 
-  pod 'react-native-safe-area-context', :path => '../../'
-
   # Enables Flipper.
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
