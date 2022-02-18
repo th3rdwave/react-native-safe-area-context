@@ -1,11 +1,11 @@
 {
   "name": "react-native-safe-area-context",
-  "version": "4.0.0",
+  "version": "4.0.1-rc.0",
   "description": "A flexible way to handle safe area, also works on Android and web.",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
   "react-native": "src/index.tsx",
-  "types": "lib/typescript/src/index.d.ts",
+  "types": "lib/typescript/index.d.ts",
   "source": "src/index.tsx",
   "sideEffects": false,
   "files": [

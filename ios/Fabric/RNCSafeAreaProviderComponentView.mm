@@ -6,7 +6,7 @@
 #import <react/renderer/components/safeareacontext/RCTComponentViewHelpers.h>
 
 #import "RCTFabricComponentsPlugins.h"
-#import "RCTView+SafeAreaCompat.h"
+#import "RNCSafeAreaUtils.h"
 
 using namespace facebook::react;
 
@@ -42,7 +42,7 @@ using namespace facebook::react;
     return;
   }
 
-  UIEdgeInsets safeAreaInsets = [self safeAreaInsetsOrEmulate];
+  UIEdgeInsets safeAreaInsets = self.safeAreaInsets;
   CGRect frame = [self convertRect:self.bounds toView:nil];
 
   if (_initialInsetsSent &&

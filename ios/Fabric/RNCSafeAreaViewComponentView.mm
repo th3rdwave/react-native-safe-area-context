@@ -8,8 +8,8 @@
 
 #import "RCTConversions.h"
 #import "RCTFabricComponentsPlugins.h"
-#import "RCTView+SafeAreaCompat.h"
 #import "RNCSafeAreaProviderComponentView.h"
+#import "RNCSafeAreaUtils.h"
 
 using namespace facebook::react;
 
@@ -43,7 +43,7 @@ using namespace facebook::react;
 
   return [NSString stringWithFormat:@"%@; RNCSafeAreaInsets = %@; appliedRNCSafeAreaInsets = %@>",
                                     superDescription,
-                                    NSStringFromUIEdgeInsets([_providerView safeAreaInsetsOrEmulate]),
+                                    NSStringFromUIEdgeInsets(_providerView.safeAreaInsets),
                                     NSStringFromUIEdgeInsets(_currentSafeAreaInsets)];
 }
 
@@ -51,15 +51,6 @@ using namespace facebook::react;
 {
   [super safeAreaInsetsDidChange];
   [self updateStateIfNecessary];
-}
-
-- (void)layoutSubviews
-{
-  [super layoutSubviews];
-
-  if (!self.nativeSafeAreaSupport) {
-    [self updateStateIfNecessary];
-  }
 }
 
 - (void)didMoveToWindow
@@ -73,7 +64,7 @@ using namespace facebook::react;
   if (_providerView == nil) {
     return;
   }
-  UIEdgeInsets safeAreaInsets = [_providerView safeAreaInsetsOrEmulate];
+  UIEdgeInsets safeAreaInsets = _providerView.safeAreaInsets;
 
   if (UIEdgeInsetsEqualToEdgeInsetsWithThreshold(safeAreaInsets, _currentSafeAreaInsets, 1.0 / RCTScreenScale())) {
     return;
