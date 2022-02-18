@@ -623,21 +623,21 @@ PODS:
   - React-jsinspector (0.0.0-20220213-2008-7cece3423)
   - React-logger (0.0.0-20220213-2008-7cece3423):
     - glog
-  - react-native-safe-area-context (3.3.2):
+  - react-native-safe-area-context (4.0.0):
     - RCT-Folly (= 2021.06.28.00-v2)
     - RCTRequired
     - RCTTypeSafety
     - React
-    - react-native-safe-area-context/common (= 3.3.2)
-    - react-native-safe-area-context/fabric (= 3.3.2)
+    - react-native-safe-area-context/common (= 4.0.0)
+    - react-native-safe-area-context/fabric (= 4.0.0)
     - ReactCommon/turbomodule/core
-  - react-native-safe-area-context/common (3.3.2):
+  - react-native-safe-area-context/common (4.0.0):
     - RCT-Folly (= 2021.06.28.00-v2)
     - RCTRequired
     - RCTTypeSafety
     - React
     - ReactCommon/turbomodule/core
-  - react-native-safe-area-context/fabric (3.3.2):
+  - react-native-safe-area-context/fabric (4.0.0):
     - RCT-Folly (= 2021.06.28.00-v2)
     - RCTRequired
     - RCTTypeSafety
@@ -793,7 +793,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
-  - react-native-safe-area-context (from `../..`)
+  - react-native-safe-area-context (from `../../`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -876,7 +876,7 @@ EXTERNAL SOURCES:
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-safe-area-context:
-    :path: "../.."
+    :path: "../../"
   React-perflogger:
     :path: "../node_modules/react-native/ReactCommon/reactperflogger"
   React-RCTActionSheet:
@@ -950,7 +950,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 3e9a3ce0e301999f494cb0b88c588db9cda21dc7
   React-jsinspector: a3f48429d9ac8ceaf91e9307aaabcc89fc32cf70
   React-logger: 5c2095559ddbbcacfa6bc58e2b8f0831616fd162
-  react-native-safe-area-context: f98e103ea76629b0afa9c38267588710fc262ec4
+  react-native-safe-area-context: aecaf9131426d938225705f1f0110825f6977cdc
   React-perflogger: 022a6fde02bb8c3a5871623fe643c784cbc1da0b
   React-RCTActionSheet: 91454bbdfccbc79430eebc1472f52b0e44983e9d
   React-RCTAnimation: 45f13f27f6780f623888ec16c69a883098501bb7
@@ -972,6 +972,6 @@ SPEC CHECKSUMS:
   Yoga: d473a4284ea9eae9e312b38b8a62d9dedc4dd2f0
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 489f73767067150b25c2c4805c89cbd0487f61c7
+PODFILE CHECKSUM: 00f09a7aa6a1b60144e596bb04ea7ceaf098cc86
 
 COCOAPODS: 1.11.2
