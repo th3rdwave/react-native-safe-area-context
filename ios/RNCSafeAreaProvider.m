@@ -36,6 +36,11 @@
   _currentSafeAreaInsets = safeAreaInsets;
   _currentFrame = frame;
 
+  [NSNotificationCenter.defaultCenter
+   postNotificationName:RNCSafeAreaDidChange
+   object:self
+   userInfo:nil];
+
   self.onInsetsChange(@{
     @"insets" : @{
       @"top" : @(safeAreaInsets.top),
