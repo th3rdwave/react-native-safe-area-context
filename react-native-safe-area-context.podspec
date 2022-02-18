@@ -18,8 +18,8 @@ Pod::Spec.new do |s|
   s.platforms    = { :ios => "11.0", :tvos => "11.0" }
 
   s.source       = { :git => "https://github.com/th3rdwave/react-native-safe-area-context.git", :tag => "v#{s.version}" }
-  s.source_files  = "ios/SafeAreaView/**/*.{h,m,mm}"
-  s.exclude_files = "ios/SafeAreaView/Fabric"
+  s.source_files  = "ios/**/*.{h,m,mm}"
+  s.exclude_files = "ios/Fabric"
 
   s.compiler_flags  = folly_compiler_flags
 

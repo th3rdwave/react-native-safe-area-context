@@ -85,6 +85,10 @@ android {
                 srcDirs += [
                     "src/fabric/java",
                 ]
+            } else {
+                srcDirs += [
+                    "build/generated/source/codegen/java"
+                ]
             }
         }
     }
