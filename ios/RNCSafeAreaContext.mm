@@ -35,28 +35,35 @@ RCT_EXPORT_MODULE()
 
 - (NSDictionary *)getConstants
 {
-  UIWindow *window = RCTKeyWindow();
-  if (window == nil) {
-    return @{@"initialWindowMetrics" : [NSNull null]};
-  }
+  __block NSDictionary *constants;
 
-  UIEdgeInsets safeAreaInsets = window.safeAreaInsets;
-  return @{
-    @"initialWindowMetrics" : @{
-      @"insets" : @{
-        @"top" : @(safeAreaInsets.top),
-        @"right" : @(safeAreaInsets.right),
-        @"bottom" : @(safeAreaInsets.bottom),
-        @"left" : @(safeAreaInsets.left),
-      },
-      @"frame" : @{
-        @"x" : @(window.frame.origin.x),
-        @"y" : @(window.frame.origin.y),
-        @"width" : @(window.frame.size.width),
-        @"height" : @(window.frame.size.height),
-      },
+  RCTUnsafeExecuteOnMainQueueSync(^{
+    UIWindow *window = RCTKeyWindow();
+    if (window == nil) {
+      constants = @{@"initialWindowMetrics" : [NSNull null]};
+      return;
     }
-  };
+
+    UIEdgeInsets safeAreaInsets = window.safeAreaInsets;
+    constants = @{
+      @"initialWindowMetrics" : @{
+        @"insets" : @{
+          @"top" : @(safeAreaInsets.top),
+          @"right" : @(safeAreaInsets.right),
+          @"bottom" : @(safeAreaInsets.bottom),
+          @"left" : @(safeAreaInsets.left),
+        },
+        @"frame" : @{
+          @"x" : @(window.frame.origin.x),
+          @"y" : @(window.frame.origin.y),
+          @"width" : @(window.frame.size.width),
+          @"height" : @(window.frame.size.height),
+        },
+      }
+    };
+  });
+  
+  return constants;
 }
 
 #if RCT_USE_CODEGEN
