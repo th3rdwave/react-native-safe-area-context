@@ -59,7 +59,7 @@ public class SafeAreaProviderManager extends ViewGroupManager<SafeAreaProvider> 
         UIManagerHelper.getEventDispatcherForReactTag(reactContext, reactTag)
           .dispatchEvent(
             new InsetsChangeEvent(
-              UIManagerHelper.getSurfaceId(reactContext), reactTag, insets, frame));
+              UIManagerHelperCompat.getSurfaceId(reactContext), reactTag, insets, frame));
       }
     };
 

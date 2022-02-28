@@ -2,7 +2,6 @@ package com.th3rdwave.safeareacontext;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewParent;
@@ -37,17 +36,6 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnP
     return mFabricViewStateManager;
   }
 
-  /**
-   * UIManagerHelper.getReactContext only exists in RN 0.63+ so vendor it here for a while.
-   */
-  private static ReactContext getReactContext(View view) {
-    Context context = view.getContext();
-    if (!(context instanceof ReactContext) && context instanceof ContextWrapper) {
-      context = ((ContextWrapper) context).getBaseContext();
-    }
-    return (ReactContext) context;
-  }
-
   private void updateInsets() {
     if (mInsets != null) {
       final EnumSet<SafeAreaViewEdges> edges = mEdges != null
@@ -67,7 +55,7 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnP
       } else  {
         SafeAreaViewLocalData localData = new SafeAreaViewLocalData(mInsets, mMode, edges);
 
-        ReactContext reactContext = getReactContext(this);
+        ReactContext reactContext = UIManagerHelperCompat.getReactContext(this);
         UIManagerModule uiManager = reactContext.getNativeModule(UIManagerModule.class);
         if (uiManager != null) {
           uiManager.setViewLocalData(getId(), localData);
@@ -88,7 +76,7 @@ public class SafeAreaView extends ReactViewGroup implements ViewTreeObserver.OnP
     final AtomicBoolean done = new AtomicBoolean(false);
     final long startTime = System.nanoTime();
     long waitTime = 0L;
-    getReactContext(this).runOnNativeModulesQueueThread(new Runnable() {
+    UIManagerHelperCompat.getReactContext(this).runOnNativeModulesQueueThread(new Runnable() {
       @Override
       public void run() {
         synchronized (done) {
