@@ -11,9 +11,7 @@ internal class InsetsChangeEvent(
     private val mFrame: Rect
 // New ctor is only available in RN 0.65.
 ) : Event<InsetsChangeEvent>(viewTag) {
-  override fun getEventName(): String {
-    return EVENT_NAME
-  }
+  override fun getEventName() = EVENT_NAME
 
   // TODO: Migrate to getEventData when dropping support for RN 0.64.
   override fun dispatch(rctEventEmitter: RCTEventEmitter) {

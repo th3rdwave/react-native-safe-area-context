@@ -30,7 +30,7 @@ if (isNewArchitectureEnabled()) {
 }
 
 android {
-    compileSdkVersion getExtOrDefault('compileSdkVersion', 28)
+    compileSdkVersion getExtOrDefault('compileSdkVersion', 30)
 
     defaultConfig {
         minSdkVersion getExtOrDefault('minSdkVersion', 16)
