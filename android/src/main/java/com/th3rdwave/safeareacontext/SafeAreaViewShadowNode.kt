@@ -2,12 +2,9 @@ package com.th3rdwave.safeareacontext
 
 import com.facebook.react.bridge.Dynamic
 import com.facebook.react.bridge.ReadableType
-import com.facebook.react.uimanager.LayoutShadowNode
-import com.facebook.react.uimanager.NativeViewHierarchyOptimizer
-import com.facebook.react.uimanager.PixelUtil
-import com.facebook.react.uimanager.Spacing
-import com.facebook.react.uimanager.ViewProps
+import com.facebook.react.uimanager.*
 import com.facebook.react.uimanager.annotations.ReactPropGroup
+import com.facebook.yoga.YogaNode
 
 class SafeAreaViewShadowNode : LayoutShadowNode() {
   private var mLocalData: SafeAreaViewLocalData? = null
@@ -28,7 +25,7 @@ class SafeAreaViewShadowNode : LayoutShadowNode() {
     var right = 0f
     var bottom = 0f
     var left = 0f
-    val meta = if (localData.mode === SafeAreaViewMode.PADDING) mPaddings else mMargins
+    val meta = if (localData.mode == SafeAreaViewMode.PADDING) mPaddings else mMargins
     val allEdges = meta[Spacing.ALL]
     if (!java.lang.Float.isNaN(allEdges)) {
       top = allEdges
@@ -97,6 +94,7 @@ class SafeAreaViewShadowNode : LayoutShadowNode() {
       super.setMargin(Spacing.BOTTOM, mMargins[Spacing.BOTTOM])
       super.setMargin(Spacing.LEFT, mMargins[Spacing.LEFT])
     }
+    markUpdated()
   }
 
   override fun onBeforeLayout(nativeViewHierarchyOptimizer: NativeViewHierarchyOptimizer) {
@@ -111,7 +109,7 @@ class SafeAreaViewShadowNode : LayoutShadowNode() {
       return
     }
     val localData = mLocalData
-    if (localData != null && localData.mode !== data.mode) {
+    if (localData != null && localData.mode != data.mode) {
       resetInsets(localData.mode)
     }
     mLocalData = data

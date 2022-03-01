@@ -22,6 +22,7 @@ class SafeAreaView(context: Context?) :
   private var mEdges: EnumSet<SafeAreaViewEdges>? = null
   private var mProviderView: View? = null
   private val mFabricViewStateManager = FabricViewStateManager()
+
   override fun getFabricViewStateManager(): FabricViewStateManager {
     return mFabricViewStateManager
   }
@@ -42,6 +43,12 @@ class SafeAreaView(context: Context?) :
         val uiManager = reactContext.getNativeModule(UIManagerModule::class.java)
         if (uiManager != null) {
           uiManager.setViewLocalData(id, localData)
+          // Sadly there doesn't seem to be a way to properly dirty a yoga node from java, so if we are in
+          // the middle of a layout, we need to recompute it. There is also no way to know whether we
+          // are in the middle of a layout so always do it.
+          reactContext.runOnNativeModulesQueueThread {
+            uiManager.uiImplementation.dispatchViewUpdates(-1)
+          }
           waitForReactLayout()
         }
       }
@@ -60,14 +67,21 @@ class SafeAreaView(context: Context?) :
     val startTime = System.nanoTime()
     var waitTime = 0L
     getReactContext(this).runOnNativeModulesQueueThread {
-      if (!done) {
-        done = true
-        condition.signal()
+      lock.withLock {
+        if (!done) {
+          done = true
+          condition.signal()
+        }
       }
     }
     lock.withLock {
       while (!done && waitTime < MAX_WAIT_TIME_NANO) {
-        condition.await()
+        try {
+          condition.awaitNanos(MAX_WAIT_TIME_NANO)
+        } catch (ex: InterruptedException) {
+          // In case of an interrupt just give up waiting.
+          done = true
+        }
         waitTime += System.nanoTime() - startTime
       }
     }
