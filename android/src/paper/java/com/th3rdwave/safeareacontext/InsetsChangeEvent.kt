@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.th3rdwave.safeareacontext
 
 import com.facebook.react.bridge.Arguments
