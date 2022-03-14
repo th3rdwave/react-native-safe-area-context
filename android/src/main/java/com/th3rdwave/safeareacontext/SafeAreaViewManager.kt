@@ -5,6 +5,7 @@ import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.ReactStylesDiffMap
 import com.facebook.react.uimanager.StateWrapper
 import com.facebook.react.uimanager.ThemedReactContext
+import com.facebook.react.uimanager.ViewManagerDelegate
 import com.facebook.react.uimanager.annotations.ReactProp
 import com.facebook.react.viewmanagers.RNCSafeAreaViewManagerInterface
 import com.facebook.react.views.view.ReactViewGroup
@@ -14,6 +15,10 @@ import java.util.*
 @ReactModule(name = SafeAreaViewManager.REACT_CLASS)
 class SafeAreaViewManager : ReactViewManager(), RNCSafeAreaViewManagerInterface<SafeAreaView> {
   override fun getName() = REACT_CLASS
+
+  // Make sure we're not using delegates for now since ReactViewGroupManager doesn't use one. If it
+  // does in the future we will need a way to compose delegates together.
+  override fun getDelegate(): ViewManagerDelegate<ReactViewGroup>? = null
 
   override fun createViewInstance(context: ThemedReactContext) = SafeAreaView(context)
 
