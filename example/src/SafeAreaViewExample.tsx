@@ -154,6 +154,8 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: paddingColor,
+    // Make sure view props work.
+    borderRadius: 16,
   },
   contentContainer: {
     flexGrow: 1,

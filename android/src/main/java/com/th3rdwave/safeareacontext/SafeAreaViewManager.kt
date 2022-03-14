@@ -5,23 +5,17 @@ import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.ReactStylesDiffMap
 import com.facebook.react.uimanager.StateWrapper
 import com.facebook.react.uimanager.ThemedReactContext
-import com.facebook.react.uimanager.ViewGroupManager
-import com.facebook.react.uimanager.ViewManagerDelegate
 import com.facebook.react.uimanager.annotations.ReactProp
-import com.facebook.react.viewmanagers.RNCSafeAreaViewManagerDelegate
 import com.facebook.react.viewmanagers.RNCSafeAreaViewManagerInterface
+import com.facebook.react.views.view.ReactViewGroup
+import com.facebook.react.views.view.ReactViewManager
 import java.util.*
 
 @ReactModule(name = SafeAreaViewManager.REACT_CLASS)
-class SafeAreaViewManager :
-    ViewGroupManager<SafeAreaView>(), RNCSafeAreaViewManagerInterface<SafeAreaView> {
-  private val mDelegate: ViewManagerDelegate<SafeAreaView> = RNCSafeAreaViewManagerDelegate(this)
-
-  override fun getDelegate() = mDelegate
-
+class SafeAreaViewManager : ReactViewManager(), RNCSafeAreaViewManagerInterface<SafeAreaView> {
   override fun getName() = REACT_CLASS
 
-  public override fun createViewInstance(context: ThemedReactContext) = SafeAreaView(context)
+  override fun createViewInstance(context: ThemedReactContext) = SafeAreaView(context)
 
   override fun createShadowNodeInstance() = SafeAreaViewShadowNode()
 
@@ -64,11 +58,11 @@ class SafeAreaViewManager :
   }
 
   override fun updateState(
-      view: SafeAreaView,
-      props: ReactStylesDiffMap,
+      view: ReactViewGroup,
+      props: ReactStylesDiffMap?,
       stateWrapper: StateWrapper?
   ): Any? {
-    view.fabricViewStateManager.setStateWrapper(stateWrapper)
+    (view as SafeAreaView).fabricViewStateManager.setStateWrapper(stateWrapper)
     return null
   }
 
