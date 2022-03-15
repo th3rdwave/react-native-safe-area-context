@@ -113,7 +113,7 @@ describe('SafeAreaContext', () => {
     expect(() => {
       ReactTestRenderer.create(<PrintInsetsTestView />);
     }).toThrow(
-      'No safe area insets value available. Make sure you are rendering `<SafeAreaProvider>` at the top of your app.',
+      'No safe area value available. Make sure you are rendering `<SafeAreaProvider>` at the top of your app.',
     );
 
     consoleErrorMock.mockRestore();

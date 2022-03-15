@@ -111,7 +111,7 @@ function useParentSafeAreaFrame(): Rect | null {
 }
 
 const NO_INSETS_ERROR =
-  'No safe area frame value available. Make sure you are rendering `<SafeAreaProvider>` at the top of your app.';
+  'No safe area value available. Make sure you are rendering `<SafeAreaProvider>` at the top of your app.';
 
 export function useSafeAreaInsets(): EdgeInsets {
   const safeArea = React.useContext(SafeAreaInsetsContext);
