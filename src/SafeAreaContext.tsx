@@ -110,12 +110,13 @@ function useParentSafeAreaFrame(): Rect | null {
   return React.useContext(SafeAreaFrameContext);
 }
 
+const NO_INSETS_ERROR =
+  'No safe area frame value available. Make sure you are rendering `<SafeAreaProvider>` at the top of your app.';
+
 export function useSafeAreaInsets(): EdgeInsets {
   const safeArea = React.useContext(SafeAreaInsetsContext);
   if (safeArea == null) {
-    throw new Error(
-      'No safe area insets value available. Make sure you are rendering `<SafeAreaProvider>` at the top of your app.',
-    );
+    throw new Error(NO_INSETS_ERROR);
   }
   return safeArea;
 }
@@ -123,19 +124,28 @@ export function useSafeAreaInsets(): EdgeInsets {
 export function useSafeAreaFrame(): Rect {
   const frame = React.useContext(SafeAreaFrameContext);
   if (frame == null) {
-    throw new Error(
-      'No safe area frame value available. Make sure you are rendering `<SafeAreaProvider>` at the top of your app.',
-    );
+    throw new Error(NO_INSETS_ERROR);
   }
   return frame;
 }
 
+export type WithSafeAreaInsetsProps = {
+  insets: EdgeInsets;
+};
+
 export function withSafeAreaInsets<T>(
-  WrappedComponent: React.ComponentType<T>,
-) {
-  return React.forwardRef((props: T, ref: React.Ref<T>) => (
+  WrappedComponent: React.ComponentType<T & WithSafeAreaInsetsProps>,
+): React.ForwardRefExoticComponent<
+  React.PropsWithoutRef<T> & React.RefAttributes<unknown>
+> {
+  return React.forwardRef((props: T, ref: React.Ref<unknown>) => (
     <SafeAreaInsetsContext.Consumer>
-      {(insets) => <WrappedComponent {...props} insets={insets} ref={ref} />}
+      {(insets) => {
+        if (insets == null) {
+          throw new Error(NO_INSETS_ERROR);
+        }
+        return <WrappedComponent {...props} insets={insets} ref={ref} />;
+      }}
     </SafeAreaInsetsContext.Consumer>
   ));
 }
