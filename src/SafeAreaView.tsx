@@ -4,9 +4,11 @@ import NativeSafeAreaView from './specs/NativeSafeAreaView';
 
 type NativeSafeAreaViewInstance = InstanceType<typeof NativeSafeAreaView>;
 
+export type SafeAreaViewProps = NativeSafeAreaViewProps;
+
 export const SafeAreaView = React.forwardRef<
   NativeSafeAreaViewInstance,
-  NativeSafeAreaViewProps
+  SafeAreaViewProps
 >(({ edges, ...props }, ref) => {
   return (
     <NativeSafeAreaView

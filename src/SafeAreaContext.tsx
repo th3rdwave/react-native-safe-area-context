@@ -16,7 +16,7 @@ SafeAreaInsetsContext.displayName = 'SafeAreaInsetsContext';
 export const SafeAreaFrameContext = React.createContext<Rect | null>(null);
 SafeAreaFrameContext.displayName = 'SafeAreaFrameContext';
 
-export interface SafeAreaViewProps extends ViewProps {
+export interface SafeAreaProviderProps extends ViewProps {
   children?: React.ReactNode;
   initialMetrics?: Metrics | null;
   /**
@@ -31,7 +31,7 @@ export function SafeAreaProvider({
   initialSafeAreaInsets,
   style,
   ...others
-}: SafeAreaViewProps) {
+}: SafeAreaProviderProps) {
   const parentInsets = useParentSafeAreaInsets();
   const parentFrame = useParentSafeAreaFrame();
   const [insets, setInsets] = React.useState<EdgeInsets | null>(
