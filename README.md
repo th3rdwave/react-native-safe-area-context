@@ -162,6 +162,22 @@ class ClassComponent extends React.Component {
 
 Higher order component that provides safe area insets as the `insets` prop.
 
+```ts
+type Props = WithSafeAreaInsetsProps & {
+  someProp: number;
+};
+
+class ClassComponent extends React.Component<Props> {
+  render() {
+    return <View style={{ paddingTop: this.props.insets.top }} />;
+  }
+}
+
+const ClassComponentWithInsets = withSafeAreaInsets(ClassComponent);
+
+<ClassComponentWithInsets someProp={1} />;
+```
+
 ### `SafeAreaFrameContext`
 
 React Context with the value of the safe area frame.
