@@ -11,10 +11,14 @@ import type {
 export const SafeAreaInsetsContext = React.createContext<EdgeInsets | null>(
   null,
 );
-SafeAreaInsetsContext.displayName = 'SafeAreaInsetsContext';
+if (__DEV__) {
+  SafeAreaInsetsContext.displayName = 'SafeAreaInsetsContext';
+}
 
 export const SafeAreaFrameContext = React.createContext<Rect | null>(null);
-SafeAreaFrameContext.displayName = 'SafeAreaFrameContext';
+if (__DEV__) {
+  SafeAreaFrameContext.displayName = 'SafeAreaFrameContext';
+}
 
 export interface SafeAreaProviderProps extends ViewProps {
   children?: React.ReactNode;
