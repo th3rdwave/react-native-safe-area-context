@@ -134,9 +134,9 @@ export function withSafeAreaInsets<T>(
   WrappedComponent: React.ComponentType<T>,
 ) {
   return React.forwardRef((props: T, ref: React.Ref<T>) => (
-    <SafeAreaConsumer>
+    <SafeAreaInsetsContext.Consumer>
       {(insets) => <WrappedComponent {...props} insets={insets} ref={ref} />}
-    </SafeAreaConsumer>
+    </SafeAreaInsetsContext.Consumer>
   ));
 }
 
