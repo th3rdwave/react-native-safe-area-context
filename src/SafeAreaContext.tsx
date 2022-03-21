@@ -8,6 +8,8 @@ import type {
   Rect,
 } from './SafeArea.types';
 
+const __DEV__ = process.env.NODE_ENV !== 'production';
+
 export const SafeAreaInsetsContext = React.createContext<EdgeInsets | null>(
   null,
 );
