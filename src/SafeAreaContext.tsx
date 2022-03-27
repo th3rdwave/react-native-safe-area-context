@@ -8,17 +8,17 @@ import type {
   Rect,
 } from './SafeArea.types';
 
-const __DEV__ = process.env.NODE_ENV !== 'production';
+const isDev = process.env.NODE_ENV !== 'production';
 
 export const SafeAreaInsetsContext = React.createContext<EdgeInsets | null>(
   null,
 );
-if (__DEV__) {
+if (isDev) {
   SafeAreaInsetsContext.displayName = 'SafeAreaInsetsContext';
 }
 
 export const SafeAreaFrameContext = React.createContext<Rect | null>(null);
-if (__DEV__) {
+if (isDev) {
   SafeAreaFrameContext.displayName = 'SafeAreaFrameContext';
 }
 
