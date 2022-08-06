@@ -82,6 +82,10 @@ android {
                 }
             }
         }
+
+        ndk {
+             abiFilters (*reactNativeArchitectures())
+         }
     }
 
     lintOptions{
@@ -118,6 +122,11 @@ android {
         }
     }
 }
+
+def reactNativeArchitectures() {
+     def value = project.getProperties().get("reactNativeArchitectures")
+     return value ? value.split(",") : ["armeabi-v7a", "x86", "x86_64", "arm64-v8a"]
+ }
 
 repositories {
     google()
