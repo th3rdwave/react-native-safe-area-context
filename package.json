@@ -45,6 +45,9 @@
     "safe area",
     "view"
   ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "peerDependencies": {
     "react": "*",
     "react-native": "*"
