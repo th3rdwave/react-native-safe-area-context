@@ -24,6 +24,10 @@ You then need to link the native parts of the library for the platforms you are 
 | ------- | -------------------- |
 | 4.0.0+  | 0.64.0+              |
 
+## New architecture support
+
+This library currently has experimental support for the new react-native architecture. Note that there will be breaking changes and only the latest version of react-native will be supported.
+
 ## Usage
 
 This library has 2 important concepts, if you are familiar with React Context this is very similar.
