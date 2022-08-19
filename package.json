@@ -33,6 +33,7 @@
     "validate:typescript": "tsc --project ./ --noEmit",
     "validate:prettier": "prettier \"src/**/*.{js,ts,tsx}\" \"example/**/*.{js,ts,tsx}\" \"fabric-example/**/*.{js,ts,tsx}\" --check",
     "validate:jest": "jest",
+    "release": "release-it",
     "prepublish": "yarn test",
     "prepare": "bob build"
   },
@@ -49,8 +50,10 @@
     "react-native": "*"
   },
   "devDependencies": {
+    "@commitlint/config-conventional": "^17.0.3",
     "@react-native-community/eslint-config": "^3.0.2",
     "@react-native/eslint-plugin-specs": "^0.0.3",
+    "@release-it/conventional-changelog": "^5.1.0",
     "@types/jest": "^28.1.1",
     "@types/react": "^18.0.11",
     "@types/react-dom": "^18.0.5",
@@ -59,9 +62,11 @@
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",
     "babel-plugin-module-resolver": "^4.1.0",
+    "commitlint": "^17.0.2",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^8.0.1",
     "jest": "^28.1.0",
     "metro-react-native-babel-preset": "^0.71.0",
     "prettier": "^2.6.2",
@@ -70,6 +75,7 @@
     "react-native": "0.69.0-rc.6",
     "react-native-builder-bob": "^0.18.2",
     "react-test-renderer": "^18.1.0",
+    "release-it": "^15.3.0",
     "typescript": "^4.7.3"
   },
   "repository": {
@@ -83,6 +89,28 @@
     "modulePathIgnorePatterns": [
       "<rootDir>/lib/"
     ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release ${version}",
+      "tagName": "v${version}"
+    },
+    "npm": {
+      "publish": true
+    },
+    "github": {
+      "release": true
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular"
+      }
+    }
   },
   "react-native-builder-bob": {
     "source": "src",

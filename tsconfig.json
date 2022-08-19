@@ -19,8 +19,7 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "esnext",
-    "outDir": "lib"
+    "target": "esnext"
   },
   "include": [
     "src",
