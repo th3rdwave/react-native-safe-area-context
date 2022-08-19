@@ -1,4 +1,3 @@
-// @ts-expect-error: missing type definition for module
 import type { Double } from 'react-native/Libraries/Types/CodegenTypes';
 // @ts-expect-error: missing type definition for module
 import type { TurboModule } from 'react-native/Libraries/TurboModule/RCTExport';

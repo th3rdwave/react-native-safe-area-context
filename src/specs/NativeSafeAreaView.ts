@@ -1,6 +1,4 @@
-// @ts-expect-error: missing type definition for module
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
-// @ts-expect-error: missing type definition for module
 import type { WithDefault } from 'react-native/Libraries/Types/CodegenTypes';
 import type { ViewProps, HostComponent } from 'react-native';
 
