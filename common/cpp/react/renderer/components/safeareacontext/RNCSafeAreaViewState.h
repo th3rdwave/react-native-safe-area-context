@@ -28,15 +28,17 @@ inline EdgeInsets edgeInsetsFromDynamic(const folly::dynamic &value) {
 /*
  * State for <RNCSafeAreaView> component.
  */
-class RNCSafeAreaViewState final {
+class JSI_EXPORT RNCSafeAreaViewState final {
  public:
   using Shared = std::shared_ptr<const RNCSafeAreaViewState>;
 
   RNCSafeAreaViewState(){};
 
 #ifdef ANDROID
-  RNCSafeAreaViewState(RNCSafeAreaViewState const &previousState, folly::dynamic data)
-      : insets(edgeInsetsFromDynamic(data["insets"])) {};
+  RNCSafeAreaViewState(
+      RNCSafeAreaViewState const &previousState,
+      folly::dynamic data)
+      : insets(edgeInsetsFromDynamic(data["insets"])){};
 #endif
 
   EdgeInsets insets{};
