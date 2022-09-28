@@ -1,5 +1,6 @@
 #pragma once
 
+#include <jsi/jsi.h>
 #include <react/renderer/components/safeareacontext/EventEmitters.h>
 #include <react/renderer/components/safeareacontext/Props.h>
 #include <react/renderer/components/safeareacontext/RNCSafeAreaViewState.h>
@@ -8,16 +9,17 @@
 namespace facebook {
 namespace react {
 
-extern const char RNCSafeAreaViewComponentName[];
+JSI_EXPORT extern const char RNCSafeAreaViewComponentName[];
 
 /*
  * `ShadowNode` for <RNCSafeAreaView> component.
  */
-class RNCSafeAreaViewShadowNode final : public ConcreteViewShadowNode<
-                                         RNCSafeAreaViewComponentName,
-                                         RNCSafeAreaViewProps,
-                                         ViewEventEmitter,
-                                         RNCSafeAreaViewState> {
+class JSI_EXPORT RNCSafeAreaViewShadowNode final
+    : public ConcreteViewShadowNode<
+          RNCSafeAreaViewComponentName,
+          RNCSafeAreaViewProps,
+          ViewEventEmitter,
+          RNCSafeAreaViewState> {
   using ConcreteViewShadowNode::ConcreteViewShadowNode;
 
  public:

@@ -24,20 +24,6 @@ def isNewArchitectureEnabled() {
     return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
 }
 
-def findNodeModulePath(baseDir, packageName) {
-    def basePath = baseDir.toPath().normalize()
-    // Node's module resolution algorithm searches up to the root directory,
-    // after which the base path will be null
-    while (basePath) {
-        def candidatePath = Paths.get(basePath.toString(), "node_modules", packageName)
-        if (candidatePath.toFile().exists()) {
-            return candidatePath.toString()
-        }
-        basePath = basePath.getParent()
-    }
-    return null
-}
-
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
@@ -64,25 +50,6 @@ android {
         versionName "1.0"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
-         if (isNewArchitectureEnabled()) {
-            var appProject = rootProject.allprojects.find {it.plugins.hasPlugin('com.android.application')}
-            var reactAndroidProject = project(':ReactAndroid')
-            externalNativeBuild {
-                ndkBuild {
-                    arguments "APP_PLATFORM=android-21",
-                            "APP_STL=c++_shared",
-                            "NDK_TOOLCHAIN_VERSION=clang",
-                            "GENERATED_SRC_DIR=${appProject.buildDir}/generated/source",
-                            "PROJECT_BUILD_DIR=${appProject.buildDir}",
-                            "REACT_ANDROID_DIR=${reactAndroidProject.projectDir}",
-                            "REACT_ANDROID_BUILD_DIR=${reactAndroidProject.buildDir}"
-                    cFlags "-Wall", "-Werror", "-fexceptions", "-frtti", "-DWITH_INSPECTOR=1"
-                    cppFlags "-std=c++17"
-                    targets "safeareacontext_modules"
-                }
-            }
-        }
-
         ndk {
              abiFilters (*reactNativeArchitectures())
          }
@@ -90,14 +57,6 @@ android {
 
     lintOptions{
         abortOnError false
-    }
-
-    if (isNewArchitectureEnabled()) {
-         externalNativeBuild {
-             ndkBuild {
-                 path "src/main/jni/Android.mk"
-             }
-         }
     }
 
     packagingOptions {
@@ -146,14 +105,4 @@ dependencies {
         implementation 'com.facebook.react:react-native:+'
     }
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-}
-
-if (isNewArchitectureEnabled()) {
-    react {
-        reactNativeDir = rootProject.file(findNodeModulePath(rootProject.rootDir, "react-native") ?: "../node_modules/react-native/")
-        jsRootDir = file("../src/specs/")
-        codegenDir = rootProject.file(findNodeModulePath(rootProject.rootDir, "react-native-codegen") ?: "../node_modules/react-native-codegen/")
-        libraryName = "safeareacontext"
-        codegenJavaPackageName = "com.th3rdwave.safeareacontext"
-    }
 }

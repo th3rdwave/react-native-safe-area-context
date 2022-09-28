@@ -125,17 +125,11 @@
     ]
   },
   "codegenConfig": {
-    "libraries": [
-      {
-        "name": "SafeAreaContextSpec",
-        "type": "modules",
-        "jsSrcsDir": "./src"
-      },
-      {
-        "name": "safeareacontext",
-        "type": "components",
-        "jsSrcsDir": "./src"
-      }
-    ]
+    "android": {
+      "javaPackageName": "com.th3rdwave.safeareacontext"
+    },
+    "name": "safeareacontext",
+    "type": "all",
+    "jsSrcsDir": "./src/specs"
   }
 }
