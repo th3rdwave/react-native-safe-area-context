@@ -2,8 +2,7 @@ import type {
   DirectEventHandler,
   Double,
 } from 'react-native/Libraries/Types/CodegenTypes';
-import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
-import type { ViewProps, HostComponent } from 'react-native';
+import { ViewProps, HostComponent, requireNativeComponent } from 'react-native';
 
 export type Event = Readonly<{
   insets: Readonly<{
@@ -24,6 +23,6 @@ export interface NativeProps extends ViewProps {
   onInsetsChange?: DirectEventHandler<Event, 'paperInsetsChange'>;
 }
 
-export default codegenNativeComponent<NativeProps>(
+export default requireNativeComponent<NativeProps>(
   'RNCSafeAreaProvider',
 ) as HostComponent<NativeProps>;
