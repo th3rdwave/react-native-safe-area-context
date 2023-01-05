@@ -14,7 +14,7 @@
   UIEdgeInsets _currentSafeAreaInsets;
   RNCSafeAreaViewMode _mode;
   RNCSafeAreaViewEdges _edges;
-  __weak UIView *_Nullable _providerView;
+  __weak RNCSafeAreaProvider *_Nullable _providerView;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge
