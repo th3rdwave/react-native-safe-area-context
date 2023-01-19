@@ -1,22 +1,36 @@
 {
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "example/**/*.ts",
-    "example/**/*.tsx"
-  ],
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "strict": true,
-    "moduleResolution": "node",
-    "skipLibCheck": true,
-    "lib": ["dom", "es2015", "es2016", "esnext"],
+    "allowJs": false,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "esModuleInterop": true,
+    "importsNotUsedAsValues": "error",
+    "forceConsistentCasingInFileNames": true,
     "jsx": "react-native",
-    "baseUrl": ".",
-    "paths": {
-      "react-native-safe-area-context": ["./src"]
-    }
+    "lib": ["dom", "esnext"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noStrictGenericChecks": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noUncheckedIndexedAccess": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "esnext"
   },
-  "exclude": ["node_modules"]
+  "include": [
+    "src",
+    ".eslintrc.js",
+    "babel.config.js",
+  ],
+  "exclude": [
+    "node_modules",
+    "lib",
+    "docs",
+    "example",
+    "FabricExample"
+  ]
 }

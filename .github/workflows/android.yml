@@ -8,21 +8,23 @@ on:
       - '.github/workflows/android.yml'
       - 'android/**'
       - 'example/android/**'
+      - 'fabric-example/android/**'
   pull_request:
     paths:
       - '.github/workflows/android.yml'
       - 'android/**'
       - 'example/android/**'
+      - 'fabric-example/android/**'
 
 jobs:
   android-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Use Node.js 14.x
+      - name: Use Node.js 16.x
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Restore yarn workspaces
         id: yarn-cache
         uses: actions/cache@v2
@@ -32,7 +34,16 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
       - name: Install dependencies
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
-        run: yarn install --no-progress --non-interactive
+        run: yarn install
+      - name: Install example app dependencies
+        run: yarn install
+        working-directory: example
       - name: Build android example app
-        run: cd example/android && ./gradlew assembleDebug
+        run: ./gradlew assembleDebug
+        working-directory: example/android
+      - name: Install fabric example app dependencies
+        run: yarn install
+        working-directory: fabric-example
+      - name: Build android example app
+        run: ./gradlew assembleDebug
+        working-directory: fabric-example/android

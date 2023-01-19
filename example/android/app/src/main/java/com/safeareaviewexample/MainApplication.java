@@ -3,17 +3,13 @@ package com.safeareaviewexample;
 import android.app.Application;
 import android.content.Context;
 
+import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
-import com.swmansion.rnscreens.RNScreensPackage;
-import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
-import com.swmansion.reanimated.ReanimatedPackage;
-import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -29,18 +25,16 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
-      return Arrays.asList(
-          new MainReactPackage(),
-          new RNScreensPackage(),
-          new RNGestureHandlerPackage(),
-          new ReanimatedPackage(),
-          new AsyncStoragePackage(),
-          new SafeAreaContextPackage());
+      @SuppressWarnings("UnnecessaryLocalVariable")
+      List<ReactPackage> packages = new PackageList(this).getPackages();
+      // Packages that cannot be autolinked yet can be added manually here, for example:
+      // packages.add(new MyReactNativePackage());
+      return packages;
     }
 
     @Override
     protected String getJSMainModuleName() {
-      return "example/index";
+      return "index";
     }
   };
 

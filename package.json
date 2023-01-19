@@ -1,17 +1,19 @@
 {
   "name": "react-native-safe-area-context",
-  "version": "3.3.2",
+  "version": "4.5.0",
   "description": "A flexible way to handle safe area, also works on Android and web.",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
   "react-native": "src/index.tsx",
-  "types": "lib/typescript/src/index.d.ts",
+  "types": "lib/typescript/index.d.ts",
+  "source": "src/index.tsx",
   "sideEffects": false,
   "files": [
     "src",
     "lib",
     "android",
     "ios",
+    "common",
     "jest",
     "*.podspec",
     "react-native.config.js",
@@ -27,14 +29,14 @@
   "scripts": {
     "start": "react-native start",
     "test": "yarn validate:prettier && yarn validate:eslint && yarn validate:typescript && yarn validate:jest",
-    "validate:eslint": "eslint \"src/**/*.{js,ts,tsx}\" \"example/**/*.{js,ts,tsx}\"",
+    "validate:eslint": "eslint \"src/**/*.{js,ts,tsx}\" \"example/**/*.{js,ts,tsx}\" \"fabric-example/**/*.{js,ts,tsx}\"",
     "validate:typescript": "tsc --project ./ --noEmit",
-    "validate:prettier": "prettier \"src/**/*.{js,ts,tsx}\" \"example/**/*.{js,ts,tsx}\" --check",
+    "validate:prettier": "prettier \"src/**/*.{js,ts,tsx}\" \"example/**/*.{js,ts,tsx}\" \"fabric-example/**/*.{js,ts,tsx}\" --check",
     "validate:jest": "jest",
-    "prepare": "bob build",
-    "example:ios": "cd ./example && react-native run-ios",
-    "example:android": "cd ./example && react-native run-android --no-jetifier",
-    "example:expo": "expo start --config example/app.json"
+    "clang-format": "clang-format -i --glob='{ios,android,common}/**/*.{h,cpp,m,mm}'",
+    "release": "release-it",
+    "prepublish": "yarn test",
+    "prepare": "bob build"
   },
   "keywords": [
     "react-native",
@@ -44,48 +46,41 @@
     "safe area",
     "view"
   ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "peerDependencies": {
     "react": "*",
     "react-native": "*"
   },
-  "dependencies": {},
   "devDependencies": {
-    "@react-native-community/async-storage": "^1.11.0",
-    "react-native-builder-bob": "^0.18.1",
-    "@react-native-community/eslint-config": "^3.0.0",
-    "@react-native-community/masked-view": "^0.1.10",
-    "@react-navigation/native": "^5.5.1",
-    "@react-navigation/stack": "^5.5.1",
-    "@react-navigation/bottom-tabs": "^5.5.2",
-    "@types/jest": "^27.0.1",
-    "@types/react": "^16.9.35",
-    "@types/react-native": "^0.62.13",
-    "@types/react-dom": "^16.9.8",
-    "@types/react-test-renderer": "^16.9.2",
-    "@typescript-eslint/eslint-plugin": "^4.30.0",
-    "@typescript-eslint/parser": "^4.30.0",
-    "babel-plugin-module-resolver": "^4.1.0",
-    "eslint": "7.32.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "4.0.0",
-    "expo": "^37.0.12",
-    "expo-cli": "^3.21.5",
-    "jest": "^27.1.0",
-    "metro-react-native-babel-preset": "^0.59.0",
-    "prettier": "^2.3.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-native": "^0.63.0-rc.0",
-    "react-native-web": "^0.12.3",
-    "react-navigation": "^4.3.9",
-    "react-navigation-stack": "^2.7.0",
-    "react-navigation-tabs": "^2.8.13",
-    "react-native-safe-area-view": "1.1.1",
-    "react-native-gesture-handler": "^1.6.1",
-    "react-native-screens": "^2.8.0",
-    "react-native-reanimated": "^1.9.0",
-    "react-test-renderer": "^16.13.1",
-    "typescript": "^4.4.2"
+    "@commitlint/config-conventional": "^17.4.2",
+    "@react-native-community/eslint-config": "^3.2.0",
+    "@react-native/eslint-plugin-specs": "^0.71.0",
+    "@release-it/conventional-changelog": "^5.1.1",
+    "@types/jest": "^29.2.6",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@types/react-test-renderer": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
+    "@typescript-eslint/parser": "^5.48.2",
+    "babel-plugin-module-resolver": "^5.0.0",
+    "clang-format": "^1.8.0",
+    "commitlint": "^17.4.2",
+    "eslint": "^8.32.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.3",
+    "jest": "^29.3.1",
+    "metro-react-native-babel-preset": "^0.74.0",
+    "prettier": "^2.8.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-native": "0.71.0",
+    "react-native-builder-bob": "^0.20.3",
+    "react-test-renderer": "^18.2.0",
+    "release-it": "^15.6.0",
+    "typescript": "^4.9.4"
   },
   "repository": {
     "type": "git",
@@ -99,6 +94,28 @@
       "<rootDir>/lib/"
     ]
   },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release ${version}",
+      "tagName": "v${version}"
+    },
+    "npm": {
+      "publish": true
+    },
+    "github": {
+      "release": true
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular"
+      }
+    }
+  },
   "react-native-builder-bob": {
     "source": "src",
     "output": "lib",
@@ -107,5 +124,13 @@
       "module",
       "typescript"
     ]
+  },
+  "codegenConfig": {
+    "android": {
+      "javaPackageName": "com.th3rdwave.safeareacontext"
+    },
+    "name": "safeareacontext",
+    "type": "all",
+    "jsSrcsDir": "./src/specs"
   }
 }

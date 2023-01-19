@@ -1,35 +1,91 @@
-def getExtOrDefault(name, defaultValue) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : defaultValue
-}
+import java.nio.file.Paths
 
 buildscript {
-    // The Android Gradle plugin is only required when opening the android folder stand-alone.
-    // This avoids unnecessary downloads and potential conflicts when the library is included as a
-    // module dependency in an application project.
-    if (project == rootProject) {
-        repositories {
-            google()
-            mavenCentral()
-        }
-        dependencies {
-            classpath 'com.android.tools.build:gradle:4.1.2'
+    def kotlin_version = rootProject.ext.has('kotlinVersion') ? rootProject.ext.get('kotlinVersion') : project.properties['RNSAC_kotlinVersion']
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+    }
+}
+
+def getExtOrDefault(name, defaultValue) {
+    return rootProject.ext.has(name) ? rootProject.ext.get(name) : defaultValue
+}
+
+def isNewArchitectureEnabled() {
+    // To opt-in for the New Architecture, you can either:
+    // - Set `newArchEnabled` to true inside the `gradle.properties` file
+    // - Invoke gradle with `-newArchEnabled=true`
+    // - Set an environment variable `ORG_GRADLE_PROJECT_newArchEnabled=true`
+    return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+if (isNewArchitectureEnabled()) {
+    apply plugin: "com.facebook.react"
+}
+
+android {
+    compileSdkVersion getExtOrDefault('compileSdkVersion', 30)
+
+    // Used to override the NDK path/version on internal CI or by allowing
+    // users to customize the NDK path/version from their root project (e.g. for M1 support)
+    if (rootProject.hasProperty("ndkPath")) {
+        ndkPath rootProject.ext.ndkPath
+    }
+    if (rootProject.hasProperty("ndkVersion")) {
+        ndkVersion rootProject.ext.ndkVersion
+    }
+
+    defaultConfig {
+        minSdkVersion getExtOrDefault('minSdkVersion', 16)
+        targetSdkVersion getExtOrDefault('targetSdkVersion', 28)
+        versionCode 1
+        versionName "1.0"
+        buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
+
+        ndk {
+             abiFilters (*reactNativeArchitectures())
+         }
+    }
+
+    lintOptions{
+        abortOnError false
+    }
+
+    packagingOptions {
+        // For some reason gradle only complains about the duplicated version of libreact_render libraries
+        // while there are more libraries copied in intermediates folder of the lib build directory, we exlude
+        // only the ones that make the build fail (ideally we should only include libsafeareacontext_modules but we
+        // are only allowed to specify exlude patterns)
+        exclude "**/libreact_render*.so"
+    }
+    sourceSets.main {
+        java {
+            if (isNewArchitectureEnabled()) {
+                srcDirs += [
+                    "src/fabric/java",
+                    "${project.buildDir}/generated/source/codegen/java"
+                ]
+            } else {
+                srcDirs += [
+                    "src/paper/java"
+                ]
+            }
         }
     }
 }
 
-apply plugin: 'com.android.library'
-
-android {
-  compileSdkVersion getExtOrDefault('compileSdkVersion', 28)
-
-  defaultConfig {
-    minSdkVersion getExtOrDefault('minSdkVersion', 16)
-    targetSdkVersion getExtOrDefault('targetSdkVersion', 28)
-  }
-  lintOptions{
-    abortOnError false
-  }
-}
+def reactNativeArchitectures() {
+     def value = project.getProperties().get("reactNativeArchitectures")
+     return value ? value.split(",") : ["armeabi-v7a", "x86", "x86_64", "arm64-v8a"]
+ }
 
 repositories {
     google()
@@ -40,7 +96,9 @@ repositories {
     mavenCentral()
 }
 
+def kotlin_version = getExtOrDefault('kotlinVersion', project.properties['RNSAC_kotlinVersion'])
+
 dependencies {
-  //noinspection GradleDynamicVersion
-  implementation 'com.facebook.react:react-native:+'
+    implementation 'com.facebook.react:react-native:+'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

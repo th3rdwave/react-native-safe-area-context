@@ -1,3 +1,5 @@
+/* global jest */
+
 import React from 'react';
 
 const MOCK_INITIAL_METRICS = {

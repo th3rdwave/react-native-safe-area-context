@@ -1,5 +1,4 @@
-import { UIManager } from 'react-native';
-import { Metrics } from '../SafeArea.types';
+import type { Metrics } from '../SafeArea.types';
 
 describe('InitialWindow', () => {
   describe('initialWindowMetrics', () => {
@@ -24,24 +23,24 @@ describe('InitialWindow', () => {
           width: 100,
         },
       };
-      UIManager.getViewManagerConfig = jest.fn((name) => {
-        if (name === 'RNCSafeAreaProvider') {
+      const TurboModuleRegistry = require('react-native/Libraries/TurboModule/TurboModuleRegistry');
+      TurboModuleRegistry.get = jest.fn((name) => {
+        if (name === 'RNCSafeAreaContext') {
           return {
-            Commands: {},
-            Constants: {
-              initialWindowMetrics: testMetrics,
+            getConstants() {
+              return {
+                initialWindowMetrics: testMetrics,
+              };
             },
           };
         }
-        return { Commands: {} };
+        return null;
       });
 
       expect(require('../InitialWindow').initialWindowMetrics).toBe(
         testMetrics,
       );
-      expect(UIManager.getViewManagerConfig).toBeCalledWith(
-        'RNCSafeAreaProvider',
-      );
+      expect(TurboModuleRegistry.get).toBeCalledWith('RNCSafeAreaContext');
     });
   });
 });
