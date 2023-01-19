@@ -99,10 +99,6 @@ repositories {
 def kotlin_version = getExtOrDefault('kotlinVersion', project.properties['RNSAC_kotlinVersion'])
 
 dependencies {
-    if (isNewArchitectureEnabled()) {
-        implementation project(":ReactAndroid")
-    } else {
-        implementation 'com.facebook.react:react-native:+'
-    }
+    implementation 'com.facebook.react:react-native:+'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
