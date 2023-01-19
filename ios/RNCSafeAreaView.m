@@ -56,18 +56,14 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
 
   if (previousProviderView != _providerView) {
     if (previousProviderView != nil) {
-      [NSNotificationCenter.defaultCenter
-       removeObserver:self
-       name:RNCSafeAreaDidChange
-       object:previousProviderView];
+      [NSNotificationCenter.defaultCenter removeObserver:self name:RNCSafeAreaDidChange object:previousProviderView];
     }
 
     if (_providerView != nil) {
-      [NSNotificationCenter.defaultCenter
-       addObserver:self
-       selector:@selector(safeAreaProviderInsetsDidChange:)
-       name:RNCSafeAreaDidChange
-       object:_providerView];
+      [NSNotificationCenter.defaultCenter addObserver:self
+                                             selector:@selector(safeAreaProviderInsetsDidChange:)
+                                                 name:RNCSafeAreaDidChange
+                                               object:_providerView];
     }
   }
 }

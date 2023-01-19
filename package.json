@@ -33,6 +33,7 @@
     "validate:typescript": "tsc --project ./ --noEmit",
     "validate:prettier": "prettier \"src/**/*.{js,ts,tsx}\" \"example/**/*.{js,ts,tsx}\" \"fabric-example/**/*.{js,ts,tsx}\" --check",
     "validate:jest": "jest",
+    "clang-format": "clang-format -i --glob='{ios,android,common}/**/*.{h,cpp,m,mm}'",
     "release": "release-it",
     "prepublish": "yarn test",
     "prepare": "bob build"
@@ -65,6 +66,7 @@
     "@typescript-eslint/eslint-plugin": "^5.33.1",
     "@typescript-eslint/parser": "^5.33.1",
     "babel-plugin-module-resolver": "^4.1.0",
+    "clang-format": "^1.8.0",
     "commitlint": "^17.0.3",
     "eslint": "^8.22.0",
     "eslint-config-prettier": "^8.5.0",
