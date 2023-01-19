@@ -22,7 +22,8 @@ You then need to link the native parts of the library for the platforms you are 
 
 | version | react-native version |
 | ------- | -------------------- |
-| 4.0.0+  | 0.64.0+              |
+| 4.4.0+  | 0.70.0+              |
+| 4.3.x   | 0.64.0+              |
 
 ## New architecture support
 
