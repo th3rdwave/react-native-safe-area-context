@@ -9,7 +9,10 @@ A flexible way to handle safe area, also works on Android and Web!
 ## Getting started
 
 ```bash
-npm install react-native-safe-area-context # yarn add react-native-safe-area-context
+npm install react-native-safe-area-context
+```
+```bash
+yarn add react-native-safe-area-context
 ```
 
 You then need to link the native parts of the library for the platforms you are using.
