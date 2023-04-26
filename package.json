@@ -29,9 +29,9 @@
   "scripts": {
     "start": "react-native start",
     "test": "yarn validate:prettier && yarn validate:eslint && yarn validate:typescript && yarn validate:jest",
-    "validate:eslint": "eslint \"src/**/*.{js,ts,tsx}\" \"example/**/*.{js,ts,tsx}\" \"fabric-example/**/*.{js,ts,tsx}\"",
+    "validate:eslint": "eslint \"src/**/*.{js,ts,tsx}\" \"example/**/*.{js,ts,tsx}\"",
     "validate:typescript": "tsc --project ./ --noEmit",
-    "validate:prettier": "prettier \"src/**/*.{js,ts,tsx}\" \"example/**/*.{js,ts,tsx}\" \"fabric-example/**/*.{js,ts,tsx}\" --check",
+    "validate:prettier": "prettier \"src/**/*.{js,ts,tsx}\" \"example/**/*.{js,ts,tsx}\" --check",
     "validate:jest": "jest",
     "clang-format": "clang-format -i --glob='{ios,android,common}/**/*.{h,cpp,m,mm}'",
     "release": "release-it",
