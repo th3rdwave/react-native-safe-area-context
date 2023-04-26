@@ -9,22 +9,20 @@ on:
       - 'ios/**'
       - 'common/**'
       - 'example/ios/**'
-      - 'fabric-example/ios/**'
   pull_request:
     paths:
       - '.github/workflows/ios.yml'
       - 'ios/**'
       - 'example/ios/**'
-      - 'fabric-example/ios/**'
 jobs:
   ios-build:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js 16.x
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18.x
         uses: actions/setup-node@v1
         with:
-          node-version: 16.x
+          node-version: 18.x
       - name: Install dependencies
         run: yarn install
       - name: Install example app dependencies
@@ -42,15 +40,28 @@ jobs:
       - name: Build ios example app
         run: xcodebuild -scheme SafeAreaViewExample -workspace SafeAreaViewExample.xcworkspace ONLY_ACTIVE_ARCH=NO -sdk iphonesimulator -configuration Debug
         working-directory: example/ios
-      - name: Install fabric example app dependencies
+  ios-build-fabric:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18.x
+      - name: Install dependencies
         run: yarn install
-        working-directory: fabric-example
-      - name: Install fabric example app gems
+      - name: Install example app dependencies
+        run: yarn install
+        working-directory: example
+      - name: Install example app dependencies
+        run: yarn install
+        working-directory: example
+      - name: Install example app gems
         run: bundle install
-        working-directory: fabric-example
-      - name: Install fabric pods
-        run: bundle exec pod install
-        working-directory: fabric-example/ios
-      - name: Build ios fabric example app
-        run: xcodebuild -scheme FabricExample -workspace FabricExample.xcworkspace ONLY_ACTIVE_ARCH=NO -sdk iphonesimulator -configuration Debug
-        working-directory: fabric-example/ios
+        working-directory: example
+      - name: Install pods for new arch
+        run: RCT_NEW_ARCH_ENABLED=1 bundle exec pod install
+        working-directory: example/ios
+      - name: Build ios example app
+        run: xcodebuild -scheme SafeAreaViewExample -workspace SafeAreaViewExample.xcworkspace ONLY_ACTIVE_ARCH=NO -sdk iphonesimulator -configuration Debug
+        working-directory: example/ios

@@ -1,11 +1,10 @@
-import AsyncStorage from '@react-native-community/async-storage';
 import * as React from 'react';
-import { DevSettings, StatusBar, Text, View } from 'react-native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { DevSettings, View, Text, StatusBar } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import HooksExample from './HooksExample';
-import ReactNavigationExample from './ReactNavigationExample';
-import ReactNavigationNativeStackExample from './ReactNavigationNativeStackExample';
 import SafeAreaViewExample from './SafeAreaViewExample';
+// import ReactNavigationExample from './ReactNavigationExample';
+import ReactNavigationNativeStackExample from './ReactNavigationNativeStackExample';
 
 const STORAGE_KEY = 'rnsac-current-example-v2';
 
@@ -60,9 +59,9 @@ export default function App() {
     case 'hooks':
       content = <HooksExample />;
       break;
-    case 'react-navigation':
-      content = <ReactNavigationExample />;
-      break;
+    // case 'react-navigation':
+    //   content = <ReactNavigationExample />;
+    //   break;
     case 'native-stack':
       content = <ReactNavigationNativeStackExample />;
       break;
@@ -86,12 +85,12 @@ export default function App() {
   }
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <>
       <StatusBar
         hidden={statusBarHidden}
         backgroundColor="rgba(0, 0, 0, 0.3)"
       />
       {content}
-    </GestureHandlerRootView>
+    </>
   );
 }

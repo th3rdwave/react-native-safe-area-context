@@ -7,22 +7,14 @@ import ReactNavigationHomeScreen from './components/ReactNavigationHomeScreen';
 import ReactNavigationSettingsScreen from './components/ReactNavigationSettingsScreen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import ReactNavigationModalDetailScreen from './components/ReactNavigationModalDetailScreen';
-import { withProvider } from './components/withProvider';
-
-const HomeScreenWithProvider = withProvider(ReactNavigationHomeScreen);
-const SettingsScreenWithProvider = withProvider(ReactNavigationSettingsScreen);
-const DetailScreenWithProvider = withProvider(ReactNavigationDetailScreen);
-const ModalDetailScreenWithProvider = withProvider(
-  ReactNavigationModalDetailScreen,
-);
 
 const Tab = createBottomTabNavigator();
 
 function TabsScreen() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreenWithProvider} />
-      <Tab.Screen name="Settings" component={SettingsScreenWithProvider} />
+      <Tab.Screen name="Home" component={ReactNavigationHomeScreen} />
+      <Tab.Screen name="Settings" component={ReactNavigationSettingsScreen} />
     </Tab.Navigator>
   );
 }
@@ -49,14 +41,14 @@ export default function ReactNavigationExample() {
                 />
                 <Stack.Screen
                   name="Details"
-                  component={DetailScreenWithProvider}
+                  component={ReactNavigationDetailScreen}
                 />
               </Stack.Navigator>
             )}
           </Stack.Screen>
           <Stack.Screen
             name="ModalDetails"
-            component={ModalDetailScreenWithProvider}
+            component={ReactNavigationModalDetailScreen}
           />
         </Stack.Navigator>
       </NavigationContainer>
