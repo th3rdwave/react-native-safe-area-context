@@ -32,9 +32,6 @@ jobs:
       - name: Install example app dependencies
         run: yarn install
         working-directory: example
-      - name: Install example app dependencies
-        run: yarn install
-        working-directory: example
       - name: Install pods
         run: bundle exec pod install
         working-directory: example/ios
@@ -55,9 +52,6 @@ jobs:
           bundler-cache: true
       - name: Install dependencies
         run: yarn install
-      - name: Install example app dependencies
-        run: yarn install
-        working-directory: example
       - name: Install example app dependencies
         run: yarn install
         working-directory: example
