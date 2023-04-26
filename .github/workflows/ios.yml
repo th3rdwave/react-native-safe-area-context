@@ -23,6 +23,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 18.x
+      - uses: ruby/setup-ruby@v1
+        with:
+          working-directory: example
+          bundler-cache: true
       - name: Install dependencies
         run: yarn install
       - name: Install example app dependencies
@@ -30,9 +34,6 @@ jobs:
         working-directory: example
       - name: Install example app dependencies
         run: yarn install
-        working-directory: example
-      - name: Install example app gems
-        run: bundle install
         working-directory: example
       - name: Install pods
         run: bundle exec pod install
@@ -48,6 +49,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 18.x
+      - uses: ruby/setup-ruby@v1
+        with:
+          working-directory: example
+          bundler-cache: true
       - name: Install dependencies
         run: yarn install
       - name: Install example app dependencies
@@ -55,9 +60,6 @@ jobs:
         working-directory: example
       - name: Install example app dependencies
         run: yarn install
-        working-directory: example
-      - name: Install example app gems
-        run: bundle install
         working-directory: example
       - name: Install pods for new arch
         run: RCT_NEW_ARCH_ENABLED=1 bundle exec pod install
