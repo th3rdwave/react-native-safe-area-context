@@ -1,7 +1,7 @@
 #pragma once
 
 #include <react/renderer/components/safeareacontext/Props.h>
-#include <react/renderer/graphics/Geometry.h>
+#include <react/renderer/graphics/RectangleEdges.h>
 #include <vector>
 
 #ifdef ANDROID
