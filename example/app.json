@@ -1,15 +1,4 @@
 {
-  "name": "SafeAreaViewExample",
-  "displayName": "SafeAreaViewExample",
-  "expo": {
-    "entryPoint": "./example/index.expo",
-    "name": "react-native-safe-area-context",
-    "slug": "react-native-safe-area-context",
-    "version": "0.1.0",
-    "platforms": ["android", "ios", "web"],
-    "web": {
-      "display": "fullscreen",
-      "barStyle": "black-translucent"
-    }
-  }
+  "name": "FabricExample",
+  "displayName": "FabricExample"
 }
