@@ -23,66 +23,65 @@ const edgeBitmaskMap: Record<Edge, number> = {
   left: LEFT,
 };
 
-export const SafeAreaView: React.ForwardRefExoticComponent<
-  NativeSafeAreaViewProps & React.RefAttributes<NativeSafeAreaViewInstance>
-> = React.forwardRef<NativeSafeAreaViewInstance, NativeSafeAreaViewProps>(
-  ({ style = {}, mode, edges, ...rest }, ref) => {
-    const insets = useSafeAreaInsets();
+export const SafeAreaView = React.forwardRef<
+  NativeSafeAreaViewInstance,
+  NativeSafeAreaViewProps
+>(({ style = {}, mode, edges, ...rest }, ref) => {
+  const insets = useSafeAreaInsets();
 
-    const edgeBitmask =
-      edges != null
-        ? edges.reduce((accum, edge) => accum | edgeBitmaskMap[edge], 0)
-        : ALL;
+  const edgeBitmask =
+    edges != null
+      ? edges.reduce((accum, edge) => accum | edgeBitmaskMap[edge], 0)
+      : ALL;
 
-    const appliedStyle = React.useMemo(() => {
-      const insetTop = edgeBitmask & TOP ? insets.top : 0;
-      const insetRight = edgeBitmask & RIGHT ? insets.right : 0;
-      const insetBottom = edgeBitmask & BOTTOM ? insets.bottom : 0;
-      const insetLeft = edgeBitmask & LEFT ? insets.left : 0;
+  const appliedStyle = React.useMemo(() => {
+    const insetTop = edgeBitmask & TOP ? insets.top : 0;
+    const insetRight = edgeBitmask & RIGHT ? insets.right : 0;
+    const insetBottom = edgeBitmask & BOTTOM ? insets.bottom : 0;
+    const insetLeft = edgeBitmask & LEFT ? insets.left : 0;
 
-      const flatStyle = StyleSheet.flatten(style) as Record<string, number>;
+    const flatStyle = StyleSheet.flatten(style) as Record<string, number>;
 
-      if (mode === 'margin') {
-        const {
-          margin = 0,
-          marginVertical = margin,
-          marginHorizontal = margin,
-          marginTop = marginVertical,
-          marginRight = marginHorizontal,
-          marginBottom = marginVertical,
-          marginLeft = marginHorizontal,
-        } = flatStyle;
+    if (mode === 'margin') {
+      const {
+        margin = 0,
+        marginVertical = margin,
+        marginHorizontal = margin,
+        marginTop = marginVertical,
+        marginRight = marginHorizontal,
+        marginBottom = marginVertical,
+        marginLeft = marginHorizontal,
+      } = flatStyle;
 
-        const marginStyle = {
-          marginTop: marginTop + insetTop,
-          marginRight: marginRight + insetRight,
-          marginBottom: marginBottom + insetBottom,
-          marginLeft: marginLeft + insetLeft,
-        };
+      const marginStyle = {
+        marginTop: marginTop + insetTop,
+        marginRight: marginRight + insetRight,
+        marginBottom: marginBottom + insetBottom,
+        marginLeft: marginLeft + insetLeft,
+      };
 
-        return [style, marginStyle];
-      } else {
-        const {
-          padding = 0,
-          paddingVertical = padding,
-          paddingHorizontal = padding,
-          paddingTop = paddingVertical,
-          paddingRight = paddingHorizontal,
-          paddingBottom = paddingVertical,
-          paddingLeft = paddingHorizontal,
-        } = flatStyle;
+      return [style, marginStyle];
+    } else {
+      const {
+        padding = 0,
+        paddingVertical = padding,
+        paddingHorizontal = padding,
+        paddingTop = paddingVertical,
+        paddingRight = paddingHorizontal,
+        paddingBottom = paddingVertical,
+        paddingLeft = paddingHorizontal,
+      } = flatStyle;
 
-        const paddingStyle = {
-          paddingTop: paddingTop + insetTop,
-          paddingRight: paddingRight + insetRight,
-          paddingBottom: paddingBottom + insetBottom,
-          paddingLeft: paddingLeft + insetLeft,
-        };
+      const paddingStyle = {
+        paddingTop: paddingTop + insetTop,
+        paddingRight: paddingRight + insetRight,
+        paddingBottom: paddingBottom + insetBottom,
+        paddingLeft: paddingLeft + insetLeft,
+      };
 
-        return [style, paddingStyle];
-      }
-    }, [style, insets, mode, edgeBitmask]);
+      return [style, paddingStyle];
+    }
+  }, [style, insets, mode, edgeBitmask]);
 
-    return <View style={appliedStyle} {...rest} ref={ref} />;
-  },
-);
+  return <View style={appliedStyle} {...rest} ref={ref} />;
+});
