@@ -1,8 +1,9 @@
 import * as React from 'react';
-import type { NativeSafeAreaViewProps } from './SafeArea.types';
+import type {
+  NativeSafeAreaViewInstance,
+  NativeSafeAreaViewProps,
+} from './SafeArea.types';
 import NativeSafeAreaView from './specs/NativeSafeAreaView';
-
-type NativeSafeAreaViewInstance = InstanceType<typeof NativeSafeAreaView>;
 
 export type SafeAreaViewProps = NativeSafeAreaViewProps;
 
