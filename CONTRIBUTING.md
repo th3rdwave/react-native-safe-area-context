@@ -50,12 +50,6 @@ yarn android
 
 I also recommend opening `example/android` in Android Studio if you need to make changes to native code.
 
-#### Expo and web
-
-```sh
-yarn example:expo
-```
-
 Use `ctrl+cmd+z` on iOS or `ctrl+m` on Android to open the dev menu and choose an example.
 
 ### Run tests
