@@ -24,6 +24,7 @@
     "src",
     ".eslintrc.js",
     "babel.config.js",
+    "jest"
   ],
   "exclude": [
     "node_modules",
