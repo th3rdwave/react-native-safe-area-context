@@ -1,6 +1,7 @@
 package com.th3rdwave.safeareacontext
 
 import com.facebook.react.bridge.ReadableArray
+import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.ReactStylesDiffMap
 import com.facebook.react.uimanager.StateWrapper
@@ -11,6 +12,7 @@ import com.facebook.react.viewmanagers.RNCSafeAreaViewManagerInterface
 import com.facebook.react.views.view.ReactViewGroup
 import com.facebook.react.views.view.ReactViewManager
 import java.util.*
+
 
 @ReactModule(name = SafeAreaViewManager.REACT_CLASS)
 class SafeAreaViewManager : ReactViewManager(), RNCSafeAreaViewManagerInterface<SafeAreaView> {
@@ -62,10 +64,17 @@ class SafeAreaViewManager : ReactViewManager(), RNCSafeAreaViewManagerInterface<
     }
   }
 
+  @ReactProp(name = "minPadding")
+  override fun setMinPadding(view: SafeAreaView, minPadding: ReadableMap?) {
+    if (minPadding != null) {
+      view.setMinPadding(EdgeInsets(top = if (minPadding.hasKey("top")) minPadding.getDouble("top").toFloat() else 0.0f, bottom = if (minPadding.hasKey("bottom")) minPadding.getDouble("bottom").toFloat() else 0.0f, left = if (minPadding.hasKey("left")) minPadding.getDouble("left").toFloat() else 0.0f, right = if (minPadding.hasKey("right")) minPadding.getDouble("right").toFloat() else 0.0f))
+    }
+  }
+
   override fun updateState(
-      view: ReactViewGroup,
-      props: ReactStylesDiffMap?,
-      stateWrapper: StateWrapper?
+    view: ReactViewGroup,
+    props: ReactStylesDiffMap?,
+    stateWrapper: StateWrapper?
   ): Any? {
     (view as SafeAreaView).fabricViewStateManager.setStateWrapper(stateWrapper)
     return null

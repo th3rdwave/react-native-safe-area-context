@@ -12,8 +12,10 @@ package com.facebook.react.viewmanagers;
 import android.view.View;
 import androidx.annotation.Nullable;
 import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
 
 public interface RNCSafeAreaViewManagerInterface<T extends View> {
   void setMode(T view, @Nullable String value);
   void setEdges(T view, @Nullable ReadableArray value);
+  void setMinPadding(T view, @Nullable ReadableMap value);
 }

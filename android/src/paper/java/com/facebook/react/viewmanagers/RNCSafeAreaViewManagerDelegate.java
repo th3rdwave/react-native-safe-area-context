@@ -12,6 +12,7 @@ package com.facebook.react.viewmanagers;
 import android.view.View;
 import androidx.annotation.Nullable;
 import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.BaseViewManagerDelegate;
 import com.facebook.react.uimanager.BaseViewManagerInterface;
 
@@ -27,6 +28,9 @@ public class RNCSafeAreaViewManagerDelegate<T extends View, U extends BaseViewMa
         break;
       case "edges":
         mViewManager.setEdges(view, (ReadableArray) value);
+        break;
+      case "minPadding":
+        mViewManager.setMinPadding(view, (ReadableMap) value);
         break;
       default:
         super.setProperty(view, propName, value);

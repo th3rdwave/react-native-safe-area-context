@@ -20,6 +20,7 @@ class SafeAreaView(context: Context?) :
   private var mMode = SafeAreaViewMode.PADDING
   private var mInsets: EdgeInsets? = null
   private var mEdges: EnumSet<SafeAreaViewEdges>? = null
+  private var mMinPadding: EdgeInsets? = null
   private var mProviderView: View? = null
   private val mFabricViewStateManager = FabricViewStateManager()
 
@@ -31,6 +32,7 @@ class SafeAreaView(context: Context?) :
     val insets = mInsets
     if (insets != null) {
       val edges = mEdges ?: EnumSet.allOf(SafeAreaViewEdges::class.java)
+      val minPadding = mMinPadding ?: EdgeInsets(top = 0.0f, bottom = 0.0f, left = 0.0f, right = 0.0f)
       if (mFabricViewStateManager.hasStateWrapper()) {
         mFabricViewStateManager.setState {
           val map = Arguments.createMap()
@@ -38,7 +40,7 @@ class SafeAreaView(context: Context?) :
           map
         }
       } else {
-        val localData = SafeAreaViewLocalData(insets = insets, mode = mMode, edges = edges)
+        val localData = SafeAreaViewLocalData(insets = insets, mode = mMode, edges = edges, minPadding = minPadding)
         val reactContext = getReactContext(this)
         val uiManager = reactContext.getNativeModule(UIManagerModule::class.java)
         if (uiManager != null) {
@@ -98,6 +100,11 @@ class SafeAreaView(context: Context?) :
 
   fun setEdges(edges: EnumSet<SafeAreaViewEdges>?) {
     mEdges = edges
+    updateInsets()
+  }
+
+  fun setMinPadding(minPadding: EdgeInsets?) {
+    mMinPadding = minPadding
     updateInsets()
   }
 

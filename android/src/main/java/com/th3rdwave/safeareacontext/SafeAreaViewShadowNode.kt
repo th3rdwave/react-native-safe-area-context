@@ -1,5 +1,6 @@
 package com.th3rdwave.safeareacontext
 
+import kotlin.math.max
 import com.facebook.react.bridge.Dynamic
 import com.facebook.react.bridge.ReadableType
 import com.facebook.react.uimanager.*
@@ -65,10 +66,11 @@ class SafeAreaViewShadowNode : LayoutShadowNode() {
     left = PixelUtil.toPixelFromDIP(left)
     val edges = localData.edges
     val insets = localData.insets
-    val insetTop: Float = if (edges.contains(SafeAreaViewEdges.TOP)) insets.top else 0.0f
-    val insetRight: Float = if (edges.contains(SafeAreaViewEdges.RIGHT)) insets.right else 0.0f
-    val insetBottom: Float = if (edges.contains(SafeAreaViewEdges.BOTTOM)) insets.bottom else 0.0f
-    val insetLeft: Float = if (edges.contains(SafeAreaViewEdges.LEFT)) insets.left else 0.0f
+    val minPadding = localData.minPadding
+    val insetTop: Float = max(minPadding.top, if (edges.contains(SafeAreaViewEdges.TOP)) insets.top else 0.0f)
+    val insetRight: Float = max(minPadding.right, if (edges.contains(SafeAreaViewEdges.RIGHT)) insets.right else 0.0f)
+    val insetBottom: Float = max(minPadding.bottom, if (edges.contains(SafeAreaViewEdges.BOTTOM)) insets.bottom else 0.0f)
+    val insetLeft: Float = max(minPadding.left, if (edges.contains(SafeAreaViewEdges.LEFT)) insets.left else 0.0f)
     if (localData.mode == SafeAreaViewMode.PADDING) {
       super.setPadding(Spacing.TOP, insetTop + top)
       super.setPadding(Spacing.RIGHT, insetRight + right)
