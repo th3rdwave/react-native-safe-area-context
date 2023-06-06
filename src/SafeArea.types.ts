@@ -36,6 +36,7 @@ export interface NativeSafeAreaViewProps extends ViewProps {
   children?: React.ReactNode;
   mode?: 'padding' | 'margin';
   edges?: ReadonlyArray<Edge>;
+  minPadding?: Partial<EdgeInsets>;
 }
 
 export type NativeSafeAreaViewInstance = InstanceType<

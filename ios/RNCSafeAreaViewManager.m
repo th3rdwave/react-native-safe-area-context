@@ -21,5 +21,6 @@ RCT_EXPORT_MODULE(RNCSafeAreaView)
 
 RCT_EXPORT_VIEW_PROPERTY(mode, RNCSafeAreaViewMode)
 RCT_EXPORT_VIEW_PROPERTY(edges, RNCSafeAreaViewEdges)
+RCT_EXPORT_VIEW_PROPERTY(minPadding, UIEdgeInsets)
 
 @end

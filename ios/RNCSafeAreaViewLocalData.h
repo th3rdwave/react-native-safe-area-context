@@ -7,11 +7,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RNCSafeAreaViewLocalData : NSObject
 
-- (instancetype)initWithInsets:(UIEdgeInsets)insets mode:(RNCSafeAreaViewMode)mode edges:(RNCSafeAreaViewEdges)edges;
+- (instancetype)initWithInsets:(UIEdgeInsets)insets mode:(RNCSafeAreaViewMode)mode edges:(RNCSafeAreaViewEdges)edges minPadding:(UIEdgeInsets)minPadding;
 
 @property (atomic, readonly) UIEdgeInsets insets;
 @property (atomic, readonly) RNCSafeAreaViewMode mode;
 @property (atomic, readonly) RNCSafeAreaViewEdges edges;
+@property (atomic, readonly) UIEdgeInsets minPadding;
 
 @end
 

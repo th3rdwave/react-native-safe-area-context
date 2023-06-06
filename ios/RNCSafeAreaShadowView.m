@@ -103,16 +103,17 @@ typedef NS_ENUM(unsigned int, meta_prop_t) {
   UIEdgeInsets insets = _localData.insets;
   RNCSafeAreaViewMode mode = _localData.mode;
   RNCSafeAreaViewEdges edges = _localData.edges;
+  UIEdgeInsets minPadding = _localData.minPadding;
 
   CGFloat top = 0;
   CGFloat right = 0;
   CGFloat bottom = 0;
   CGFloat left = 0;
 
-  CGFloat insetTop = (edges & RNCSafeAreaViewEdgesTop) ? insets.top : 0;
-  CGFloat insetRight = (edges & RNCSafeAreaViewEdgesRight) ? insets.right : 0;
-  CGFloat insetBottom = (edges & RNCSafeAreaViewEdgesBottom) ? insets.bottom : 0;
-  CGFloat insetLeft = (edges & RNCSafeAreaViewEdgesLeft) ? insets.left : 0;
+  CGFloat insetTop = MAX(minPadding.top, (edges & RNCSafeAreaViewEdgesTop) ? insets.top : 0);
+  CGFloat insetRight = MAX(minPadding.right, (edges & RNCSafeAreaViewEdgesRight) ? insets.right : 0);
+  CGFloat insetBottom = MAX(minPadding.bottom, (edges & RNCSafeAreaViewEdgesBottom) ? insets.bottom : 0);
+  CGFloat insetLeft = MAX(minPadding.left, (edges & RNCSafeAreaViewEdgesLeft) ? insets.left : 0);
 
   if (mode == RNCSafeAreaViewModePadding) {
     [self extractEdges:_paddingMetaProps top:&top right:&right bottom:&bottom left:&left];

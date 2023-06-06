@@ -19,6 +19,7 @@ export default function ReactNativeSafeAreaView() {
   const [mode, setMode] = React.useState<'padding' | 'margin'>('padding');
   const [additionalMargin, setAdditionalMargin] = React.useState(false);
   const [additionalPadding, setAdditionalPadding] = React.useState(false);
+  const [minimumPadding, setMinimumPadding] = React.useState(false);
   const [top, setTop] = React.useState(true);
   const [right, setRight] = React.useState(true);
   const [bottom, setBottom] = React.useState(true);
@@ -65,6 +66,14 @@ export default function ReactNativeSafeAreaView() {
           ]}
           mode={mode}
           edges={edges}
+          minPadding={
+            minimumPadding
+              ? {
+                  top: 24,
+                  bottom: 24,
+                }
+              : undefined
+          }
         >
           <ScrollView
             contentContainerStyle={styles.contentContainer}
@@ -122,6 +131,16 @@ export default function ReactNativeSafeAreaView() {
               <Switch
                 value={additionalPadding}
                 onValueChange={setAdditionalPadding}
+                trackColor={{ true: paddingColor, false: '' }}
+              />
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.text}>
+                Use minimum <Text style={{ color: paddingColor }}>padding</Text>
+              </Text>
+              <Switch
+                value={minimumPadding}
+                onValueChange={setMinimumPadding}
                 trackColor={{ true: paddingColor, false: '' }}
               />
             </View>

@@ -14,6 +14,7 @@
   UIEdgeInsets _currentSafeAreaInsets;
   RNCSafeAreaViewMode _mode;
   RNCSafeAreaViewEdges _edges;
+  UIEdgeInsets _minPadding;
   __weak RNCSafeAreaProvider *_Nullable _providerView;
 }
 
@@ -24,6 +25,7 @@
     // Defaults
     _mode = RNCSafeAreaViewModePadding;
     _edges = RNCSafeAreaViewEdgesAll;
+    _minPadding = UIEdgeInsetsZero;
   }
 
   return self;
@@ -107,7 +109,8 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
   }
   RNCSafeAreaViewLocalData *localData = [[RNCSafeAreaViewLocalData alloc] initWithInsets:_currentSafeAreaInsets
                                                                                     mode:_mode
-                                                                                   edges:_edges];
+                                                                                   edges:_edges
+                                                                              minPadding:_minPadding];
   [_bridge.uiManager setLocalData:localData forView:self];
 }
 
@@ -120,6 +123,12 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithFrame : (CGRect)frame)
 - (void)setEdges:(RNCSafeAreaViewEdges)edges
 {
   _edges = edges;
+  [self updateLocalData];
+}
+
+- (void)setMinPadding:(UIEdgeInsets)minPadding
+{
+  _minPadding = minPadding;
   [self updateLocalData];
 }
 
