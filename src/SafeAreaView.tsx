@@ -1,5 +1,6 @@
 import * as React from 'react';
 import type {
+  EdgeRecord,
   NativeSafeAreaViewInstance,
   NativeSafeAreaViewProps,
 } from './SafeArea.types';
@@ -10,14 +11,25 @@ export type SafeAreaViewProps = NativeSafeAreaViewProps;
 export const SafeAreaView = React.forwardRef<
   NativeSafeAreaViewInstance,
   SafeAreaViewProps
->(({ edges, minPadding, ...props }, ref) => {
+>(({ edges, ...props }, ref) => {
+  const nativeEdges = Array.isArray(edges)
+    ? edges.reduce<EdgeRecord>((accum, edge) => {
+        accum[edge] = 'additive';
+        return accum;
+      }, {})
+    : edges;
+
   return (
     <NativeSafeAreaView
       {...props}
-      // Codegen doesn't support default values for array types so
-      // set it here.
-      edges={edges ?? ['bottom', 'left', 'right', 'top']}
-      minPadding={minPadding ?? { top: 0, bottom: 0, left: 0, right: 0 }}
+      edges={
+        nativeEdges ?? {
+          top: 'additive',
+          left: 'additive',
+          bottom: 'additive',
+          right: 'additive',
+        }
+      }
       ref={ref}
     />
   );

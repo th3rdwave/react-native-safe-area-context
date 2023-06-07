@@ -41,34 +41,38 @@ class SafeAreaViewManager : ReactViewManager(), RNCSafeAreaViewManagerInterface<
   }
 
   @ReactProp(name = "edges")
-  override fun setEdges(view: SafeAreaView, propList: ReadableArray?) {
-    val edges = EnumSet.noneOf(SafeAreaViewEdges::class.java)
-    if (propList != null) {
-      for (i in 0 until propList.size()) {
-        when (propList.getString(i)) {
-          "top" -> {
-            edges.add(SafeAreaViewEdges.TOP)
-          }
-          "right" -> {
-            edges.add(SafeAreaViewEdges.RIGHT)
-          }
-          "bottom" -> {
-            edges.add(SafeAreaViewEdges.BOTTOM)
-          }
-          "left" -> {
-            edges.add(SafeAreaViewEdges.LEFT)
-          }
-        }
-      }
-      view.setEdges(edges)
-    }
-  }
+  override fun setEdges(view: SafeAreaView, propList: ReadableMap?) {
 
-  @ReactProp(name = "minPadding")
-  override fun setMinPadding(view: SafeAreaView, minPadding: ReadableMap?) {
-    if (minPadding != null) {
-      view.setMinPadding(EdgeInsets(top = if (minPadding.hasKey("top")) minPadding.getDouble("top").toFloat() else 0.0f, bottom = if (minPadding.hasKey("bottom")) minPadding.getDouble("bottom").toFloat() else 0.0f, left = if (minPadding.hasKey("left")) minPadding.getDouble("left").toFloat() else 0.0f, right = if (minPadding.hasKey("right")) minPadding.getDouble("right").toFloat() else 0.0f))
+    if (propList != null) {
+      view.setEdges(SafeAreaViewEdges(
+        top = propList.getString("top")?.let { SafeAreaViewEdgeModes.valueOf(it.uppercase()) } ?: SafeAreaViewEdgeModes.OFF,
+        right = propList.getString("right")?.let { SafeAreaViewEdgeModes.valueOf(it.uppercase()) } ?: SafeAreaViewEdgeModes.OFF,
+        bottom = propList.getString("bottom")?.let { SafeAreaViewEdgeModes.valueOf(it.uppercase()) } ?: SafeAreaViewEdgeModes.OFF,
+        left = propList.getString("left")?.let { SafeAreaViewEdgeModes.valueOf(it.uppercase()) } ?: SafeAreaViewEdgeModes.OFF
+      ))
+      //view.setMinPadding(EdgeInsets(top = if (minPadding.hasKey("top")) minPadding.getDouble("top").toFloat() else 0.0f, bottom = if (minPadding.hasKey("bottom")) minPadding.getDouble("bottom").toFloat() else 0.0f, left = if (minPadding.hasKey("left")) minPadding.getDouble("left").toFloat() else 0.0f, right = if (minPadding.hasKey("right")) minPadding.getDouble("right").toFloat() else 0.0f))
     }
+
+//    val edges = EnumSet.noneOf(SafeAreaViewEdges::class.java)
+//    if (propList != null) {
+//      for (i in 0 until propList.size()) {
+//        when (propList.getString(i)) {
+//          "top" -> {
+//            edges.add(SafeAreaViewEdges.TOP)
+//          }
+//          "right" -> {
+//            edges.add(SafeAreaViewEdges.RIGHT)
+//          }
+//          "bottom" -> {
+//            edges.add(SafeAreaViewEdges.BOTTOM)
+//          }
+//          "left" -> {
+//            edges.add(SafeAreaViewEdges.LEFT)
+//          }
+//        }
+//      }
+//      view.setEdges(edges)
+//    }
   }
 
   override fun updateState(

@@ -12,31 +12,31 @@ import {
 import {
   SafeAreaProvider,
   SafeAreaView,
-  Edge,
+  EdgeRecord,
 } from 'react-native-safe-area-context';
 
-export default function ReactNativeSafeAreaView() {
+export default function ReactNativeSafeAreaViewEdges() {
   const [mode, setMode] = React.useState<'padding' | 'margin'>('padding');
   const [additionalMargin, setAdditionalMargin] = React.useState(false);
   const [additionalPadding, setAdditionalPadding] = React.useState(false);
-
+  const [maximumEdgeMode, setMaximumEdgeMode] = React.useState(false);
   const [top, setTop] = React.useState(true);
   const [right, setRight] = React.useState(true);
   const [bottom, setBottom] = React.useState(true);
   const [left, setLeft] = React.useState(true);
 
-  const edges: Edge[] = [];
+  const edges: EdgeRecord = {};
   if (top) {
-    edges.push('top');
+    edges.top = maximumEdgeMode ? 'maximum' : 'additive';
   }
   if (right) {
-    edges.push('right');
+    edges.right = maximumEdgeMode ? 'maximum' : 'additive';
   }
   if (bottom) {
-    edges.push('bottom');
+    edges.bottom = maximumEdgeMode ? 'maximum' : 'additive';
   }
   if (left) {
-    edges.push('left');
+    edges.left = maximumEdgeMode ? 'maximum' : 'additive';
   }
 
   const modeTint = mode === 'padding' ? paddingColor : marginColor;
@@ -135,6 +135,14 @@ export default function ReactNativeSafeAreaView() {
                 value={additionalMargin}
                 onValueChange={setAdditionalMargin}
                 trackColor={{ true: marginColor, false: '' }}
+              />
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.text}>Use maximum edge mode</Text>
+              <Switch
+                value={maximumEdgeMode}
+                onValueChange={setMaximumEdgeMode}
+                trackColor={{ true: paddingColor, false: '' }}
               />
             </View>
           </ScrollView>

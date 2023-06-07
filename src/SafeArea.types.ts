@@ -3,6 +3,10 @@ import type { NativeSyntheticEvent, ViewProps } from 'react-native';
 import NativeSafeAreaView from './specs/NativeSafeAreaView';
 
 export type Edge = 'top' | 'right' | 'bottom' | 'left';
+export type EdgeMode = 'additive' | 'maximum';
+
+export type EdgeRecord = Partial<Record<Edge, EdgeMode>>;
+export type Edges = Edge[] | EdgeRecord;
 
 export interface EdgeInsets {
   top: number;
@@ -35,8 +39,7 @@ export interface NativeSafeAreaProviderProps extends ViewProps {
 export interface NativeSafeAreaViewProps extends ViewProps {
   children?: React.ReactNode;
   mode?: 'padding' | 'margin';
-  edges?: ReadonlyArray<Edge>;
-  minPadding?: Partial<EdgeInsets>;
+  edges?: Edges;
 }
 
 export type NativeSafeAreaViewInstance = InstanceType<

@@ -66,21 +66,20 @@ class SafeAreaViewShadowNode : LayoutShadowNode() {
     left = PixelUtil.toPixelFromDIP(left)
     val edges = localData.edges
     val insets = localData.insets
-    val minPadding = localData.minPadding
-    val insetTop: Float = max(minPadding.top, if (edges.contains(SafeAreaViewEdges.TOP)) insets.top else 0.0f)
-    val insetRight: Float = max(minPadding.right, if (edges.contains(SafeAreaViewEdges.RIGHT)) insets.right else 0.0f)
-    val insetBottom: Float = max(minPadding.bottom, if (edges.contains(SafeAreaViewEdges.BOTTOM)) insets.bottom else 0.0f)
-    val insetLeft: Float = max(minPadding.left, if (edges.contains(SafeAreaViewEdges.LEFT)) insets.left else 0.0f)
+    val insetTop: Float = if (edges.top != SafeAreaViewEdgeModes.OFF ) insets.top else 0.0f
+    val insetRight: Float = if (edges.right != SafeAreaViewEdgeModes.OFF) insets.right else 0.0f
+    val insetBottom: Float = if (edges.bottom != SafeAreaViewEdgeModes.OFF) insets.bottom else 0.0f
+    val insetLeft: Float = if (edges.left != SafeAreaViewEdgeModes.OFF) insets.left else 0.0f
     if (localData.mode == SafeAreaViewMode.PADDING) {
-      super.setPadding(Spacing.TOP, insetTop + top)
-      super.setPadding(Spacing.RIGHT, insetRight + right)
-      super.setPadding(Spacing.BOTTOM, insetBottom + bottom)
-      super.setPadding(Spacing.LEFT, insetLeft + left)
+      super.setPadding(Spacing.TOP,  if (edges.top == SafeAreaViewEdgeModes.MAXIMUM ) max(insetTop, top) else insetTop + top)
+      super.setPadding(Spacing.RIGHT, if (edges.right == SafeAreaViewEdgeModes.MAXIMUM ) max(insetRight, right) else insetRight + right)
+      super.setPadding(Spacing.BOTTOM, if (edges.bottom == SafeAreaViewEdgeModes.MAXIMUM ) max(insetBottom, bottom) else insetBottom + bottom)
+      super.setPadding(Spacing.LEFT, if (edges.left == SafeAreaViewEdgeModes.MAXIMUM ) max(insetLeft, left) else insetLeft + left)
     } else {
-      super.setMargin(Spacing.TOP, insetTop + top)
-      super.setMargin(Spacing.RIGHT, insetRight + right)
-      super.setMargin(Spacing.BOTTOM, insetBottom + bottom)
-      super.setMargin(Spacing.LEFT, insetLeft + left)
+      super.setMargin(Spacing.TOP, if (edges.top == SafeAreaViewEdgeModes.MAXIMUM ) max(insetTop, top) else insetTop + top)
+      super.setMargin(Spacing.RIGHT, if (edges.right == SafeAreaViewEdgeModes.MAXIMUM ) max(insetRight, right) else insetRight + right)
+      super.setMargin(Spacing.BOTTOM, if (edges.bottom == SafeAreaViewEdgeModes.MAXIMUM ) max(insetBottom, bottom) else insetBottom + bottom)
+      super.setMargin(Spacing.LEFT, if (edges.left == SafeAreaViewEdgeModes.MAXIMUM ) max(insetLeft, left) else insetLeft + left)
     }
   }
 
