@@ -5,6 +5,7 @@ import type {
   NativeSafeAreaViewProps,
 } from './SafeArea.types';
 import NativeSafeAreaView from './specs/NativeSafeAreaView';
+import { useMemo } from 'react';
 
 export type SafeAreaViewProps = NativeSafeAreaViewProps;
 
@@ -12,12 +13,14 @@ export const SafeAreaView = React.forwardRef<
   NativeSafeAreaViewInstance,
   SafeAreaViewProps
 >(({ edges, ...props }, ref) => {
-  const nativeEdges = Array.isArray(edges)
-    ? edges.reduce<EdgeRecord>((accum, edge) => {
-        accum[edge] = 'additive';
-        return accum;
-      }, {})
-    : edges;
+  const nativeEdges = useMemo(() => {
+    return Array.isArray(edges)
+      ? edges.reduce<EdgeRecord>((accum, edge) => {
+          accum[edge] = 'additive';
+          return accum;
+        }, {})
+      : edges;
+  }, [edges]);
 
   return (
     <NativeSafeAreaView

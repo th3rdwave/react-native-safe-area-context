@@ -3,7 +3,7 @@ import type { NativeSyntheticEvent, ViewProps } from 'react-native';
 import NativeSafeAreaView from './specs/NativeSafeAreaView';
 
 export type Edge = 'top' | 'right' | 'bottom' | 'left';
-export type EdgeMode = 'additive' | 'maximum';
+export type EdgeMode = 'off' | 'additive' | 'maximum';
 
 export type EdgeRecord = Partial<Record<Edge, EdgeMode>>;
 export type Edges = Edge[] | EdgeRecord;

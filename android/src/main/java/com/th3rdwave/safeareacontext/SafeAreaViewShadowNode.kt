@@ -71,16 +71,20 @@ class SafeAreaViewShadowNode : LayoutShadowNode() {
     val insetBottom: Float = if (edges.bottom != SafeAreaViewEdgeModes.OFF) insets.bottom else 0.0f
     val insetLeft: Float = if (edges.left != SafeAreaViewEdgeModes.OFF) insets.left else 0.0f
     if (localData.mode == SafeAreaViewMode.PADDING) {
-      super.setPadding(Spacing.TOP,  if (edges.top == SafeAreaViewEdgeModes.MAXIMUM ) max(insetTop, top) else insetTop + top)
-      super.setPadding(Spacing.RIGHT, if (edges.right == SafeAreaViewEdgeModes.MAXIMUM ) max(insetRight, right) else insetRight + right)
-      super.setPadding(Spacing.BOTTOM, if (edges.bottom == SafeAreaViewEdgeModes.MAXIMUM ) max(insetBottom, bottom) else insetBottom + bottom)
-      super.setPadding(Spacing.LEFT, if (edges.left == SafeAreaViewEdgeModes.MAXIMUM ) max(insetLeft, left) else insetLeft + left)
+      super.setPadding(Spacing.TOP, getEdgeValue(edges.top, insetTop, top))
+      super.setPadding(Spacing.RIGHT, getEdgeValue(edges.right, insetRight, right))
+      super.setPadding(Spacing.BOTTOM, getEdgeValue(edges.bottom, insetBottom, bottom))
+      super.setPadding(Spacing.LEFT, getEdgeValue(edges.left, insetLeft, left))
     } else {
-      super.setMargin(Spacing.TOP, if (edges.top == SafeAreaViewEdgeModes.MAXIMUM ) max(insetTop, top) else insetTop + top)
-      super.setMargin(Spacing.RIGHT, if (edges.right == SafeAreaViewEdgeModes.MAXIMUM ) max(insetRight, right) else insetRight + right)
-      super.setMargin(Spacing.BOTTOM, if (edges.bottom == SafeAreaViewEdgeModes.MAXIMUM ) max(insetBottom, bottom) else insetBottom + bottom)
-      super.setMargin(Spacing.LEFT, if (edges.left == SafeAreaViewEdgeModes.MAXIMUM ) max(insetLeft, left) else insetLeft + left)
+      super.setMargin(Spacing.TOP, getEdgeValue(edges.top, insetTop, top))
+      super.setMargin(Spacing.RIGHT, getEdgeValue(edges.right, insetRight, right))
+      super.setMargin(Spacing.BOTTOM, getEdgeValue(edges.bottom, insetBottom, bottom))
+      super.setMargin(Spacing.LEFT, getEdgeValue(edges.left, insetLeft, left))
     }
+  }
+
+  private fun getEdgeValue(edgeMode: SafeAreaViewEdgeModes, insetValue: Float, edgeValue: Float): Float {
+    return if (edgeMode == SafeAreaViewEdgeModes.MAXIMUM ) max(insetValue, edgeValue) else insetValue + edgeValue
   }
 
   private fun resetInsets(mode: SafeAreaViewMode) {

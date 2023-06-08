@@ -15,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) RNCSafeAreaViewMode mode;
 @property (nonatomic, assign) RNCSafeAreaViewEdges edges;
-@property (nonatomic, assign) UIEdgeInsets minPadding;
 
 @end
 

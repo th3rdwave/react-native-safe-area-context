@@ -17,6 +17,7 @@
 		0C7844E827C02CEE001807FB /* RNCSafeAreaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7844E027C02CEE001807FB /* RNCSafeAreaView.m */; };
 		0C7844EF27C02D03001807FB /* RNCSafeAreaContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C7844EA27C02D03001807FB /* RNCSafeAreaContext.mm */; };
 		0C7844F027C02D03001807FB /* RNCSafeAreaProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7844ED27C02D03001807FB /* RNCSafeAreaProvider.m */; };
+		AA53A9EE2A321C01009AB3B2 /* RNCSafeAreaViewEdgeModes.m in Sources */ = {isa = PBXBuildFile; fileRef = AA53A9ED2A321C01009AB3B2 /* RNCSafeAreaViewEdgeModes.m */; };
 		C923EDBC220C2C1A00D3100F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C923EDBB220C2C1A00D3100F /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,8 @@
 		0C7844ED27C02D03001807FB /* RNCSafeAreaProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCSafeAreaProvider.m; sourceTree = "<group>"; };
 		0C7844EE27C02D03001807FB /* Fabric */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fabric; sourceTree = "<group>"; };
 		134814201AA4EA6300B7C361 /* libRNCSafeAreaContext.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNCSafeAreaContext.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA53A9EC2A321C01009AB3B2 /* RNCSafeAreaViewEdgeModes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNCSafeAreaViewEdgeModes.h; sourceTree = "<group>"; };
+		AA53A9ED2A321C01009AB3B2 /* RNCSafeAreaViewEdgeModes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNCSafeAreaViewEdgeModes.m; sourceTree = "<group>"; };
 		C923EDBB220C2C1A00D3100F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -81,6 +84,8 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				AA53A9EC2A321C01009AB3B2 /* RNCSafeAreaViewEdgeModes.h */,
+				AA53A9ED2A321C01009AB3B2 /* RNCSafeAreaViewEdgeModes.m */,
 				0C7844EE27C02D03001807FB /* Fabric */,
 				0C7844E927C02D03001807FB /* RNCSafeAreaContext.h */,
 				0C7844EA27C02D03001807FB /* RNCSafeAreaContext.mm */,
@@ -172,6 +177,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA53A9EE2A321C01009AB3B2 /* RNCSafeAreaViewEdgeModes.m in Sources */,
 				0C7844E427C02CEE001807FB /* RNCSafeAreaProviderManager.m in Sources */,
 				0C7844E727C02CEE001807FB /* RNCSafeAreaUtils.m in Sources */,
 				0C7844E827C02CEE001807FB /* RNCSafeAreaView.m in Sources */,
