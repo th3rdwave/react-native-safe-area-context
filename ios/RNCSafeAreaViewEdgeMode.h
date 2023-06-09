@@ -1,4 +1,5 @@
 #import <Foundation/Foundation.h>
+#import <React/RCTConvert.h>
 
 typedef NS_ENUM(NSInteger, RNCSafeAreaViewEdgeMode) {
   RNCSafeAreaViewEdgeModeOff,
@@ -6,6 +7,6 @@ typedef NS_ENUM(NSInteger, RNCSafeAreaViewEdgeMode) {
   RNCSafeAreaViewEdgeModeMaximum
 };
 
-@interface NSString (EnumParser)
-- (RNCSafeAreaViewEdgeMode)RNCSafeAreaViewEdgeModeFromString;
+@interface RCTConvert (RNCSafeAreaViewEdgeMode)
+ + (RNCSafeAreaViewEdgeMode)RNCSafeAreaViewEdgeMode:(nullable id)json;
 @end

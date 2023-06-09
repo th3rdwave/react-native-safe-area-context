@@ -129,7 +129,7 @@ typedef NS_ENUM(unsigned int, meta_prop_t) {
 {
   if (edgeMode == RNCSafeAreaViewEdgeModeOff) {
     return edgeValue;
-  else if (edgeMode == RNCSafeAreaViewEdgeModeMaximum) {
+  } else if (edgeMode == RNCSafeAreaViewEdgeModeMaximum) {
     return MAX(insetValue, edgeValue);
   } else {
     return insetValue + edgeValue;

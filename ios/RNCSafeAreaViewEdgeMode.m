@@ -14,16 +14,3 @@ RCT_ENUM_CONVERTER(
     integerValue);
 
 @end
-
-@implementation NSString (EnumParser)
-
-- (RNCSafeAreaViewEdgeMode)RNCSafeAreaViewEdgeModeFromString{
-    NSDictionary<NSString*,NSNumber*> *edgeModes = @{
-                            @"off": @(RNCSafeAreaViewEdgeModeOff),
-                            @"additive": @(RNCSafeAreaViewEdgeModeAdditive),
-                            @"maximum": @(RNCSafeAreaViewEdgeModeMaximum),
-                            };
-    return edgeModes[self].integerValue;
-}
-
-@end
