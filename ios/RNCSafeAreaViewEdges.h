@@ -1,11 +1,11 @@
 #import <Foundation/Foundation.h>
-#import "RNCSafeAreaViewEdgeModes.h"
+#import "RNCSafeAreaViewEdgeMode.h"
 
 typedef struct RNCSafeAreaViewEdges {
-    RNCSafeAreaViewEdgeModes top;
-    RNCSafeAreaViewEdgeModes right;
-    RNCSafeAreaViewEdgeModes bottom;
-    RNCSafeAreaViewEdgeModes left;
+    RNCSafeAreaViewEdgeMode top;
+    RNCSafeAreaViewEdgeMode right;
+    RNCSafeAreaViewEdgeMode bottom;
+    RNCSafeAreaViewEdgeMode left;
 } RNCSafeAreaViewEdges;
 
-RNCSafeAreaViewEdges RNCSafeAreaViewEdgesMake(RNCSafeAreaViewEdgeModes top, RNCSafeAreaViewEdgeModes right, RNCSafeAreaViewEdgeModes bottom, RNCSafeAreaViewEdgeModes left);
+RNCSafeAreaViewEdges RNCSafeAreaViewEdgesMake(RNCSafeAreaViewEdgeMode top, RNCSafeAreaViewEdgeMode right, RNCSafeAreaViewEdgeMode bottom, RNCSafeAreaViewEdgeMode left);

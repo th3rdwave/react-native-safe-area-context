@@ -6,7 +6,7 @@
 #import "RNCSafeAreaViewEdges.h"
 #import "RNCSafeAreaViewLocalData.h"
 #import "RNCSafeAreaViewMode.h"
-#import "RNCSafeAreaViewEdgeModes.h"
+#import "RNCSafeAreaViewEdgeMode.h"
 
 // From RCTShadowView.m
 typedef NS_ENUM(unsigned int, meta_prop_t) {
@@ -109,40 +109,32 @@ typedef NS_ENUM(unsigned int, meta_prop_t) {
   CGFloat right = 0;
   CGFloat bottom = 0;
   CGFloat left = 0;
-    
-
-  CGFloat insetTop = edges.top != RNCSafeAreaViewEdgeModesOff ? insets.top : 0;
-  CGFloat insetRight = edges.right != RNCSafeAreaViewEdgeModesOff ? insets.right : 0;
-  CGFloat insetBottom = edges.bottom != RNCSafeAreaViewEdgeModesOff ? insets.bottom : 0;
-  CGFloat insetLeft = edges.left != RNCSafeAreaViewEdgeModesOff ? insets.left : 0;
 
   if (mode == RNCSafeAreaViewModePadding) {
     [self extractEdges:_paddingMetaProps top:&top right:&right bottom:&bottom left:&left];
-    super.paddingTop = (YGValue){[self getEdgeValue:edges.top insetValue:insetTop edgeValue:top], YGUnitPoint};
-    super.paddingRight = (YGValue){[self getEdgeValue:edges.right insetValue:insetRight edgeValue:right], YGUnitPoint};
-    super.paddingBottom = (YGValue){[self getEdgeValue:edges.bottom insetValue:insetBottom edgeValue:bottom], YGUnitPoint};
-    super.paddingLeft = (YGValue){[self getEdgeValue:edges.left insetValue:insetLeft edgeValue:left], YGUnitPoint};
+    super.paddingTop = (YGValue){[self getEdgeValue:edges.top insetValue:insets.top edgeValue:top], YGUnitPoint};
+    super.paddingRight = (YGValue){[self getEdgeValue:edges.right insetValue:insets.right edgeValue:right], YGUnitPoint};
+    super.paddingBottom = (YGValue){[self getEdgeValue:edges.bottom insetValue:insets.bottom edgeValue:bottom], YGUnitPoint};
+    super.paddingLeft = (YGValue){[self getEdgeValue:edges.left insetValue:insets.left edgeValue:left], YGUnitPoint};
   } else if (mode == RNCSafeAreaViewModeMargin) {
     [self extractEdges:_marginMetaProps top:&top right:&right bottom:&bottom left:&left];
-    super.marginTop = (YGValue){[self getEdgeValue:edges.top insetValue:insetTop edgeValue:top], YGUnitPoint};
-    super.marginRight = (YGValue){[self getEdgeValue:edges.right insetValue:insetRight edgeValue:right], YGUnitPoint};
-    super.marginBottom = (YGValue){[self getEdgeValue:edges.bottom insetValue:insetBottom edgeValue:bottom], YGUnitPoint};
-    super.marginLeft = (YGValue){[self getEdgeValue:edges.left insetValue:insetLeft edgeValue:left], YGUnitPoint};
+    super.marginTop = (YGValue){[self getEdgeValue:edges.top insetValue:insets.top edgeValue:top], YGUnitPoint};
+    super.marginRight = (YGValue){[self getEdgeValue:edges.right insetValue:insets.right edgeValue:right], YGUnitPoint};
+    super.marginBottom = (YGValue){[self getEdgeValue:edges.bottom insetValue:insets.bottom edgeValue:bottom], YGUnitPoint};
+    super.marginLeft = (YGValue){[self getEdgeValue:edges.left insetValue:insets.left edgeValue:left], YGUnitPoint};
   }
 }
 
-- (CGFloat)getEdgeValue:(RNCSafeAreaViewEdgeModes) edgeMode insetValue:(CGFloat)insetValue edgeValue:(CGFloat) edgeValue
+- (CGFloat)getEdgeValue:(RNCSafeAreaViewEdgeMode) edgeMode insetValue:(CGFloat)insetValue edgeValue:(CGFloat) edgeValue
 {
-    if (edgeMode == RNCSafeAreaViewEdgeModesMaximum) {
-        return MAX(insetValue, edgeValue);
-    } else {
-        return insetValue + edgeValue;
-    }
+  if (edgeMode == RNCSafeAreaViewEdgeModeOff) {
+    return edgeValue;
+  else if (edgeMode == RNCSafeAreaViewEdgeModeMaximum) {
+    return MAX(insetValue, edgeValue);
+  } else {
+    return insetValue + edgeValue;
+  }
 }
-
-//private fun getEdgeValue(edgeMode: SafeAreaViewEdgeModes, insetTop: Float, top: Float): Float {
-//    return if (edgeMode == SafeAreaViewEdgeModes.MAXIMUM ) max(insetTop, top) else insetTop + top
-//  }
 
 - (void)didSetProps:(NSArray<NSString *> *)changedProps
 {

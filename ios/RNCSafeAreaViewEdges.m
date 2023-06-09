@@ -1,7 +1,7 @@
 #import <React/RCTConvert.h>
 #import "RNCSafeAreaViewEdges.h"
 
-RNCSafeAreaViewEdges RNCSafeAreaViewEdgesMake(RNCSafeAreaViewEdgeModes top, RNCSafeAreaViewEdgeModes right, RNCSafeAreaViewEdgeModes bottom, RNCSafeAreaViewEdgeModes left)
+RNCSafeAreaViewEdges RNCSafeAreaViewEdgesMake(RNCSafeAreaViewEdgeMode top, RNCSafeAreaViewEdgeMode right, RNCSafeAreaViewEdgeMode bottom, RNCSafeAreaViewEdgeMode left)
 {
     RNCSafeAreaViewEdges edges;
     edges.top = top;
@@ -14,10 +14,10 @@ RNCSafeAreaViewEdges RNCSafeAreaViewEdgesMake(RNCSafeAreaViewEdgeModes top, RNCS
 RNCSafeAreaViewEdges RNCSafeAreaViewEdgesMakeString(NSString *top, NSString *right, NSString *bottom, NSString *left)
 {
     RNCSafeAreaViewEdges edges;
-    edges.top = [top RNCSafeAreaViewEdgeModesFromString];
-    edges.right = [right RNCSafeAreaViewEdgeModesFromString];
-    edges.bottom = [bottom RNCSafeAreaViewEdgeModesFromString];
-    edges.left = [left RNCSafeAreaViewEdgeModesFromString];
+    edges.top = [top RNCSafeAreaViewEdgeModeFromString];
+    edges.right = [right RNCSafeAreaViewEdgeModeFromString];
+    edges.bottom = [bottom RNCSafeAreaViewEdgeModeFromString];
+    edges.left = [left RNCSafeAreaViewEdgeModeFromString];
     return edges;
 }
 
