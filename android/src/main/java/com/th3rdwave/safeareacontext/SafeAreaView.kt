@@ -101,11 +101,6 @@ class SafeAreaView(context: Context?) :
     updateInsets()
   }
 
-//  fun setMinPadding(minPadding: EdgeInsets?) {
-//    mMinPadding = minPadding
-//    updateInsets()
-//  }
-
   private fun maybeUpdateInsets(): Boolean {
     val providerView = mProviderView ?: return false
     val edgeInsets = getSafeAreaInsets(providerView) ?: return false

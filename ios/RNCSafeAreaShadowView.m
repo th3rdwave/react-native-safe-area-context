@@ -125,7 +125,7 @@ typedef NS_ENUM(unsigned int, meta_prop_t) {
   }
 }
 
-- (CGFloat)getEdgeValue:(RNCSafeAreaViewEdgeMode) edgeMode insetValue:(CGFloat)insetValue edgeValue:(CGFloat) edgeValue
+- (CGFloat)getEdgeValue:(RNCSafeAreaViewEdgeMode)edgeMode insetValue:(CGFloat)insetValue edgeValue:(CGFloat)edgeValue
 {
   if (edgeMode == RNCSafeAreaViewEdgeModeOff) {
     return edgeValue;
