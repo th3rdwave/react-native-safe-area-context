@@ -113,6 +113,12 @@ For example if you don't want insets to apply to the top edge because the view d
 <SafeAreaView edges={['right', 'bottom', 'left']} />
 ```
 
+Optionally it can be set to an object `{ top?: EdgeMode, right?: EdgeMode, bottom?: EdgeMode, left?: EdgeMode }` where `EdgeMode = 'off' | 'additive' | 'maximum'`. Additive is a default mode and is the same as passing and edge in the array: `finalPadding = safeArea + padding`. Maximum mode will use safe area inset or padding/margin (depends on `mode`) if safe area is less: `finalPadding = max(safeArea, padding)`. For example if you want a floating UI element that should be at the bottom safe area edge on devices with safe area or 24px from the bottom of the screen on devices without safe area or if safe area is less than 24px:
+
+```js
+<SafeAreaView style={{paddingBottom: 24}} edges={{bottom: 'maximum'}} />
+```
+
 ##### `mode`
 
 Optional, `padding` (default) or `margin`.
