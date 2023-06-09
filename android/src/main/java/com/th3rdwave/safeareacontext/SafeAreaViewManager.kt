@@ -42,7 +42,6 @@ class SafeAreaViewManager : ReactViewManager(), RNCSafeAreaViewManagerInterface<
 
   @ReactProp(name = "edges")
   override fun setEdges(view: SafeAreaView, propList: ReadableMap?) {
-
     if (propList != null) {
       view.setEdges(SafeAreaViewEdges(
         top = propList.getString("top")?.let { SafeAreaViewEdgeModes.valueOf(it.uppercase()) } ?: SafeAreaViewEdgeModes.OFF,
