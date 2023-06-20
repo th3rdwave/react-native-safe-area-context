@@ -30,7 +30,11 @@ if (isNewArchitectureEnabled()) {
 }
 
 android {
-    namespace "com.th3rdwave.safeareacontext"
+    def agpVersion = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION
+    if (agpVersion.tokenize('.')[0].toInteger() >= 7) {
+        namespace "com.th3rdwave.safeareacontext"
+    }
+
     compileSdkVersion getExtOrDefault('compileSdkVersion', 30)
 
     // Used to override the NDK path/version on internal CI or by allowing
