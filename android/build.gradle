@@ -3,12 +3,21 @@ buildscript {
 
     repositories {
         mavenCentral()
+        google()
     }
 
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+        classpath("com.android.tools.build:gradle:7.3.1")
+        classpath("com.diffplug.spotless:spotless-plugin-gradle:6.11.0")
     }
 }
+
+if (project == rootProject) {
+    apply from: "spotless.gradle"
+    return
+}
+
 
 def getExtOrDefault(name, defaultValue) {
     return rootProject.ext.has(name) ? rootProject.ext.get(name) : defaultValue
@@ -54,8 +63,8 @@ android {
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
         ndk {
-             abiFilters (*reactNativeArchitectures())
-         }
+            abiFilters (*reactNativeArchitectures())
+        }
     }
 
     lintOptions{
@@ -86,9 +95,14 @@ android {
 }
 
 def reactNativeArchitectures() {
-     def value = project.getProperties().get("reactNativeArchitectures")
-     return value ? value.split(",") : ["armeabi-v7a", "x86", "x86_64", "arm64-v8a"]
- }
+    def value = project.getProperties().get("reactNativeArchitectures")
+    return value ? value.split(",") : [
+        "armeabi-v7a",
+        "x86",
+        "x86_64",
+        "arm64-v8a"
+    ]
+}
 
 repositories {
     google()

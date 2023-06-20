@@ -1,11 +1,10 @@
 package com.th3rdwave.safeareacontext
 
-import kotlin.math.max
 import com.facebook.react.bridge.Dynamic
 import com.facebook.react.bridge.ReadableType
 import com.facebook.react.uimanager.*
 import com.facebook.react.uimanager.annotations.ReactPropGroup
-import com.facebook.yoga.YogaNode
+import kotlin.math.max
 
 class SafeAreaViewShadowNode : LayoutShadowNode() {
   private var mLocalData: SafeAreaViewLocalData? = null
@@ -79,13 +78,17 @@ class SafeAreaViewShadowNode : LayoutShadowNode() {
     }
   }
 
-  private fun getEdgeValue(edgeMode: SafeAreaViewEdgeModes, insetValue: Float, edgeValue: Float): Float {
+  private fun getEdgeValue(
+      edgeMode: SafeAreaViewEdgeModes,
+      insetValue: Float,
+      edgeValue: Float
+  ): Float {
     if (edgeMode == SafeAreaViewEdgeModes.OFF) {
-      return  edgeValue
+      return edgeValue
     } else if (edgeMode == SafeAreaViewEdgeModes.MAXIMUM) {
-      return  max(insetValue, edgeValue)
+      return max(insetValue, edgeValue)
     } else {
-      return  insetValue + edgeValue
+      return insetValue + edgeValue
     }
   }
 

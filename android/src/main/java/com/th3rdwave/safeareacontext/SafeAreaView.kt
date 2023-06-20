@@ -30,7 +30,13 @@ class SafeAreaView(context: Context?) :
   private fun updateInsets() {
     val insets = mInsets
     if (insets != null) {
-      val edges = mEdges ?: SafeAreaViewEdges(SafeAreaViewEdgeModes.ADDITIVE, SafeAreaViewEdgeModes.ADDITIVE, SafeAreaViewEdgeModes.ADDITIVE, SafeAreaViewEdgeModes.ADDITIVE)
+      val edges =
+          mEdges
+              ?: SafeAreaViewEdges(
+                  SafeAreaViewEdgeModes.ADDITIVE,
+                  SafeAreaViewEdgeModes.ADDITIVE,
+                  SafeAreaViewEdgeModes.ADDITIVE,
+                  SafeAreaViewEdgeModes.ADDITIVE)
       if (mFabricViewStateManager.hasStateWrapper()) {
         mFabricViewStateManager.setState {
           val map = Arguments.createMap()
@@ -43,8 +49,10 @@ class SafeAreaView(context: Context?) :
         val uiManager = reactContext.getNativeModule(UIManagerModule::class.java)
         if (uiManager != null) {
           uiManager.setViewLocalData(id, localData)
-          // Sadly there doesn't seem to be a way to properly dirty a yoga node from java, so if we are in
-          // the middle of a layout, we need to recompute it. There is also no way to know whether we
+          // Sadly there doesn't seem to be a way to properly dirty a yoga node from java, so if we
+          // are in
+          // the middle of a layout, we need to recompute it. There is also no way to know whether
+          // we
           // are in the middle of a layout so always do it.
           reactContext.runOnNativeModulesQueueThread {
             uiManager.uiImplementation.dispatchViewUpdates(-1)

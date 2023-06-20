@@ -8,9 +8,11 @@ enum class SafeAreaViewEdgeModes {
   MAXIMUM
 }
 
-data class SafeAreaViewEdges(val top: SafeAreaViewEdgeModes,
-                             val right: SafeAreaViewEdgeModes,
-                             val bottom: SafeAreaViewEdgeModes,
-                             val left: SafeAreaViewEdgeModes)
+data class SafeAreaViewEdges(
+    val top: SafeAreaViewEdgeModes,
+    val right: SafeAreaViewEdgeModes,
+    val bottom: SafeAreaViewEdgeModes,
+    val left: SafeAreaViewEdgeModes
+)
 
 class Safe
