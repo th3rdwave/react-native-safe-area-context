@@ -38,8 +38,6 @@ build/
 .gradle
 local.properties
 *.iml
-android/gradle
-android/gradlew*
 .cxx
 
 # BUCK
