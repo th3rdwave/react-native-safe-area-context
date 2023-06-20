@@ -1,6 +1,6 @@
 /* global jest */
 
-import React from 'react';
+import React, { useContext } from 'react';
 
 const MOCK_INITIAL_METRICS = {
   frame: {
@@ -23,10 +23,16 @@ export default {
   ...RNSafeAreaContext,
   initialWindowMetrics: MOCK_INITIAL_METRICS,
   useSafeAreaInsets: () => {
-    return MOCK_INITIAL_METRICS.insets;
+    return (
+      useContext(RNSafeAreaContext.SafeAreaInsetsContext) ??
+      MOCK_INITIAL_METRICS.insets
+    );
   },
   useSafeAreaFrame: () => {
-    return MOCK_INITIAL_METRICS.frame;
+    return (
+      useContext(RNSafeAreaContext.SafeAreaFrameContext) ??
+      MOCK_INITIAL_METRICS.frame
+    );
   },
   // Provide a simpler implementation with default values.
   SafeAreaProvider: ({ children, initialMetrics }) => {
