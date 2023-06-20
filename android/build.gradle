@@ -30,6 +30,7 @@ if (isNewArchitectureEnabled()) {
 }
 
 android {
+    namespace "com.th3rdwave.safeareacontext"
     compileSdkVersion getExtOrDefault('compileSdkVersion', 30)
 
     // Used to override the NDK path/version on internal CI or by allowing
