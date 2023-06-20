@@ -32,4 +32,29 @@ describe('SafeAreaView', () => {
     );
     expect(component).toMatchSnapshot();
   });
+
+  it('can set edges', () => {
+    const component = ReactTestRenderer.create(
+      <SafeAreaProvider initialMetrics={INITIAL_METRICS}>
+        <SafeAreaView edges={['top', 'bottom']}>
+          <View />
+        </SafeAreaView>
+      </SafeAreaProvider>,
+    );
+    expect(component).toMatchSnapshot();
+  });
+
+  it('can set edges value type', () => {
+    const component = ReactTestRenderer.create(
+      <SafeAreaProvider initialMetrics={INITIAL_METRICS}>
+        <SafeAreaView
+          edges={{ top: 'additive', bottom: 'maximum' }}
+          style={{ paddingTop: 24, paddingBottom: 24 }}
+        >
+          <View />
+        </SafeAreaView>
+      </SafeAreaProvider>,
+    );
+    expect(component).toMatchSnapshot();
+  });
 });

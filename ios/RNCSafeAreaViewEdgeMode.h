@@ -8,5 +8,5 @@ typedef NS_ENUM(NSInteger, RNCSafeAreaViewEdgeMode) {
 };
 
 @interface RCTConvert (RNCSafeAreaViewEdgeMode)
- + (RNCSafeAreaViewEdgeMode)RNCSafeAreaViewEdgeMode:(nullable id)json;
++ (RNCSafeAreaViewEdgeMode)RNCSafeAreaViewEdgeMode:(nullable id)json;
 @end

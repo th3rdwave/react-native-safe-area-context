@@ -23,23 +23,23 @@ export const SafeAreaView = React.forwardRef<
   SafeAreaViewProps
 >(({ edges, ...props }, ref) => {
   const nativeEdges = useMemo(() => {
-    const _edges = Array.isArray(edges)
-      ? edges.reduce<EdgeRecord>((accum, edge) => {
-          accum[edge] = 'additive';
-          return accum;
-        }, {})
-      : edges;
-
-    if (_edges === undefined) {
+    if (edges == null) {
       return defaultEdges;
     }
 
+    const edgesObj = Array.isArray(edges)
+      ? edges.reduce<EdgeRecord>((acc, edge) => {
+          acc[edge] = 'additive';
+          return acc;
+        }, {})
+      : edges;
+
     // make sure that we always pass all edges, required for fabric
     const requiredEdges: Record<Edge, EdgeMode> = {
-      top: _edges.top ?? 'off',
-      right: _edges.right ?? 'off',
-      bottom: _edges.bottom ?? 'off',
-      left: _edges.left ?? 'off',
+      top: edgesObj.top ?? 'off',
+      right: edgesObj.right ?? 'off',
+      bottom: edgesObj.bottom ?? 'off',
+      left: edgesObj.left ?? 'off',
     };
 
     return requiredEdges;

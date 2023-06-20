@@ -22,7 +22,8 @@ inline YGValue valueFromEdges(YGStyle::Edges edges, YGEdge edge, YGEdge axis) {
   return edges[YGEdgeAll];
 }
 
-inline float getEdgeValue(std::string edgeMode, float insetValue, float edgeValue) {
+inline float
+getEdgeValue(std::string edgeMode, float insetValue, float edgeValue) {
   if (edgeMode == "off") {
     return edgeValue;
   } else if (edgeMode == "maximum") {
@@ -64,10 +65,22 @@ void RNCSafeAreaViewShadowNode::adjustLayoutWithState() {
         valueFromEdges(props.yogaStyle.margin(), YGEdgeRight, YGEdgeHorizontal);
   }
 
-  top = yogaStyleValueFromFloat(getEdgeValue(edges.top, stateData.insets.top, (top.unit == YGUnitPoint ? top.value : 0)));
-  left = yogaStyleValueFromFloat(getEdgeValue(edges.left, stateData.insets.left, (left.unit == YGUnitPoint ? left.value : 0)));
-  right = yogaStyleValueFromFloat(getEdgeValue(edges.right, stateData.insets.right, (right.unit == YGUnitPoint ? right.value : 0)));
-  bottom = yogaStyleValueFromFloat(getEdgeValue(edges.bottom, stateData.insets.bottom, (bottom.unit == YGUnitPoint ? bottom.value : 0)));
+  top = yogaStyleValueFromFloat(getEdgeValue(
+      edges.top,
+      stateData.insets.top,
+      (top.unit == YGUnitPoint ? top.value : 0)));
+  left = yogaStyleValueFromFloat(getEdgeValue(
+      edges.left,
+      stateData.insets.left,
+      (left.unit == YGUnitPoint ? left.value : 0)));
+  right = yogaStyleValueFromFloat(getEdgeValue(
+      edges.right,
+      stateData.insets.right,
+      (right.unit == YGUnitPoint ? right.value : 0)));
+  bottom = yogaStyleValueFromFloat(getEdgeValue(
+      edges.bottom,
+      stateData.insets.bottom,
+      (bottom.unit == YGUnitPoint ? bottom.value : 0)));
 
   YGStyle adjustedStyle = getConcreteProps().yogaStyle;
   if (props.mode == RNCSafeAreaViewMode::Padding) {

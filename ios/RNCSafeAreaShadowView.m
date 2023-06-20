@@ -3,10 +3,10 @@
 #import <React/RCTAssert.h>
 #include <math.h>
 
+#import "RNCSafeAreaViewEdgeMode.h"
 #import "RNCSafeAreaViewEdges.h"
 #import "RNCSafeAreaViewLocalData.h"
 #import "RNCSafeAreaViewMode.h"
-#import "RNCSafeAreaViewEdgeMode.h"
 
 // From RCTShadowView.m
 typedef NS_ENUM(unsigned int, meta_prop_t) {
@@ -113,14 +113,17 @@ typedef NS_ENUM(unsigned int, meta_prop_t) {
   if (mode == RNCSafeAreaViewModePadding) {
     [self extractEdges:_paddingMetaProps top:&top right:&right bottom:&bottom left:&left];
     super.paddingTop = (YGValue){[self getEdgeValue:edges.top insetValue:insets.top edgeValue:top], YGUnitPoint};
-    super.paddingRight = (YGValue){[self getEdgeValue:edges.right insetValue:insets.right edgeValue:right], YGUnitPoint};
-    super.paddingBottom = (YGValue){[self getEdgeValue:edges.bottom insetValue:insets.bottom edgeValue:bottom], YGUnitPoint};
+    super.paddingRight =
+        (YGValue){[self getEdgeValue:edges.right insetValue:insets.right edgeValue:right], YGUnitPoint};
+    super.paddingBottom =
+        (YGValue){[self getEdgeValue:edges.bottom insetValue:insets.bottom edgeValue:bottom], YGUnitPoint};
     super.paddingLeft = (YGValue){[self getEdgeValue:edges.left insetValue:insets.left edgeValue:left], YGUnitPoint};
   } else if (mode == RNCSafeAreaViewModeMargin) {
     [self extractEdges:_marginMetaProps top:&top right:&right bottom:&bottom left:&left];
     super.marginTop = (YGValue){[self getEdgeValue:edges.top insetValue:insets.top edgeValue:top], YGUnitPoint};
     super.marginRight = (YGValue){[self getEdgeValue:edges.right insetValue:insets.right edgeValue:right], YGUnitPoint};
-    super.marginBottom = (YGValue){[self getEdgeValue:edges.bottom insetValue:insets.bottom edgeValue:bottom], YGUnitPoint};
+    super.marginBottom =
+        (YGValue){[self getEdgeValue:edges.bottom insetValue:insets.bottom edgeValue:bottom], YGUnitPoint};
     super.marginLeft = (YGValue){[self getEdgeValue:edges.left insetValue:insets.left edgeValue:left], YGUnitPoint};
   }
 }
