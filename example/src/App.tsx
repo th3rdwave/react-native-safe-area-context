@@ -3,12 +3,18 @@ import { DevSettings, View, Text, StatusBar } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HooksExample from './HooksExample';
 import SafeAreaViewExample from './SafeAreaViewExample';
+import SafeAreaViewEdgesExample from './SafeAreaViewEdgesExample';
 // import ReactNavigationExample from './ReactNavigationExample';
 import ReactNavigationNativeStackExample from './ReactNavigationNativeStackExample';
 
 const STORAGE_KEY = 'rnsac-current-example-v2';
 
-type Example = 'safe-area-view' | 'hooks' | 'react-navigation' | 'native-stack';
+type Example =
+  | 'safe-area-view'
+  | 'safe-area-view-edges'
+  | 'hooks'
+  | 'react-navigation'
+  | 'native-stack';
 
 export default function App() {
   const [currentExample, setCurrentExample] = React.useState<Example | null>(
@@ -40,6 +46,9 @@ export default function App() {
     DevSettings.addMenuItem('Show SafeAreaView Example', () => {
       setCurrentExample('safe-area-view');
     });
+    DevSettings.addMenuItem('Show SafeAreaView Edges Example', () => {
+      setCurrentExample('safe-area-view-edges');
+    });
     DevSettings.addMenuItem('Show Hooks Example', () => {
       setCurrentExample('hooks');
     });
@@ -55,6 +64,9 @@ export default function App() {
   switch (currentExample) {
     case 'safe-area-view':
       content = <SafeAreaViewExample />;
+      break;
+    case 'safe-area-view-edges':
+      content = <SafeAreaViewEdgesExample />;
       break;
     case 'hooks':
       content = <HooksExample />;

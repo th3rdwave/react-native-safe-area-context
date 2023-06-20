@@ -19,7 +19,7 @@ class SafeAreaView(context: Context?) :
     ReactViewGroup(context), ViewTreeObserver.OnPreDrawListener, HasFabricViewStateManager {
   private var mMode = SafeAreaViewMode.PADDING
   private var mInsets: EdgeInsets? = null
-  private var mEdges: EnumSet<SafeAreaViewEdges>? = null
+  private var mEdges: SafeAreaViewEdges? = null
   private var mProviderView: View? = null
   private val mFabricViewStateManager = FabricViewStateManager()
 
@@ -30,7 +30,7 @@ class SafeAreaView(context: Context?) :
   private fun updateInsets() {
     val insets = mInsets
     if (insets != null) {
-      val edges = mEdges ?: EnumSet.allOf(SafeAreaViewEdges::class.java)
+      val edges = mEdges ?: SafeAreaViewEdges(SafeAreaViewEdgeModes.ADDITIVE, SafeAreaViewEdgeModes.ADDITIVE, SafeAreaViewEdgeModes.ADDITIVE, SafeAreaViewEdgeModes.ADDITIVE)
       if (mFabricViewStateManager.hasStateWrapper()) {
         mFabricViewStateManager.setState {
           val map = Arguments.createMap()
@@ -96,7 +96,7 @@ class SafeAreaView(context: Context?) :
     updateInsets()
   }
 
-  fun setEdges(edges: EnumSet<SafeAreaViewEdges>?) {
+  fun setEdges(edges: SafeAreaViewEdges) {
     mEdges = edges
     updateInsets()
   }

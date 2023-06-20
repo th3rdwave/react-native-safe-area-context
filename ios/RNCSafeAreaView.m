@@ -23,7 +23,7 @@
     _bridge = bridge;
     // Defaults
     _mode = RNCSafeAreaViewModePadding;
-    _edges = RNCSafeAreaViewEdgesAll;
+    _edges = RNCSafeAreaViewEdgesMake(RNCSafeAreaViewEdgeModeOff, RNCSafeAreaViewEdgeModeOff, RNCSafeAreaViewEdgeModeOff, RNCSafeAreaViewEdgeModeOff);
   }
 
   return self;

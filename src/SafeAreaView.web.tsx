@@ -31,7 +31,12 @@ export const SafeAreaView = React.forwardRef<
 
   const edgeBitmask =
     edges != null
-      ? edges.reduce((accum, edge) => accum | edgeBitmaskMap[edge], 0)
+      ? Array.isArray(edges)
+        ? edges.reduce((accum, edge) => accum | edgeBitmaskMap[edge], 0)
+        : Object.keys(edges).reduce(
+            (accum, edge) => accum | edgeBitmaskMap[edge as Edge],
+            0,
+          )
       : ALL;
 
   const appliedStyle = React.useMemo(() => {

@@ -4,8 +4,12 @@ import type { ViewProps, HostComponent } from 'react-native';
 
 export interface NativeProps extends ViewProps {
   mode?: WithDefault<'padding' | 'margin', 'padding'>;
-  // Should be `'top' | 'right' | 'bottom' | 'left'` but that generates invalid code.
-  edges?: readonly string[];
+  edges?: Readonly<{
+    top: string;
+    right: string;
+    bottom: string;
+    left: string;
+  }>;
 }
 
 export default codegenNativeComponent<NativeProps>('RNCSafeAreaView', {

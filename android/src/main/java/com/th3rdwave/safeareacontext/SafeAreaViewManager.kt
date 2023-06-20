@@ -1,6 +1,7 @@
 package com.th3rdwave.safeareacontext
 
 import com.facebook.react.bridge.ReadableArray
+import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.ReactStylesDiffMap
 import com.facebook.react.uimanager.StateWrapper
@@ -11,6 +12,7 @@ import com.facebook.react.viewmanagers.RNCSafeAreaViewManagerInterface
 import com.facebook.react.views.view.ReactViewGroup
 import com.facebook.react.views.view.ReactViewManager
 import java.util.*
+
 
 @ReactModule(name = SafeAreaViewManager.REACT_CLASS)
 class SafeAreaViewManager : ReactViewManager(), RNCSafeAreaViewManagerInterface<SafeAreaView> {
@@ -39,33 +41,21 @@ class SafeAreaViewManager : ReactViewManager(), RNCSafeAreaViewManagerInterface<
   }
 
   @ReactProp(name = "edges")
-  override fun setEdges(view: SafeAreaView, propList: ReadableArray?) {
-    val edges = EnumSet.noneOf(SafeAreaViewEdges::class.java)
+  override fun setEdges(view: SafeAreaView, propList: ReadableMap?) {
     if (propList != null) {
-      for (i in 0 until propList.size()) {
-        when (propList.getString(i)) {
-          "top" -> {
-            edges.add(SafeAreaViewEdges.TOP)
-          }
-          "right" -> {
-            edges.add(SafeAreaViewEdges.RIGHT)
-          }
-          "bottom" -> {
-            edges.add(SafeAreaViewEdges.BOTTOM)
-          }
-          "left" -> {
-            edges.add(SafeAreaViewEdges.LEFT)
-          }
-        }
-      }
-      view.setEdges(edges)
+      view.setEdges(SafeAreaViewEdges(
+        top = propList.getString("top")?.let { SafeAreaViewEdgeModes.valueOf(it.uppercase()) } ?: SafeAreaViewEdgeModes.OFF,
+        right = propList.getString("right")?.let { SafeAreaViewEdgeModes.valueOf(it.uppercase()) } ?: SafeAreaViewEdgeModes.OFF,
+        bottom = propList.getString("bottom")?.let { SafeAreaViewEdgeModes.valueOf(it.uppercase()) } ?: SafeAreaViewEdgeModes.OFF,
+        left = propList.getString("left")?.let { SafeAreaViewEdgeModes.valueOf(it.uppercase()) } ?: SafeAreaViewEdgeModes.OFF
+      ))
     }
   }
 
   override fun updateState(
-      view: ReactViewGroup,
-      props: ReactStylesDiffMap?,
-      stateWrapper: StateWrapper?
+    view: ReactViewGroup,
+    props: ReactStylesDiffMap?,
+    stateWrapper: StateWrapper?
   ): Any? {
     (view as SafeAreaView).fabricViewStateManager.setStateWrapper(stateWrapper)
     return null
