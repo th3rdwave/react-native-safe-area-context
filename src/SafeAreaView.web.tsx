@@ -32,9 +32,12 @@ export const SafeAreaView = React.forwardRef<
   const edgeBitmask =
     edges != null
       ? Array.isArray(edges)
-        ? edges.reduce((accum, edge) => accum | edgeBitmaskMap[edge], 0)
+        ? edges.reduce(
+            (acc: number, edge: Edge) => acc | edgeBitmaskMap[edge],
+            0,
+          )
         : Object.keys(edges).reduce(
-            (accum, edge) => accum | edgeBitmaskMap[edge as Edge],
+            (acc, edge) => acc | edgeBitmaskMap[edge as Edge],
             0,
           )
       : ALL;

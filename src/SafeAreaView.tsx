@@ -28,11 +28,12 @@ export const SafeAreaView = React.forwardRef<
     }
 
     const edgesObj = Array.isArray(edges)
-      ? edges.reduce<EdgeRecord>((acc, edge) => {
+      ? edges.reduce<EdgeRecord>((acc, edge: Edge) => {
           acc[edge] = 'additive';
           return acc;
         }, {})
-      : edges;
+      : // ts has trouble with refining readonly arrays.
+        (edges as EdgeRecord);
 
     // make sure that we always pass all edges, required for fabric
     const requiredEdges: Record<Edge, EdgeMode> = {
