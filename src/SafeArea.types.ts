@@ -5,8 +5,8 @@ import NativeSafeAreaView from './specs/NativeSafeAreaView';
 export type Edge = 'top' | 'right' | 'bottom' | 'left';
 export type EdgeMode = 'off' | 'additive' | 'maximum';
 
-export type EdgeRecord = Partial<Record<Edge, EdgeMode>>;
-export type Edges = Edge[] | EdgeRecord;
+export type EdgeRecord = Partial<Readonly<Record<Edge, EdgeMode>>>;
+export type Edges = readonly Edge[] | EdgeRecord;
 
 export interface EdgeInsets {
   top: number;
