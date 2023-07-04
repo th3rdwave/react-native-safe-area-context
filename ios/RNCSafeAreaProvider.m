@@ -10,6 +10,21 @@
   BOOL _initialInsetsSent;
 }
 
+- (instancetype)init
+{
+  if ((self = [super init])) {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(invalidateSafeAreaInsets)
+                                               name:UIKeyboardDidShowNotification
+                                             object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(invalidateSafeAreaInsets)
+                                               name:UIKeyboardDidHideNotification
+                                             object:nil];
+  }
+  return self;
+}
+
 - (void)safeAreaInsetsDidChange
 {
   [self invalidateSafeAreaInsets];
