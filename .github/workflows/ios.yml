@@ -25,6 +25,7 @@ jobs:
           node-version: 18.x
       - uses: ruby/setup-ruby@v1
         with:
+          ruby-version: 2.7
           working-directory: example
           bundler-cache: true
       - name: Install dependencies
@@ -48,6 +49,7 @@ jobs:
           node-version: 18.x
       - uses: ruby/setup-ruby@v1
         with:
+          ruby-version: 2.7
           working-directory: example
           bundler-cache: true
       - name: Install dependencies
