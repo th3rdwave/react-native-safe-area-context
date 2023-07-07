@@ -8,22 +8,27 @@
     "start": "react-native start"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^1.18.1",
-    "@react-navigation/bottom-tabs": "^6.5.7",
-    "@react-navigation/native": "^6.1.6",
-    "@react-navigation/native-stack": "^6.9.12",
-    "@react-navigation/stack": "^6.3.16",
+    "@react-native-async-storage/async-storage": "^1.19.0",
+    "@react-navigation/bottom-tabs": "^6.5.8",
+    "@react-navigation/native": "^6.1.7",
+    "@react-navigation/native-stack": "^6.9.13",
+    "@react-navigation/stack": "^6.3.17",
     "react": "^18.2.0",
-    "react-native": "^0.71.7",
-    "react-native-gesture-handler": "^2.9.0",
+    "react-native": "^0.72.1",
+    "react-native-gesture-handler": "^2.12.0",
     "react-native-safe-area-context": "link:../",
-    "react-native-screens": "^3.20.0"
+    "react-native-screens": "^3.22.1"
   },
   "devDependencies": {
     "@babel/core": "^7.21.4",
     "@babel/runtime": "^7.21.0",
+    "@react-native/metro-config": "^0.72.7",
     "@tsconfig/react-native": "^3.0.0",
+    "@types/metro-config": "^0.76.3",
     "@types/react": "^18.2.0",
-    "metro-react-native-babel-preset": "0.76.3"
+    "metro-react-native-babel-preset": "0.76.5"
+  },
+  "engines": {
+    "node": ">=16"
   }
 }
