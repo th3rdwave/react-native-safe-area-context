@@ -41,7 +41,6 @@
     "format:check": "yarn format:prettier:check && yarn format:clang:check && yarn format:spotless:check",
     "format:write": "yarn format:prettier:write && yarn format:clang:write && yarn format:spotless:write",
     "release": "release-it",
-    "prepublish": "yarn test",
     "prepare": "bob build"
   },
   "keywords": [
