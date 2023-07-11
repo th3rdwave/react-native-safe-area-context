@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
 
   s.authors      = package['author']
   s.homepage     = package['homepage']
-  s.platforms    = { :ios => "12.4", :tvos => "11.0" }
+  s.platforms    = { :ios => "12.4", :tvos => "12.4" }
 
   s.source       = { :git => "https://github.com/th3rdwave/react-native-safe-area-context.git", :tag => "v#{s.version}" }
   s.source_files  = "ios/**/*.{h,m,mm}"
