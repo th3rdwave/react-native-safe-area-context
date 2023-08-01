@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.view.WindowInsets
 import androidx.annotation.RequiresApi
 import java.lang.IllegalArgumentException
-import kotlin.math.min
 
 @RequiresApi(Build.VERSION_CODES.R)
 private fun getRootWindowInsetsCompatR(rootView: View): EdgeInsets? {
@@ -35,7 +34,7 @@ private fun getRootWindowInsetsCompatM(rootView: View): EdgeInsets? {
       // want to be consistent with iOS. Using the min value makes sure we
       // never get the keyboard offset while still working with devices that
       // hide the navigation bar.
-      bottom = min(insets.systemWindowInsetBottom, insets.stableInsetBottom).toFloat(),
+      bottom = minOf(insets.systemWindowInsetBottom, insets.stableInsetBottom).toFloat(),
       left = insets.systemWindowInsetLeft.toFloat())
 }
 
@@ -74,12 +73,12 @@ fun getSafeAreaInsets(view: View): EdgeInsets? {
       top = maxOf(windowInsets.top - visibleRect.top, windowInsets.top, 0f),
       right =
           maxOf(
-              min(visibleRect.left + view.width - windowWidth, 0f) + windowInsets.right,
+              minOf(visibleRect.left + view.width - windowWidth, 0f) + windowInsets.right,
               windowInsets.right,
               0f),
       bottom =
           maxOf(
-              min(visibleRect.top + view.height - windowHeight, 0f) + windowInsets.bottom,
+              minOf(visibleRect.top + view.height - windowHeight, 0f) + windowInsets.bottom,
               windowInsets.bottom,
               0f),
       left = maxOf(windowInsets.left - visibleRect.left, windowInsets.left, 0f))
