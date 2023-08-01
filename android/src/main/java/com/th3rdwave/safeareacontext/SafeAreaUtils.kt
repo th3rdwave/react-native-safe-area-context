@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.view.WindowInsets
 import androidx.annotation.RequiresApi
 import java.lang.IllegalArgumentException
-import kotlin.math.max
 import kotlin.math.min
 
 @RequiresApi(Build.VERSION_CODES.R)
@@ -72,10 +71,18 @@ fun getSafeAreaInsets(view: View): EdgeInsets? {
   val visibleRect = android.graphics.Rect()
   view.getGlobalVisibleRect(visibleRect)
   return EdgeInsets(
-      top = max(windowInsets.top - visibleRect.top, 0f),
-      right = max(min(visibleRect.left + view.width - windowWidth, 0f) + windowInsets.right, 0f),
-      bottom = max(min(visibleRect.top + view.height - windowHeight, 0f) + windowInsets.bottom, 0f),
-      left = max(windowInsets.left - visibleRect.left, 0f))
+      top = maxOf(windowInsets.top - visibleRect.top, windowInsets.top, 0f),
+      right =
+          maxOf(
+              min(visibleRect.left + view.width - windowWidth, 0f) + windowInsets.right,
+              windowInsets.right,
+              0f),
+      bottom =
+          maxOf(
+              min(visibleRect.top + view.height - windowHeight, 0f) + windowInsets.bottom,
+              windowInsets.bottom,
+              0f),
+      left = maxOf(windowInsets.left - visibleRect.left, windowInsets.left, 0f))
 }
 
 fun getFrame(rootView: ViewGroup, view: View): Rect? {
