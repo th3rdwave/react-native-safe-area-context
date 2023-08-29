@@ -59,28 +59,36 @@ export function SafeAreaProvider({
         nativeEvent: { frame: nextFrame, insets: nextInsets },
       } = event;
 
-      if (
-        // Backwards compat with old native code that won't send frame.
-        nextFrame &&
-        (nextFrame.height !== frame.height ||
-          nextFrame.width !== frame.width ||
-          nextFrame.x !== frame.x ||
-          nextFrame.y !== frame.y)
-      ) {
-        setFrame(nextFrame);
-      }
+      setFrame((frame) => {
+        if (
+          // Backwards compat with old native code that won't send frame.
+          nextFrame &&
+          (nextFrame.height !== frame.height ||
+            nextFrame.width !== frame.width ||
+            nextFrame.x !== frame.x ||
+            nextFrame.y !== frame.y)
+        ) {
+          return nextFrame;
+        } else {
+          return frame;
+        }
+      });
 
-      if (
-        !insets ||
-        nextInsets.bottom !== insets.bottom ||
-        nextInsets.left !== insets.left ||
-        nextInsets.right !== insets.right ||
-        nextInsets.top !== insets.top
-      ) {
-        setInsets(nextInsets);
-      }
+      setInsets((insets) => {
+        if (
+          !insets ||
+          nextInsets.bottom !== insets.bottom ||
+          nextInsets.left !== insets.left ||
+          nextInsets.right !== insets.right ||
+          nextInsets.top !== insets.top
+        ) {
+          return nextInsets;
+        } else {
+          return insets;
+        }
+      });
     },
-    [frame, insets],
+    [setFrame, setInsets],
   );
 
   return (
