@@ -31,6 +31,10 @@ if (isDev) {
     'SafeAreaGetLatestWindowMetricsContext';
 }
 
+export const SafeAreaAddListenerContext = React.createContext<
+  ((callback: (metrics: Metrics) => void) => () => void) | null
+>(null);
+
 export interface SafeAreaProviderProps extends ViewProps {
   children?: React.ReactNode;
   initialMetrics?: Metrics | null;
@@ -47,13 +51,13 @@ export function SafeAreaProvider({
   style,
   ...others
 }: SafeAreaProviderProps) {
+  const listeners = React.useRef<((metrics: Metrics) => void)[]>([]);
+
   const parentInsets = useParentSafeAreaInsets();
   const parentFrame = useParentSafeAreaFrame();
-  const [insets, setInsets] = React.useState<EdgeInsets | null>(
-    initialMetrics?.insets ?? initialSafeAreaInsets ?? parentInsets ?? null,
-  );
-  const [frame, setFrame] = React.useState<Rect>(
-    initialMetrics?.frame ??
+
+  const [metrics, setMetrics] = React.useState<Metrics | InitialMetricsState>({
+    frame: initialMetrics?.frame ??
       parentFrame ?? {
         // Backwards compat so we render anyway if we don't have frame.
         x: 0,
@@ -61,53 +65,74 @@ export function SafeAreaProvider({
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height,
       },
-  );
+
+    insets:
+      initialMetrics?.insets ?? initialSafeAreaInsets ?? parentInsets ?? null,
+  });
+
+  const latestMetrics = React.useRef(metrics);
+
   const onInsetsChange = React.useCallback(
     (event: InsetChangedEvent) => {
       const {
         nativeEvent: { frame: nextFrame, insets: nextInsets },
       } = event;
 
-      setFrame((frame) => {
-        if (
-          // Backwards compat with old native code that won't send frame.
+      setMetrics((currentMetrics) => {
+        const { frame, insets } = currentMetrics;
+
+        const didFrameChange =
           nextFrame &&
           (nextFrame.height !== frame.height ||
             nextFrame.width !== frame.width ||
             nextFrame.x !== frame.x ||
-            nextFrame.y !== frame.y)
-        ) {
-          return nextFrame;
-        } else {
-          return frame;
-        }
-      });
+            nextFrame.y !== frame.y);
 
-      setInsets((insets) => {
-        if (
+        const didInsetsChange =
           !insets ||
           nextInsets.bottom !== insets.bottom ||
           nextInsets.left !== insets.left ||
           nextInsets.right !== insets.right ||
-          nextInsets.top !== insets.top
-        ) {
-          return nextInsets;
+          nextInsets.top !== insets.top;
+
+        if (didFrameChange || didInsetsChange) {
+          const nextMetrics = {
+            frame: didFrameChange ? nextFrame : frame,
+            insets: didInsetsChange ? nextInsets : insets,
+          };
+
+          latestMetrics.current = nextMetrics;
+
+          listeners.current.forEach((listener) => listener(nextMetrics));
+
+          return nextMetrics;
         } else {
-          return insets;
+          return currentMetrics;
         }
       });
     },
-    [setFrame, setInsets],
+    [setMetrics],
   );
 
-  const latestInsets = useLatest(insets);
-  const latestFrame = useLatest(frame);
   const getLatestWindowMetrics = React.useCallback(() => {
-    return {
-      insets: latestInsets.current,
-      frame: latestFrame.current,
-    };
-  }, [latestInsets]);
+    return latestMetrics.current;
+  }, [latestMetrics]);
+
+  const addListener = React.useCallback(
+    (listener: (metrics: Metrics) => void) => {
+      listeners.current.push(listener);
+
+      const unsubscribe = () => {
+        const index = listeners.current.indexOf(listener);
+        if (index > -1) {
+          listeners.current.splice(index, 1);
+        }
+      };
+
+      return unsubscribe;
+    },
+    [listeners],
+  );
 
   return (
     <NativeSafeAreaProvider
@@ -115,13 +140,15 @@ export function SafeAreaProvider({
       onInsetsChange={onInsetsChange}
       {...others}
     >
-      {insets != null ? (
-        <SafeAreaFrameContext.Provider value={frame}>
-          <SafeAreaInsetsContext.Provider value={insets}>
+      {metrics.insets != null ? (
+        <SafeAreaFrameContext.Provider value={metrics.frame}>
+          <SafeAreaInsetsContext.Provider value={metrics.insets}>
             <SafeAreaGetLatestWindowMetricsContext.Provider
               value={getLatestWindowMetrics}
             >
-              {children}
+              <SafeAreaAddListenerContext.Provider value={addListener}>
+                {children}
+              </SafeAreaAddListenerContext.Provider>
             </SafeAreaGetLatestWindowMetricsContext.Provider>
           </SafeAreaInsetsContext.Provider>
         </SafeAreaFrameContext.Provider>
@@ -169,6 +196,14 @@ export function useSafeAreaGetLatestWindowMetrics() {
     throw new Error(NO_INSETS_ERROR);
   }
   return getLatestWindowMetrics;
+}
+
+export function useSafeAreaAddListener() {
+  const addListener = React.useContext(SafeAreaAddListenerContext);
+  if (addListener == null) {
+    throw new Error(NO_INSETS_ERROR);
+  }
+  return addListener;
 }
 
 export type WithSafeAreaInsetsProps = {
