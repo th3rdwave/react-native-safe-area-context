@@ -31,95 +31,99 @@ export interface SafeAreaProviderProps extends ViewProps {
   initialSafeAreaInsets?: EdgeInsets | null;
 }
 
-export function SafeAreaProvider({
-  children,
-  initialMetrics,
-  initialSafeAreaInsets,
-  style,
-  ...others
-}: SafeAreaProviderProps) {
-  const parentInsets = useParentSafeAreaInsets();
-  const parentFrame = useParentSafeAreaFrame();
-  const [insets, setInsets] = React.useState<EdgeInsets | null>(
-    initialMetrics?.insets ?? initialSafeAreaInsets ?? parentInsets ?? null,
-  );
-  const [frame, setFrame] = React.useState<Rect>(
-    initialMetrics?.frame ??
-      parentFrame ?? {
-        // Backwards compat so we render anyway if we don't have frame.
-        x: 0,
-        y: 0,
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
+export const SafeAreaProvider = React.memo(
+  ({
+    children,
+    initialMetrics,
+    initialSafeAreaInsets,
+    style,
+    ...others
+  }: SafeAreaProviderProps) => {
+    const parentInsets = useParentSafeAreaInsets();
+    const parentFrame = useParentSafeAreaFrame();
+    const [insets, setInsets] = React.useState<EdgeInsets | null>(
+      initialMetrics?.insets ?? initialSafeAreaInsets ?? parentInsets ?? null,
+    );
+    const [frame, setFrame] = React.useState<Rect>(
+      initialMetrics?.frame ??
+        parentFrame ?? {
+          // Backwards compat so we render anyway if we don't have frame.
+          x: 0,
+          y: 0,
+          width: Dimensions.get('window').width,
+          height: Dimensions.get('window').height,
+        },
+    );
+    const onInsetsChange = React.useCallback(
+      (event: InsetChangedEvent) => {
+        const {
+          nativeEvent: { frame: nextFrame, insets: nextInsets },
+        } = event;
+
+        setFrame((frame) => {
+          if (
+            // Backwards compat with old native code that won't send frame.
+            nextFrame &&
+            (nextFrame.height !== frame.height ||
+              nextFrame.width !== frame.width ||
+              nextFrame.x !== frame.x ||
+              nextFrame.y !== frame.y)
+          ) {
+            return nextFrame;
+          } else {
+            return frame;
+          }
+        });
+
+        setInsets((insets) => {
+          if (
+            !insets ||
+            nextInsets.bottom !== insets.bottom ||
+            nextInsets.left !== insets.left ||
+            nextInsets.right !== insets.right ||
+            nextInsets.top !== insets.top
+          ) {
+            return nextInsets;
+          } else {
+            return insets;
+          }
+        });
       },
-  );
-  const onInsetsChange = React.useCallback(
-    (event: InsetChangedEvent) => {
-      const {
-        nativeEvent: { frame: nextFrame, insets: nextInsets },
-      } = event;
+      [setFrame, setInsets],
+    );
 
-      setFrame((frame) => {
-        if (
-          // Backwards compat with old native code that won't send frame.
-          nextFrame &&
-          (nextFrame.height !== frame.height ||
-            nextFrame.width !== frame.width ||
-            nextFrame.x !== frame.x ||
-            nextFrame.y !== frame.y)
-        ) {
-          return nextFrame;
-        } else {
-          return frame;
-        }
-      });
+    // Add flex to the style if it doesn't have it.
+    const flexedStyle = React.useMemo(() => {
+      const flatStyle = StyleSheet.flatten(style) || {};
+      if ('flex' in flatStyle === false) {
+        return {
+          ...flatStyle,
+          flex: 1,
+        };
+      }
 
-      setInsets((insets) => {
-        if (
-          !insets ||
-          nextInsets.bottom !== insets.bottom ||
-          nextInsets.left !== insets.left ||
-          nextInsets.right !== insets.right ||
-          nextInsets.top !== insets.top
-        ) {
-          return nextInsets;
-        } else {
-          return insets;
-        }
-      });
-    },
-    [setFrame, setInsets],
-  );
+      return style;
+    }, [style]);
 
-  // Add flex to the style if it doesn't have it.
-  const flexedStyle = React.useMemo(() => {
-    const flatStyle = StyleSheet.flatten(style) || {};
-    if ('flex' in flatStyle === false) {
-      return {
-        ...flatStyle,
-        flex: 1,
-      };
-    }
+    return (
+      <NativeSafeAreaProvider
+        style={flexedStyle}
+        onInsetsChange={onInsetsChange}
+        {...others}
+      >
+        {insets != null ? (
+          <SafeAreaFrameContext.Provider value={frame}>
+            <SafeAreaInsetsContext.Provider value={insets}>
+              {children}
+            </SafeAreaInsetsContext.Provider>
+          </SafeAreaFrameContext.Provider>
+        ) : null}
+      </NativeSafeAreaProvider>
+    );
+  },
+);
 
-    return style;
-  }, [style]);
-
-  return (
-    <NativeSafeAreaProvider
-      style={flexedStyle}
-      onInsetsChange={onInsetsChange}
-      {...others}
-    >
-      {insets != null ? (
-        <SafeAreaFrameContext.Provider value={frame}>
-          <SafeAreaInsetsContext.Provider value={insets}>
-            {children}
-          </SafeAreaInsetsContext.Provider>
-        </SafeAreaFrameContext.Provider>
-      ) : null}
-    </NativeSafeAreaProvider>
-  );
-}
+SafeAreaProvider.displayName = 'SafeAreaProvider';
 
 function useParentSafeAreaInsets(): EdgeInsets | null {
   return React.useContext(SafeAreaInsetsContext);
