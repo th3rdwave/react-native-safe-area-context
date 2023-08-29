@@ -5,6 +5,7 @@ import type {
   EdgeInsets,
   InsetChangedEvent,
   Metrics,
+  NullableMetrics,
   Rect,
 } from './SafeArea.types';
 
@@ -23,11 +24,7 @@ if (isDev) {
 }
 
 export const SafeAreaGetLatestWindowMetricsContext = React.createContext<
-  | (() => {
-      insets: EdgeInsets | null;
-      frame: Rect | null;
-    })
-  | null
+  (() => NullableMetrics) | null
 >(null);
 if (isDev) {
   SafeAreaGetLatestWindowMetricsContext.displayName =
