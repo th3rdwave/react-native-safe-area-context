@@ -22,6 +22,18 @@ if (isDev) {
   SafeAreaFrameContext.displayName = 'SafeAreaFrameContext';
 }
 
+export const SafeAreaGetLatestWindowMetricsContext = React.createContext<
+  | (() => {
+      insets: EdgeInsets | null;
+      frame: Rect | null;
+    })
+  | null
+>(null);
+if (isDev) {
+  SafeAreaGetLatestWindowMetricsContext.displayName =
+    'SafeAreaGetLatestWindowMetricsContext';
+}
+
 export interface SafeAreaProviderProps extends ViewProps {
   children?: React.ReactNode;
   initialMetrics?: Metrics | null;
@@ -91,6 +103,15 @@ export function SafeAreaProvider({
     [setFrame, setInsets],
   );
 
+  const latestInsets = useLatest(insets);
+  const latestFrame = useLatest(frame);
+  const getLatestWindowMetrics = React.useCallback(() => {
+    return {
+      insets: latestInsets.current,
+      frame: latestFrame.current,
+    };
+  }, [latestInsets]);
+
   return (
     <NativeSafeAreaProvider
       style={StyleSheet.compose(styles.fill, style)}
@@ -100,7 +121,11 @@ export function SafeAreaProvider({
       {insets != null ? (
         <SafeAreaFrameContext.Provider value={frame}>
           <SafeAreaInsetsContext.Provider value={insets}>
-            {children}
+            <SafeAreaGetLatestWindowMetricsContext.Provider
+              value={getLatestWindowMetrics}
+            >
+              {children}
+            </SafeAreaGetLatestWindowMetricsContext.Provider>
           </SafeAreaInsetsContext.Provider>
         </SafeAreaFrameContext.Provider>
       ) : null}
@@ -139,6 +164,16 @@ export function useSafeAreaFrame(): Rect {
   return frame;
 }
 
+export function useSafeAreaGetLatestWindowMetrics() {
+  const getLatestWindowMetrics = React.useContext(
+    SafeAreaGetLatestWindowMetricsContext,
+  );
+  if (getLatestWindowMetrics == null) {
+    throw new Error(NO_INSETS_ERROR);
+  }
+  return getLatestWindowMetrics;
+}
+
 export type WithSafeAreaInsetsProps = {
   insets: EdgeInsets;
 };
@@ -170,3 +205,12 @@ export const SafeAreaConsumer = SafeAreaInsetsContext.Consumer;
  * @deprecated
  */
 export const SafeAreaContext = SafeAreaInsetsContext;
+
+function useLatest<T>(value: T) {
+  const ref = React.useRef(value);
+  ref.current = value;
+
+  return ref;
+}
+
+export default useLatest;
