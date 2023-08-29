@@ -123,9 +123,7 @@ export const SafeAreaProvider = React.memo(
   },
 );
 
-if (isDev) {
-  SafeAreaProvider.displayName = 'SafeAreaProvider';
-}
+SafeAreaProvider.displayName = 'SafeAreaProvider';
 
 function useParentSafeAreaInsets(): EdgeInsets | null {
   return React.useContext(SafeAreaInsetsContext);
