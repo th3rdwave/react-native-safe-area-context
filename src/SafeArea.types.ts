@@ -27,7 +27,10 @@ export interface Metrics {
   frame: Rect;
 }
 
-export type NullableMetrics = { [K in keyof Metrics]: Metrics[K] | null };
+export type InitialMetricsState = {
+  insets: EdgeInsets | null;
+  frame: Rect;
+};
 
 export type InsetChangedEvent = NativeSyntheticEvent<Metrics>;
 
