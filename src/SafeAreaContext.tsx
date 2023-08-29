@@ -91,22 +91,9 @@ export function SafeAreaProvider({
     [setFrame, setInsets],
   );
 
-  // Add flex to the style if it doesn't have it.
-  const flexedStyle = React.useMemo(() => {
-    const flatStyle = StyleSheet.flatten(style) || {};
-    if ('flex' in flatStyle === false) {
-      return {
-        ...flatStyle,
-        flex: 1,
-      };
-    }
-
-    return style;
-  }, [style]);
-
   return (
     <NativeSafeAreaProvider
-      style={flexedStyle}
+      style={StyleSheet.compose(styles.fill, style)}
       onInsetsChange={onInsetsChange}
       {...others}
     >
@@ -120,6 +107,10 @@ export function SafeAreaProvider({
     </NativeSafeAreaProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  fill: { flex: 1 },
+});
 
 function useParentSafeAreaInsets(): EdgeInsets | null {
   return React.useContext(SafeAreaInsetsContext);
