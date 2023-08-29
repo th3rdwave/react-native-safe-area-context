@@ -53,43 +53,40 @@ export function SafeAreaProvider({
         height: Dimensions.get('window').height,
       },
   );
-  const onInsetsChange = React.useCallback(
-    (event: InsetChangedEvent) => {
-      const {
-        nativeEvent: { frame: nextFrame, insets: nextInsets },
-      } = event;
+  const onInsetsChange = React.useCallback((event: InsetChangedEvent) => {
+    const {
+      nativeEvent: { frame: nextFrame, insets: nextInsets },
+    } = event;
 
-      setFrame((frame) => {
-        if (
-          // Backwards compat with old native code that won't send frame.
-          nextFrame &&
-          (nextFrame.height !== frame.height ||
-            nextFrame.width !== frame.width ||
-            nextFrame.x !== frame.x ||
-            nextFrame.y !== frame.y)
-        ) {
-          return nextFrame;
-        } else {
-          return frame;
-        }
-      });
+    setFrame((frame) => {
+      if (
+        // Backwards compat with old native code that won't send frame.
+        nextFrame &&
+        (nextFrame.height !== frame.height ||
+          nextFrame.width !== frame.width ||
+          nextFrame.x !== frame.x ||
+          nextFrame.y !== frame.y)
+      ) {
+        return nextFrame;
+      } else {
+        return frame;
+      }
+    });
 
-      setInsets((insets) => {
-        if (
-          !insets ||
-          nextInsets.bottom !== insets.bottom ||
-          nextInsets.left !== insets.left ||
-          nextInsets.right !== insets.right ||
-          nextInsets.top !== insets.top
-        ) {
-          return nextInsets;
-        } else {
-          return insets;
-        }
-      });
-    },
-    [setFrame, setInsets],
-  );
+    setInsets((insets) => {
+      if (
+        !insets ||
+        nextInsets.bottom !== insets.bottom ||
+        nextInsets.left !== insets.left ||
+        nextInsets.right !== insets.right ||
+        nextInsets.top !== insets.top
+      ) {
+        return nextInsets;
+      } else {
+        return insets;
+      }
+    });
+  }, []);
 
   return (
     <NativeSafeAreaProvider
