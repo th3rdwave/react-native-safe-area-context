@@ -4,12 +4,9 @@ exports[`SafeAreaContext does not render child until inset values are received 1
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    [
-      {
-        "flex": 1,
-      },
-      undefined,
-    ]
+    {
+      "flex": 1,
+    }
   }
 />
 `;
@@ -18,12 +15,9 @@ exports[`SafeAreaContext renders 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    [
-      {
-        "flex": 1,
-      },
-      undefined,
-    ]
+    {
+      "flex": 1,
+    }
   }
 />
 `;
@@ -32,12 +26,9 @@ exports[`SafeAreaContext renders child when inset values are received 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    [
-      {
-        "flex": 1,
-      },
-      undefined,
-    ]
+    {
+      "flex": 1,
+    }
   }
 />
 `;
@@ -46,12 +37,9 @@ exports[`SafeAreaContext renders child when inset values are received 2`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    [
-      {
-        "flex": 1,
-      },
-      undefined,
-    ]
+    {
+      "flex": 1,
+    }
   }
 >
   <View
@@ -75,12 +63,9 @@ exports[`SafeAreaContext supports setting initial insets 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    [
-      {
-        "flex": 1,
-      },
-      undefined,
-    ]
+    {
+      "flex": 1,
+    }
   }
 >
   <View
@@ -104,23 +89,17 @@ exports[`SafeAreaContext uses inner insets 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    [
-      {
-        "flex": 1,
-      },
-      undefined,
-    ]
+    {
+      "flex": 1,
+    }
   }
 >
   <RNCSafeAreaProvider
     onInsetsChange={[Function]}
     style={
-      [
-        {
-          "flex": 1,
-        },
-        undefined,
-      ]
+      {
+        "flex": 1,
+      }
     }
   >
     <View
@@ -145,23 +124,17 @@ exports[`SafeAreaContext uses parent insets when available 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    [
-      {
-        "flex": 1,
-      },
-      undefined,
-    ]
+    {
+      "flex": 1,
+    }
   }
 >
   <RNCSafeAreaProvider
     onInsetsChange={[Function]}
     style={
-      [
-        {
-          "flex": 1,
-        },
-        undefined,
-      ]
+      {
+        "flex": 1,
+      }
     }
   >
     <View
