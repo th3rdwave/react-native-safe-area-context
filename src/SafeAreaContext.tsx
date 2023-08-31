@@ -85,7 +85,7 @@ export function SafeAreaProvider({
 
   return (
     <NativeSafeAreaProvider
-      style={[styles.fill, style]}
+      style={{...styles.fill, ...style}}
       onInsetsChange={onInsetsChange}
       {...others}
     >
