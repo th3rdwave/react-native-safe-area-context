@@ -4,12 +4,9 @@ exports[`SafeAreaView can override padding styles 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    [
-      {
-        "flex": 1,
-      },
-      undefined,
-    ]
+    {
+      "flex": 1,
+    }
   }
 >
   <RNCSafeAreaView
@@ -36,12 +33,9 @@ exports[`SafeAreaView can set edges 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    [
-      {
-        "flex": 1,
-      },
-      undefined,
-    ]
+    {
+      "flex": 1,
+    }
   }
 >
   <RNCSafeAreaView
@@ -63,12 +57,9 @@ exports[`SafeAreaView can set edges value type 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    [
-      {
-        "flex": 1,
-      },
-      undefined,
-    ]
+    {
+      "flex": 1,
+    }
   }
 >
   <RNCSafeAreaView
@@ -96,12 +87,9 @@ exports[`SafeAreaView renders 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    [
-      {
-        "flex": 1,
-      },
-      undefined,
-    ]
+    {
+      "flex": 1,
+    }
   }
 >
   <RNCSafeAreaView
