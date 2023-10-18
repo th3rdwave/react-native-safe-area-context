@@ -34,6 +34,10 @@ using namespace facebook::react;
                                            selector:@selector(invalidateSafeAreaInsets)
                                                name:UIKeyboardDidHideNotification
                                              object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(invalidateSafeAreaInsets)
+                                               name:UIKeyboardDidChangeFrameNotification
+                                             object:nil];
 #endif
   }
 
