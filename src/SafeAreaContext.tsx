@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Dimensions, StyleSheet, ViewProps } from 'react-native';
+import { Dimensions, StyleSheet, type ViewProps } from 'react-native';
 import { NativeSafeAreaProvider } from './NativeSafeAreaProvider';
 import type {
   EdgeInsets,
