@@ -23,18 +23,18 @@ const RNSafeAreaContext = jest.requireActual('react-native-safe-area-context');
 export default {
   ...RNSafeAreaContext,
   initialWindowMetrics: MOCK_INITIAL_METRICS,
-  useSafeAreaInsets: () => {
+  useSafeAreaInsets: jest.fn(() => {
     return (
       useContext(RNSafeAreaContext.SafeAreaInsetsContext) ??
       MOCK_INITIAL_METRICS.insets
     );
-  },
-  useSafeAreaFrame: () => {
+  }),
+  useSafeAreaFrame: jest.fn(() => {
     return (
       useContext(RNSafeAreaContext.SafeAreaFrameContext) ??
       MOCK_INITIAL_METRICS.frame
     );
-  },
+  }),
   // Provide a simpler implementation with default values.
   SafeAreaProvider: ({ children, initialMetrics }: SafeAreaProviderProps) => {
     return (
