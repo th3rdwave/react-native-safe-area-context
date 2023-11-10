@@ -42,6 +42,9 @@ android {
     def agpVersion = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION
     if (agpVersion.tokenize('.')[0].toInteger() >= 7) {
         namespace "com.th3rdwave.safeareacontext"
+        buildFeatures {
+            buildConfig true
+        }
     }
 
     compileSdkVersion getExtOrDefault('compileSdkVersion', 30)
