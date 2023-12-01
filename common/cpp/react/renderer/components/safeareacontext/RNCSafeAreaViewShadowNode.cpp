@@ -10,7 +10,7 @@ namespace react {
 
 extern const char RNCSafeAreaViewComponentName[] = "RNCSafeAreaView";
 
-inline YGValue valueFromEdges(YGStyle::Edges edges, YGEdge edge, YGEdge axis) {
+inline YGValue valueFromEdges(yoga::Style::Edges edges, YGEdge edge, YGEdge axis) {
   YGValue edgeValue = edges[edge];
   if (edgeValue.unit != YGUnitUndefined) {
     return edgeValue;
@@ -65,24 +65,24 @@ void RNCSafeAreaViewShadowNode::adjustLayoutWithState() {
         valueFromEdges(props.yogaStyle.margin(), YGEdgeRight, YGEdgeHorizontal);
   }
 
-  top = yogaStyleValueFromFloat(getEdgeValue(
+  top = yoga::CompactValue::ofMaybe<YGUnitPoint>(getEdgeValue(
       edges.top,
       stateData.insets.top,
       (top.unit == YGUnitPoint ? top.value : 0)));
-  left = yogaStyleValueFromFloat(getEdgeValue(
+  left = yoga::CompactValue::ofMaybe<YGUnitPoint>(getEdgeValue(
       edges.left,
       stateData.insets.left,
       (left.unit == YGUnitPoint ? left.value : 0)));
-  right = yogaStyleValueFromFloat(getEdgeValue(
+  right = yoga::CompactValue::ofMaybe<YGUnitPoint>(getEdgeValue(
       edges.right,
       stateData.insets.right,
       (right.unit == YGUnitPoint ? right.value : 0)));
-  bottom = yogaStyleValueFromFloat(getEdgeValue(
+  bottom = yoga::CompactValue::ofMaybe<YGUnitPoint>(getEdgeValue(
       edges.bottom,
       stateData.insets.bottom,
       (bottom.unit == YGUnitPoint ? bottom.value : 0)));
 
-  YGStyle adjustedStyle = getConcreteProps().yogaStyle;
+  yoga::Style adjustedStyle = getConcreteProps().yogaStyle;
   if (props.mode == RNCSafeAreaViewMode::Padding) {
     adjustedStyle.padding()[YGEdgeTop] = top;
     adjustedStyle.padding()[YGEdgeLeft] = left;

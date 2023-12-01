@@ -12,11 +12,10 @@ namespace react {
 class RNCSafeAreaViewComponentDescriptor final
     : public ConcreteComponentDescriptor<RNCSafeAreaViewShadowNode> {
   using ConcreteComponentDescriptor::ConcreteComponentDescriptor;
-  void adopt(ShadowNode::Unshared const &shadowNode) const override {
-    auto concreteShadowNode =
-        std::static_pointer_cast<RNCSafeAreaViewShadowNode>(shadowNode);
-
-    concreteShadowNode->adjustLayoutWithState();
+  void adopt(ShadowNode& shadowNode) const override {
+    auto& concreteShadowNode =
+        static_cast<RNCSafeAreaViewShadowNode&>(shadowNode);
+    concreteShadowNode.adjustLayoutWithState();
 
     ConcreteComponentDescriptor::adopt(shadowNode);
   }
