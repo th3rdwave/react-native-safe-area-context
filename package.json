@@ -60,10 +60,10 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.6.1",
+    "@jest/globals": "^29.7.0",
     "@react-native-community/eslint-config": "^3.2.0",
     "@react-native/eslint-plugin-specs": "^0.73.0",
     "@release-it/conventional-changelog": "^5.1.1",
-    "@types/jest": "^29.5.1",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.1",
     "@types/react-test-renderer": "^18.0.0",
