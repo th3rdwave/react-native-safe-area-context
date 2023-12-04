@@ -1,9 +1,10 @@
+import { describe, expect, it } from '@jest/globals';
 import * as React from 'react';
 import { View } from 'react-native';
 import * as ReactTestRenderer from 'react-test-renderer';
+import type { Metrics } from '../SafeArea.types';
 import { SafeAreaProvider } from '../SafeAreaContext';
 import { SafeAreaView } from '../SafeAreaView';
-import type { Metrics } from '../SafeArea.types';
 
 const INITIAL_METRICS: Metrics = {
   insets: { top: 1, left: 2, right: 3, bottom: 4 },

@@ -1,7 +1,11 @@
-/* global jest */
+import { jest } from '@jest/globals';
 import React, { useContext } from 'react';
 import type { Metrics } from '../src/SafeArea.types';
-import type { SafeAreaProviderProps } from '../src/SafeAreaContext';
+import type {
+  SafeAreaProviderProps,
+  SafeAreaInsetsContext,
+  SafeAreaFrameContext,
+} from '../src/SafeAreaContext';
 
 const MOCK_INITIAL_METRICS: Metrics = {
   frame: {
@@ -18,7 +22,10 @@ const MOCK_INITIAL_METRICS: Metrics = {
   },
 };
 
-const RNSafeAreaContext = jest.requireActual('react-native-safe-area-context');
+const RNSafeAreaContext = jest.requireActual<{
+  SafeAreaInsetsContext: typeof SafeAreaInsetsContext;
+  SafeAreaFrameContext: typeof SafeAreaFrameContext;
+}>('react-native-safe-area-context');
 
 export default {
   ...RNSafeAreaContext,

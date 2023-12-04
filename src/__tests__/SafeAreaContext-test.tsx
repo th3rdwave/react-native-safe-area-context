@@ -1,13 +1,14 @@
+import { describe, expect, it, jest } from '@jest/globals';
 import * as React from 'react';
 import { View } from 'react-native';
 import * as ReactTestRenderer from 'react-test-renderer';
 import { NativeSafeAreaProvider } from '../NativeSafeAreaProvider';
+import type { Metrics } from '../SafeArea.types';
 import {
   SafeAreaProvider,
-  useSafeAreaInsets,
   useSafeAreaFrame,
+  useSafeAreaInsets,
 } from '../SafeAreaContext';
-import type { Metrics } from '../SafeArea.types';
 
 const TEST_METRICS_1: Metrics = {
   insets: { top: 1, left: 2, right: 3, bottom: 4 },
