@@ -10,7 +10,8 @@ namespace react {
 
 extern const char RNCSafeAreaViewComponentName[] = "RNCSafeAreaView";
 
-inline YGValue valueFromEdges(yoga::Style::Edges edges, YGEdge edge, YGEdge axis) {
+inline YGValue
+valueFromEdges(yoga::Style::Edges edges, YGEdge edge, YGEdge axis) {
   YGValue edgeValue = edges[edge];
   if (edgeValue.unit != YGUnitUndefined) {
     return edgeValue;
