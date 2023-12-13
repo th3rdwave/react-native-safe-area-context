@@ -15,31 +15,13 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "FabricExample.app"
-               BlueprintName = "FabricExample"
-               ReferencedContainer = "container:FabricExample.xcodeproj">
+               BuildableName = "RNSACExample.app"
+               BlueprintName = "RNSACExample"
+               ReferencedContainer = "container:RNSACExample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
-   <TestAction
-      buildConfiguration = "Debug"
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
-      <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "FabricExampleTests.xctest"
-               BlueprintName = "FabricExampleTests"
-               ReferencedContainer = "container:FabricExample.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-      </Testables>
-   </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -55,9 +37,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "FabricExample.app"
-            BlueprintName = "FabricExample"
-            ReferencedContainer = "container:FabricExample.xcodeproj">
+            BuildableName = "RNSACExample.app"
+            BlueprintName = "RNSACExample"
+            ReferencedContainer = "container:RNSACExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +54,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "FabricExample.app"
-            BlueprintName = "FabricExample"
-            ReferencedContainer = "container:FabricExample.xcodeproj">
+            BuildableName = "RNSACExample.app"
+            BlueprintName = "RNSACExample"
+            ReferencedContainer = "container:RNSACExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
