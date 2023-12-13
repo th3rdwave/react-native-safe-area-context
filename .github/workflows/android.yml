@@ -24,6 +24,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '17'
       - name: Restore yarn workspaces
         id: yarn-cache
         uses: actions/cache@v3
@@ -48,6 +52,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 18.x
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '17'
       - name: Restore yarn workspaces
         id: yarn-cache
         uses: actions/cache@v3

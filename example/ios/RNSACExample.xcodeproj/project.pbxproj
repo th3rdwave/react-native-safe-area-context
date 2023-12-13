@@ -7,13 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0CD2A1D72B296C2300C4421F /* RNSACExample in Resources */ = {isa = PBXBuildFile; fileRef = 0CD2A1D62B296C2300C4421F /* RNSACExample */; };
+		0C8C3DF12B2976EA004180E2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8C3DEE2B2976EA004180E2 /* main.m */; };
+		0C8C3DF22B2976EA004180E2 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C8C3DEF2B2976EA004180E2 /* AppDelegate.mm */; };
 		BE4CA32A82136FA46C277C1C /* libPods-RNSACExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 063A57BC4718D503E1E9C3DD /* libPods-RNSACExample.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		063A57BC4718D503E1E9C3DD /* libPods-RNSACExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNSACExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0CD2A1D62B296C2300C4421F /* RNSACExample */ = {isa = PBXFileReference; lastKnownFileType = folder; path = RNSACExample; sourceTree = "<group>"; };
+		0C8C3DEB2B2976EA004180E2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		0C8C3DEC2B2976EA004180E2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0C8C3DED2B2976EA004180E2 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0C8C3DEE2B2976EA004180E2 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0C8C3DEF2B2976EA004180E2 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		0C8C3DF02B2976EA004180E2 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* RNSACExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RNSACExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-RNSACExample-RNSACExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNSACExample-RNSACExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		39E5261F018A2D230A697591 /* Pods-RNSACExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNSACExample.debug.xcconfig"; path = "Target Support Files/Pods-RNSACExample/Pods-RNSACExample.debug.xcconfig"; sourceTree = "<group>"; };
@@ -37,6 +43,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C8C3DEA2B2976B6004180E2 /* RNSACExample */ = {
+			isa = PBXGroup;
+			children = (
+				0C8C3DF02B2976EA004180E2 /* AppDelegate.h */,
+				0C8C3DEF2B2976EA004180E2 /* AppDelegate.mm */,
+				0C8C3DEB2B2976EA004180E2 /* Images.xcassets */,
+				0C8C3DEC2B2976EA004180E2 /* Info.plist */,
+				0C8C3DED2B2976EA004180E2 /* LaunchScreen.storyboard */,
+				0C8C3DEE2B2976EA004180E2 /* main.m */,
+			);
+			path = RNSACExample;
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -57,7 +76,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				0CD2A1D62B296C2300C4421F /* RNSACExample */,
+				0C8C3DEA2B2976B6004180E2 /* RNSACExample */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
@@ -97,10 +116,8 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "RNSACExample" */;
 			buildPhases = (
 				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
-				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
-				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
 				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
@@ -144,17 +161,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-		13B07F8E1A680F5B00A75B9A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0CD2A1D72B296C2300C4421F /* RNSACExample in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
@@ -229,25 +235,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RNSACExample/Pods-RNSACExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FD10A7F022414F080027D42C /* Start Packager */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Start Packager";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -255,6 +242,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C8C3DF22B2976EA004180E2 /* AppDelegate.mm in Sources */,
+				0C8C3DF12B2976EA004180E2 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
