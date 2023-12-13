@@ -90,7 +90,7 @@ export function SafeAreaProvider({
 
   return (
     <NativeSafeAreaProvider
-      style={StyleSheet.compose(styles.fill, style)}
+      style={[styles.fill, style]}
       onInsetsChange={onInsetsChange}
       {...others}
     >
