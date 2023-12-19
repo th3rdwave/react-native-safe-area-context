@@ -1,7 +1,5 @@
 package com.th3rdwave.safeareacontext
 
-import java.util.*
-
 enum class SafeAreaViewEdgeModes {
   OFF,
   ADDITIVE,
