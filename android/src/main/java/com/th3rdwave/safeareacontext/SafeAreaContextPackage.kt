@@ -30,6 +30,7 @@ class SafeAreaContextPackage : TurboReactPackage() {
               moduleClass.name,
               true,
               reactModule.needsEagerInit,
+              /** TODO remove the parameter once support for RN < 0.73 is dropped */
               reactModule.hasConstants,
               reactModule.isCxxModule,
               TurboModule::class.java.isAssignableFrom(moduleClass))
