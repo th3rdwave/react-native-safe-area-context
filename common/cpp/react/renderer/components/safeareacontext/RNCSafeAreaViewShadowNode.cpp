@@ -2,7 +2,6 @@
 
 #include <react/renderer/components/view/conversions.h>
 #include <react/renderer/core/LayoutContext.h>
-#include <react/renderer/core/ConcreteShadowNode.h>
 #include <yoga/Yoga.h>
 #include <algorithm>
 
