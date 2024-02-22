@@ -12,7 +12,7 @@ set(LIB_ANDROID_GENERATED_COMPONENTS_DIR ${LIB_ANDROID_GENERATED_JNI_DIR}/react/
 add_compile_options(
   -fexceptions
   -frtti
-  -std=c++17
+  -std=c++20
   -Wall
   -Wpedantic
   -Wno-gnu-zero-variadic-macro-arguments
@@ -61,7 +61,7 @@ target_compile_options(
   -DLOG_TAG=\"ReactNative\"
   -fexceptions
   -frtti
-  -std=c++17
+  -std=c++20
   -Wall
 )
 
