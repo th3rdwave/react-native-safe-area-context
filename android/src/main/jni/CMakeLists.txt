@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
-set(CMAKE_VERBOSE_MAKEFILE on)
+set(CMAKE_VERBOSE_MAKEFILE ON)
 
 set(LIB_LITERAL safeareacontext)
 set(LIB_TARGET_NAME react_codegen_${LIB_LITERAL})
@@ -50,6 +50,8 @@ target_link_libraries(
   react_render_debug
   react_render_graphics
   react_render_mapbuffer
+  react_render_componentregistry
+  react_utils
   rrc_view
   turbomodulejsijni
   yoga
