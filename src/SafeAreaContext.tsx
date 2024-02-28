@@ -100,7 +100,7 @@ export function SafeAreaProvider({
             {children}
           </SafeAreaInsetsContext.Provider>
         </SafeAreaFrameContext.Provider>
-      ) : null}
+      ) : children}
     </NativeSafeAreaProvider>
   );
 }
