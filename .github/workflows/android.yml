@@ -41,8 +41,8 @@ jobs:
       - name: Install example app dependencies
         run: yarn install
         working-directory: example
-      - name: Build android example app
-        run: ./gradlew assembleDebug
+      - name: Build android example app with new arch disabled
+        run: ./gradlew assembleDebug -PnewArchEnabled=false
         working-directory: example/android
   android-build-fabric:
     runs-on: ubuntu-latest

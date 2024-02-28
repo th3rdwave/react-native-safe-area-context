@@ -8,19 +8,19 @@
 namespace facebook {
 namespace react {
 
+using namespace yoga;
+
 extern const char RNCSafeAreaViewComponentName[] = "RNCSafeAreaView";
 
-inline YGValue
-valueFromEdges(yoga::Style::Edges edges, YGEdge edge, YGEdge axis) {
-  YGValue edgeValue = edges[edge];
-  if (edgeValue.unit != YGUnitUndefined) {
-    return edgeValue;
-  }
-  YGValue axisValue = edges[axis];
-  if (axisValue.unit != YGUnitUndefined) {
-    return axisValue;
-  }
-  return edges[YGEdgeAll];
+inline Style::Length
+valueFromEdges(Style::Length edge, Style::Length axis, Style::Length defaultValue) {
+    if (edge.unit() != Unit::Undefined) {
+        return edge;
+    }
+    if (axis.unit() != Unit::Undefined) {
+        return axis;
+    }
+    return defaultValue;
 }
 
 inline float
@@ -37,7 +37,7 @@ getEdgeValue(std::string edgeMode, float insetValue, float edgeValue) {
 void RNCSafeAreaViewShadowNode::adjustLayoutWithState() {
   ensureUnsealed();
 
-  auto props = getConcreteProps();
+  auto &props = getConcreteProps();
   auto state =
       std::static_pointer_cast<const RNCSafeAreaViewShadowNode::ConcreteState>(
           getState());
@@ -47,69 +47,73 @@ void RNCSafeAreaViewShadowNode::adjustLayoutWithState() {
   // Get the current values for padding / margin. The only caveat here is that
   // percent values are not supported. Also might need to add support for start
   // / end.
-  YGValue top, left, right, bottom;
+  Style::Length top, left, right, bottom;
   if (props.mode == RNCSafeAreaViewMode::Padding) {
-    top = valueFromEdges(props.yogaStyle.padding(), YGEdgeTop, YGEdgeVertical);
+      auto defaultPadding = props.yogaStyle.padding(Edge::All);
+      top = valueFromEdges(props.yogaStyle.padding(Edge::Top), props.yogaStyle.padding(Edge::Vertical), defaultPadding);
     left =
-        valueFromEdges(props.yogaStyle.padding(), YGEdgeLeft, YGEdgeHorizontal);
+        valueFromEdges(props.yogaStyle.padding(Edge::Left), props.yogaStyle.padding(Edge::Horizontal), defaultPadding);
     bottom =
-        valueFromEdges(props.yogaStyle.padding(), YGEdgeBottom, YGEdgeVertical);
+        valueFromEdges(props.yogaStyle.padding(Edge::Bottom), props.yogaStyle.padding(Edge::Vertical), defaultPadding);
     right = valueFromEdges(
-        props.yogaStyle.padding(), YGEdgeRight, YGEdgeHorizontal);
+        props.yogaStyle.padding(Edge::Right), props.yogaStyle.padding(Edge::Horizontal), defaultPadding);
   } else {
-    top = valueFromEdges(props.yogaStyle.margin(), YGEdgeTop, YGEdgeVertical);
+      auto defaultMargin = props.yogaStyle.margin(Edge::All);
+    top = valueFromEdges(props.yogaStyle.margin(Edge::Top), props.yogaStyle.margin(Edge::Vertical), defaultMargin);
     left =
-        valueFromEdges(props.yogaStyle.margin(), YGEdgeLeft, YGEdgeHorizontal);
+        valueFromEdges(props.yogaStyle.margin(Edge::Left), props.yogaStyle.margin(Edge::Horizontal), defaultMargin);
     bottom =
-        valueFromEdges(props.yogaStyle.margin(), YGEdgeBottom, YGEdgeVertical);
+        valueFromEdges(props.yogaStyle.margin(Edge::Bottom), props.yogaStyle.margin(Edge::Vertical), defaultMargin);
     right =
-        valueFromEdges(props.yogaStyle.margin(), YGEdgeRight, YGEdgeHorizontal);
+        valueFromEdges(props.yogaStyle.margin(Edge::Right), props.yogaStyle.margin(Edge::Horizontal), defaultMargin);
   }
 
-  top = yoga::CompactValue::ofMaybe<YGUnitPoint>(getEdgeValue(
-      edges.top,
-      stateData.insets.top,
-      (top.unit == YGUnitPoint ? top.value : 0)));
-  left = yoga::CompactValue::ofMaybe<YGUnitPoint>(getEdgeValue(
+    top.points(getEdgeValue(
+                            edges.top,
+                            stateData.insets.top,
+                            top.value().unwrapOrDefault(0)
+                            )
+               );
+  left.points(getEdgeValue(
       edges.left,
       stateData.insets.left,
-      (left.unit == YGUnitPoint ? left.value : 0)));
-  right = yoga::CompactValue::ofMaybe<YGUnitPoint>(getEdgeValue(
+      left.value().unwrapOrDefault(0)));
+  right.points(getEdgeValue(
       edges.right,
       stateData.insets.right,
-      (right.unit == YGUnitPoint ? right.value : 0)));
-  bottom = yoga::CompactValue::ofMaybe<YGUnitPoint>(getEdgeValue(
+    right.value().unwrapOrDefault(0)));
+  bottom.points(getEdgeValue(
       edges.bottom,
       stateData.insets.bottom,
-      (bottom.unit == YGUnitPoint ? bottom.value : 0)));
+      bottom.value().unwrapOrDefault(0)));
 
   yoga::Style adjustedStyle = getConcreteProps().yogaStyle;
   if (props.mode == RNCSafeAreaViewMode::Padding) {
-    adjustedStyle.padding()[YGEdgeTop] = top;
-    adjustedStyle.padding()[YGEdgeLeft] = left;
-    adjustedStyle.padding()[YGEdgeRight] = right;
-    adjustedStyle.padding()[YGEdgeBottom] = bottom;
+    adjustedStyle.setPadding(Edge::Top, top);
+    adjustedStyle.setPadding(Edge::Left, left);
+    adjustedStyle.setPadding(Edge::Right, right);
+    adjustedStyle.setPadding(Edge::Bottom, bottom);
   } else {
-    adjustedStyle.margin()[YGEdgeTop] = top;
-    adjustedStyle.margin()[YGEdgeLeft] = left;
-    adjustedStyle.margin()[YGEdgeRight] = right;
-    adjustedStyle.margin()[YGEdgeBottom] = bottom;
+    adjustedStyle.setMargin(Edge::Top, top);
+    adjustedStyle.setMargin(Edge::Left, left);
+    adjustedStyle.setMargin(Edge::Right, right);
+    adjustedStyle.setMargin(Edge::Bottom, bottom);
   }
 
-  auto currentStyle = yogaNode_.getStyle();
-  if (adjustedStyle.padding()[YGEdgeTop] != currentStyle.padding()[YGEdgeTop] ||
-      adjustedStyle.padding()[YGEdgeLeft] !=
-          currentStyle.padding()[YGEdgeLeft] ||
-      adjustedStyle.padding()[YGEdgeRight] !=
-          currentStyle.padding()[YGEdgeRight] ||
-      adjustedStyle.padding()[YGEdgeBottom] !=
-          currentStyle.padding()[YGEdgeBottom] ||
-      adjustedStyle.margin()[YGEdgeTop] != currentStyle.margin()[YGEdgeTop] ||
-      adjustedStyle.margin()[YGEdgeLeft] != currentStyle.margin()[YGEdgeLeft] ||
-      adjustedStyle.margin()[YGEdgeRight] !=
-          currentStyle.margin()[YGEdgeRight] ||
-      adjustedStyle.margin()[YGEdgeBottom] !=
-          currentStyle.margin()[YGEdgeBottom]) {
+  auto currentStyle = yogaNode_.style();
+  if (adjustedStyle.padding(Edge::Top) != currentStyle.padding(Edge::Top) ||
+      adjustedStyle.padding(Edge::Left) !=
+          currentStyle.padding(Edge::Left) ||
+      adjustedStyle.padding(Edge::Right) !=
+          currentStyle.padding(Edge::Right) ||
+      adjustedStyle.padding(Edge::Bottom) !=
+          currentStyle.padding(Edge::Bottom) ||
+      adjustedStyle.margin(Edge::Top) != currentStyle.margin(Edge::Top) ||
+      adjustedStyle.margin(Edge::Left) != currentStyle.margin(Edge::Left) ||
+      adjustedStyle.margin(Edge::Right) !=
+          currentStyle.margin(Edge::Right) ||
+      adjustedStyle.margin(Edge::Bottom) !=
+          currentStyle.margin(Edge::Bottom)) {
     yogaNode_.setStyle(adjustedStyle);
     yogaNode_.setDirty(true);
   }
