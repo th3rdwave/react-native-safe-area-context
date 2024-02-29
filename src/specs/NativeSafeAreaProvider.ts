@@ -1,6 +1,7 @@
 import type {
   DirectEventHandler,
   Double,
+  WithDefault,
 } from 'react-native/Libraries/Types/CodegenTypes';
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import type { ViewProps, HostComponent } from 'react-native';
@@ -20,8 +21,13 @@ export type Event = Readonly<{
   }>;
 }>;
 
+// @ts-ignore
 export interface NativeProps extends ViewProps {
   onInsetsChange?: DirectEventHandler<Event, 'paperInsetsChange'>;
+  pointerEvents?: WithDefault<
+    'box-none' | 'none' | 'box-only' | 'auto',
+    'auto'
+  >;
 }
 
 export default codegenNativeComponent<NativeProps>(
