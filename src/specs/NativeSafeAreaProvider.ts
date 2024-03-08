@@ -21,7 +21,7 @@ export type Event = Readonly<{
 }>;
 
 export interface NativeProps extends ViewProps {
-  onInsetsChange?: DirectEventHandler<Event, 'paperInsetsChange'>;
+  onInsetsChange?: DirectEventHandler<Event>;
 }
 
 export default codegenNativeComponent<NativeProps>(
