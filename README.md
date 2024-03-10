@@ -302,6 +302,29 @@ export function TestSafeAreaProvider({ children }) {
 }
 ```
 
+#### Enabling Babel Parsing for Modules
+
+While trying to use this mock, a frequently encountered error is:
+
+```js
+SyntaxError: Cannot use import statement outside a module.
+```
+
+This issue arises due to the use of the import statement. To resolve it, you need to permit Babel to parse the file.
+
+By default, [Jest does not parse files located within the node_modules folder](<(https://jestjs.io/docs/configuration#transformignorepatterns-arraystring)>).
+
+However, you can modify this behavior as outlined in the Jest documentation on [`transformIgnorePatterns` customization](https://jestjs.io/docs/tutorial-react-native#transformignorepatterns-customization).
+If you're using a preset, like the one from [react-native](https://github.com/facebook/react-native/blob/main/packages/react-native/jest-preset.js), you should update your Jest configuration to include `react-native-safe-area-context` as shown below:
+
+```js
+transformIgnorePatterns: [
+  'node_modules/(?!((jest-)?react-native|@react-native(-community)?|react-native-safe-area-context)/)',
+];
+```
+
+This adjustment ensures Babel correctly parses modules, avoiding the aforementioned syntax error.
+
 ## Contributing
 
 See the [Contributing Guide](CONTRIBUTING.md)
