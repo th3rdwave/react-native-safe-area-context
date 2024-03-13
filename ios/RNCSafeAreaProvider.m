@@ -26,6 +26,10 @@
                                            selector:@selector(invalidateSafeAreaInsets)
                                                name:UIKeyboardDidChangeFrameNotification
                                              object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(invalidateSafeAreaInsets)
+                                               name:UIWindowDidBecomeVisibleNotification
+                                             object:nil];
 #endif
   }
   return self;
