@@ -12,15 +12,17 @@ using namespace yoga;
 
 extern const char RNCSafeAreaViewComponentName[] = "RNCSafeAreaView";
 
-inline Style::Length
-valueFromEdges(Style::Length edge, Style::Length axis, Style::Length defaultValue) {
-    if (edge.unit() != Unit::Undefined) {
-        return edge;
-    }
-    if (axis.unit() != Unit::Undefined) {
-        return axis;
-    }
-    return defaultValue;
+inline Style::Length valueFromEdges(
+    Style::Length edge,
+    Style::Length axis,
+    Style::Length defaultValue) {
+  if (edge.unit() != Unit::Undefined) {
+    return edge;
+  }
+  if (axis.unit() != Unit::Undefined) {
+    return axis;
+  }
+  return defaultValue;
 }
 
 inline float
@@ -49,39 +51,49 @@ void RNCSafeAreaViewShadowNode::adjustLayoutWithState() {
   // / end.
   Style::Length top, left, right, bottom;
   if (props.mode == RNCSafeAreaViewMode::Padding) {
-      auto defaultPadding = props.yogaStyle.padding(Edge::All);
-      top = valueFromEdges(props.yogaStyle.padding(Edge::Top), props.yogaStyle.padding(Edge::Vertical), defaultPadding);
-    left =
-        valueFromEdges(props.yogaStyle.padding(Edge::Left), props.yogaStyle.padding(Edge::Horizontal), defaultPadding);
-    bottom =
-        valueFromEdges(props.yogaStyle.padding(Edge::Bottom), props.yogaStyle.padding(Edge::Vertical), defaultPadding);
+    auto defaultPadding = props.yogaStyle.padding(Edge::All);
+    top = valueFromEdges(
+        props.yogaStyle.padding(Edge::Top),
+        props.yogaStyle.padding(Edge::Vertical),
+        defaultPadding);
+    left = valueFromEdges(
+        props.yogaStyle.padding(Edge::Left),
+        props.yogaStyle.padding(Edge::Horizontal),
+        defaultPadding);
+    bottom = valueFromEdges(
+        props.yogaStyle.padding(Edge::Bottom),
+        props.yogaStyle.padding(Edge::Vertical),
+        defaultPadding);
     right = valueFromEdges(
-        props.yogaStyle.padding(Edge::Right), props.yogaStyle.padding(Edge::Horizontal), defaultPadding);
+        props.yogaStyle.padding(Edge::Right),
+        props.yogaStyle.padding(Edge::Horizontal),
+        defaultPadding);
   } else {
-      auto defaultMargin = props.yogaStyle.margin(Edge::All);
-    top = valueFromEdges(props.yogaStyle.margin(Edge::Top), props.yogaStyle.margin(Edge::Vertical), defaultMargin);
-    left =
-        valueFromEdges(props.yogaStyle.margin(Edge::Left), props.yogaStyle.margin(Edge::Horizontal), defaultMargin);
-    bottom =
-        valueFromEdges(props.yogaStyle.margin(Edge::Bottom), props.yogaStyle.margin(Edge::Vertical), defaultMargin);
-    right =
-        valueFromEdges(props.yogaStyle.margin(Edge::Right), props.yogaStyle.margin(Edge::Horizontal), defaultMargin);
+    auto defaultMargin = props.yogaStyle.margin(Edge::All);
+    top = valueFromEdges(
+        props.yogaStyle.margin(Edge::Top),
+        props.yogaStyle.margin(Edge::Vertical),
+        defaultMargin);
+    left = valueFromEdges(
+        props.yogaStyle.margin(Edge::Left),
+        props.yogaStyle.margin(Edge::Horizontal),
+        defaultMargin);
+    bottom = valueFromEdges(
+        props.yogaStyle.margin(Edge::Bottom),
+        props.yogaStyle.margin(Edge::Vertical),
+        defaultMargin);
+    right = valueFromEdges(
+        props.yogaStyle.margin(Edge::Right),
+        props.yogaStyle.margin(Edge::Horizontal),
+        defaultMargin);
   }
 
-    top.points(getEdgeValue(
-                            edges.top,
-                            stateData.insets.top,
-                            top.value().unwrapOrDefault(0)
-                            )
-               );
+  top.points(getEdgeValue(
+      edges.top, stateData.insets.top, top.value().unwrapOrDefault(0)));
   left.points(getEdgeValue(
-      edges.left,
-      stateData.insets.left,
-      left.value().unwrapOrDefault(0)));
+      edges.left, stateData.insets.left, left.value().unwrapOrDefault(0)));
   right.points(getEdgeValue(
-      edges.right,
-      stateData.insets.right,
-    right.value().unwrapOrDefault(0)));
+      edges.right, stateData.insets.right, right.value().unwrapOrDefault(0)));
   bottom.points(getEdgeValue(
       edges.bottom,
       stateData.insets.bottom,
@@ -102,18 +114,14 @@ void RNCSafeAreaViewShadowNode::adjustLayoutWithState() {
 
   auto currentStyle = yogaNode_.style();
   if (adjustedStyle.padding(Edge::Top) != currentStyle.padding(Edge::Top) ||
-      adjustedStyle.padding(Edge::Left) !=
-          currentStyle.padding(Edge::Left) ||
-      adjustedStyle.padding(Edge::Right) !=
-          currentStyle.padding(Edge::Right) ||
+      adjustedStyle.padding(Edge::Left) != currentStyle.padding(Edge::Left) ||
+      adjustedStyle.padding(Edge::Right) != currentStyle.padding(Edge::Right) ||
       adjustedStyle.padding(Edge::Bottom) !=
           currentStyle.padding(Edge::Bottom) ||
       adjustedStyle.margin(Edge::Top) != currentStyle.margin(Edge::Top) ||
       adjustedStyle.margin(Edge::Left) != currentStyle.margin(Edge::Left) ||
-      adjustedStyle.margin(Edge::Right) !=
-          currentStyle.margin(Edge::Right) ||
-      adjustedStyle.margin(Edge::Bottom) !=
-          currentStyle.margin(Edge::Bottom)) {
+      adjustedStyle.margin(Edge::Right) != currentStyle.margin(Edge::Right) ||
+      adjustedStyle.margin(Edge::Bottom) != currentStyle.margin(Edge::Bottom)) {
     yogaNode_.setStyle(adjustedStyle);
     yogaNode_.setDirty(true);
   }

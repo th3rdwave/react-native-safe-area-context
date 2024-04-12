@@ -3,7 +3,6 @@ package com.th3rdwave.safeareacontext
 import android.view.View
 import android.view.ViewGroup
 import com.facebook.react.bridge.ReactApplicationContext
-import com.facebook.react.common.MapBuilder
 import com.facebook.react.module.annotations.ReactModule
 
 @ReactModule(name = SafeAreaContextModule.NAME)
