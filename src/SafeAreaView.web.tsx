@@ -32,7 +32,7 @@ function getEdgeValue(
   }
 }
 
-export const JsSafeAreaView = React.forwardRef<
+export const SafeAreaView = React.forwardRef<
   NativeSafeAreaViewInstance,
   NativeSafeAreaViewProps
 >(({ style = {}, mode, edges, ...rest }, ref) => {
