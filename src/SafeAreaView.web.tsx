@@ -1,53 +1,58 @@
 import * as React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { useSafeAreaInsets } from './SafeAreaContext';
-import type {
+import { StyleSheet, View } from 'react-native';
+import {
   Edge,
+  EdgeMode,
+  EdgeRecord,
   NativeSafeAreaViewInstance,
   NativeSafeAreaViewProps,
 } from './SafeArea.types';
+import { useSafeAreaInsets } from './SafeAreaContext';
 
-// prettier-ignore
-const TOP    = 0b1000,
-      RIGHT  = 0b0100,
-      BOTTOM = 0b0010,
-      LEFT   = 0b0001,
-      ALL    = 0b1111;
-
-/* eslint-disable no-bitwise */
-
-const edgeBitmaskMap: Record<Edge, number> = {
-  top: TOP,
-  right: RIGHT,
-  bottom: BOTTOM,
-  left: LEFT,
+const defaultEdges: Record<Edge, EdgeMode> = {
+  top: 'additive',
+  left: 'additive',
+  bottom: 'additive',
+  right: 'additive',
 };
 
-export const SafeAreaView = React.forwardRef<
+function getEdgeValue(
+  inset: number,
+  current: number,
+  mode: EdgeMode | undefined,
+) {
+  switch (mode) {
+    case 'off':
+      return current;
+    case 'maximum':
+      return Math.max(current, inset);
+    case 'additive':
+    default:
+      return current + inset;
+  }
+}
+
+export const JsSafeAreaView = React.forwardRef<
   NativeSafeAreaViewInstance,
   NativeSafeAreaViewProps
 >(({ style = {}, mode, edges, ...rest }, ref) => {
   const insets = useSafeAreaInsets();
 
-  const edgeBitmask =
-    edges != null
-      ? Array.isArray(edges)
-        ? edges.reduce(
-            (acc: number, edge: Edge) => acc | edgeBitmaskMap[edge],
-            0,
-          )
-        : Object.keys(edges).reduce(
-            (acc, edge) => acc | edgeBitmaskMap[edge as Edge],
-            0,
-          )
-      : ALL;
+  const edgesRecord = React.useMemo(() => {
+    if (edges == null) {
+      return defaultEdges;
+    }
+
+    return Array.isArray(edges)
+      ? edges.reduce<EdgeRecord>((acc, edge: Edge) => {
+          acc[edge] = 'additive';
+          return acc;
+        }, {})
+      : // ts has trouble with refining readonly arrays.
+        (edges as EdgeRecord);
+  }, [edges]);
 
   const appliedStyle = React.useMemo(() => {
-    const insetTop = edgeBitmask & TOP ? insets.top : 0;
-    const insetRight = edgeBitmask & RIGHT ? insets.right : 0;
-    const insetBottom = edgeBitmask & BOTTOM ? insets.bottom : 0;
-    const insetLeft = edgeBitmask & LEFT ? insets.left : 0;
-
     const flatStyle = StyleSheet.flatten(style) as Record<string, number>;
 
     if (mode === 'margin') {
@@ -62,10 +67,14 @@ export const SafeAreaView = React.forwardRef<
       } = flatStyle;
 
       const marginStyle = {
-        marginTop: marginTop + insetTop,
-        marginRight: marginRight + insetRight,
-        marginBottom: marginBottom + insetBottom,
-        marginLeft: marginLeft + insetLeft,
+        marginTop: getEdgeValue(insets.top, marginTop, edgesRecord.top),
+        marginRight: getEdgeValue(insets.right, marginRight, edgesRecord.right),
+        marginBottom: getEdgeValue(
+          insets.bottom,
+          marginBottom,
+          edgesRecord.bottom,
+        ),
+        marginLeft: getEdgeValue(insets.left, marginLeft, edgesRecord.left),
       };
 
       return [style, marginStyle];
@@ -81,15 +90,34 @@ export const SafeAreaView = React.forwardRef<
       } = flatStyle;
 
       const paddingStyle = {
-        paddingTop: paddingTop + insetTop,
-        paddingRight: paddingRight + insetRight,
-        paddingBottom: paddingBottom + insetBottom,
-        paddingLeft: paddingLeft + insetLeft,
+        paddingTop: getEdgeValue(insets.top, paddingTop, edgesRecord.top),
+        paddingRight: getEdgeValue(
+          insets.right,
+          paddingRight,
+          edgesRecord.right,
+        ),
+        paddingBottom: getEdgeValue(
+          insets.bottom,
+          paddingBottom,
+          edgesRecord.bottom,
+        ),
+        paddingLeft: getEdgeValue(insets.left, paddingLeft, edgesRecord.left),
       };
 
       return [style, paddingStyle];
     }
-  }, [style, insets, mode, edgeBitmask]);
+  }, [
+    edgesRecord.bottom,
+    edgesRecord.left,
+    edgesRecord.right,
+    edgesRecord.top,
+    insets.bottom,
+    insets.left,
+    insets.right,
+    insets.top,
+    mode,
+    style,
+  ]);
 
   return <View style={appliedStyle} {...rest} ref={ref} />;
 });
