@@ -1,3 +1,5 @@
+'use client';
+
 export * from './SafeAreaContext';
 export * from './SafeAreaView';
 export * from './InitialWindow';
