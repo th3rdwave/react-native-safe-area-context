@@ -88,13 +88,13 @@ void RNCSafeAreaViewShadowNode::adjustLayoutWithState() {
         defaultMargin);
   }
 
-  top.points(getEdgeValue(
+  top = Style::Length::points(getEdgeValue(
       edges.top, stateData.insets.top, top.value().unwrapOrDefault(0)));
-  left.points(getEdgeValue(
+  left = Style::Length::points(getEdgeValue(
       edges.left, stateData.insets.left, left.value().unwrapOrDefault(0)));
-  right.points(getEdgeValue(
+  right = Style::Length::points(getEdgeValue(
       edges.right, stateData.insets.right, right.value().unwrapOrDefault(0)));
-  bottom.points(getEdgeValue(
+  bottom = Style::Length::points(getEdgeValue(
       edges.bottom,
       stateData.insets.bottom,
       bottom.value().unwrapOrDefault(0)));
