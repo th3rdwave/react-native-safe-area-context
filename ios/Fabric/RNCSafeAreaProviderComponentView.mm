@@ -58,7 +58,7 @@ using namespace facebook::react;
   }
 
   UIEdgeInsets safeAreaInsets = self.safeAreaInsets;
-  CGRect frame = [self convertRect:self.bounds toView:nil];
+  CGRect frame = [self convertRect:self.bounds toView:RNCParentViewController(self).view];
 
   if (_initialInsetsSent &&
       UIEdgeInsetsEqualToEdgeInsetsWithThreshold(safeAreaInsets, _currentSafeAreaInsets, 1.0 / RCTScreenScale()) &&
