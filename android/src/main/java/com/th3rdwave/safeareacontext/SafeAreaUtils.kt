@@ -15,7 +15,8 @@ private fun getRootWindowInsetsCompatR(rootView: View): EdgeInsets? {
       rootView.rootWindowInsets?.getInsets(
           WindowInsets.Type.statusBars() or
               WindowInsets.Type.displayCutout() or
-              WindowInsets.Type.navigationBars())
+              WindowInsets.Type.navigationBars() or
+              WindowInsets.Type.captionBar())
           ?: return null
   return EdgeInsets(
       top = insets.top.toFloat(),
