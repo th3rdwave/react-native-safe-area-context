@@ -49,12 +49,7 @@ RCT_EXPORT_MODULE()
 #if TARGET_OS_IPHONE
     UIEdgeInsets safeAreaInsets = window.safeAreaInsets;
 #elif TARGET_OS_OSX
-    NSEdgeInsets safeAreaInsets;
-    if (@available(macOS 10.10, *)) {
-      safeAreaInsets = NSEdgeInsetsZero;
-    } else {
-      safeAreaInsets = NSEdgeInsetsMake(0, 0, 0, 0);
-    }
+    NSEdgeInsets safeAreaInsets = NSEdgeInsetsZero;
 #endif
 
     constants = @{
