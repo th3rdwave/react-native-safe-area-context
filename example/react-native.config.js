@@ -7,6 +7,7 @@ const project = (() => {
       },
       ios: {
         sourceDir: "ios",
+        automaticPodsInstallation: true,
       },
       windows: {
         sourceDir: "windows",
