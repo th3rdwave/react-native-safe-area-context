@@ -54,10 +54,8 @@
   NSEdgeInsets safeAreaInsets;
   if (@available(macOS 11.0, *)) {
     safeAreaInsets = self.safeAreaInsets;
-  } else if (@available(macOS 10.10, *)) {
-    safeAreaInsets = NSEdgeInsetsZero;
   } else {
-    safeAreaInsets = NSEdgeInsetsMake(0, 0, 0, 0);
+    safeAreaInsets = NSEdgeInsetsZero;
   }
 #endif
   CGRect frame = [self convertRect:self.bounds toView:RNCParentViewController(self).view];
