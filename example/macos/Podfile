@@ -6,4 +6,24 @@ require "#{ws_dir}/node_modules/react-native-test-app/macos/test_app.rb"
 
 workspace 'SafeAreaContextExample.xcworkspace'
 
-use_test_app!
+my_post_install_function = ->(installer) {
+  puts "Running custom post_install with installer: #{installer}"
+  installer.pods_project.targets.each do |target|
+    case target.name
+    when "react-native-safe-area-context"
+      target.build_configurations.each do |config|
+        # For some reason it gets set as 10.6 if we don't do this.
+        config.build_settings[MACOSX_DEPLOYMENT_TARGET] = '10.15'
+      end
+    when /\AReact/, /\ARCT/
+      target.build_configurations.each do |config|
+        config.build_settings['CLANG_ENABLE_OBJC_WEAK'] = 'YES'
+        config.build_settings['CLANG_ENABLE_OBJC_ARC'] = 'YES'
+        config.build_settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'C++20'
+      end
+    else
+    end
+  end
+}
+
+use_test_app!({ post_install: my_post_install_function })
