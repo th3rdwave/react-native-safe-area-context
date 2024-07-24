@@ -1235,7 +1235,7 @@ SPEC CHECKSUMS:
   React-jsinspector: c56437aed293d3f501ab19628c9d1949ea7cae57
   React-logger: 83472641a638396b537018d43bda57ea154fb3ca
   React-Mapbuffer: 7f0f0fbb004e36ed45101784a0fb93b135a142b8
-  react-native-safe-area-context: fd9edb14134c83289287ae5f543902c6c715df54
+  react-native-safe-area-context: cceee1d1fcd50de684b9a1a423616e3d99b5d270
   React-nativeconfig: b3fd624ccc7d08c80c3be75d5fe2b24d2c194e34
   React-NativeModulesApple: ad5cdc72b802d1d456a4bccc8785026f1713eca6
   React-perflogger: ee9b5b57f395eba6be2091b0c2d5bef928f0b613
@@ -1264,6 +1264,6 @@ SPEC CHECKSUMS:
   SocketRocket: f6c6249082c011e6de2de60ed641ef8bbe0cfac9
   Yoga: 0981416dc6fbb2dec0c45125877c6f1251e4fc09
 
-PODFILE CHECKSUM: 03e3a5c42cd4bee8e11309360dd432fd5b160e62
+PODFILE CHECKSUM: 6c37876804c682ef13fd8119a99c78c44b363e51
 
 COCOAPODS: 1.14.3
