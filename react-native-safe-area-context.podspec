@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.authors      = package['author']
   s.homepage     = package['homepage']
   s.ios.deployment_target = "12.4"
-  s.osx.deployment_target = "11.0"
+  s.osx.deployment_target = "10.15"
   s.visionos.deployment_target = "1.0"
 
   s.source       = { :git => "https://github.com/th3rdwave/react-native-safe-area-context.git", :tag => "v#{s.version}" }
