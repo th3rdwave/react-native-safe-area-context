@@ -1,21 +1,4 @@
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        mavenCentral()
-        google()
-    }
-}
-
-rootProject.name = "SafeAreaContextExample"
-
-apply(from: {
-    def searchDir = rootDir.toPath()
-    do {
-        def p = searchDir.resolve("node_modules/react-native-test-app/test-app.gradle")
-        if (p.toFile().exists()) {
-            return p.toRealPath().toString()
-        }
-    } while (searchDir = searchDir.getParent())
-    throw new GradleException("Could not find `react-native-test-app`");
-}())
-applyTestAppSettings(settings)
+rootProject.name = 'RNSACExample'
+apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
+include ':app'
+includeBuild('../node_modules/@react-native/gradle-plugin')
