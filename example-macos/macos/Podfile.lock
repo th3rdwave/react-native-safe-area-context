@@ -1017,7 +1017,17 @@ PODS:
     - React-jsi (= 0.73.33)
     - React-logger (= 0.73.33)
     - React-perflogger (= 0.73.33)
-  - RNCAsyncStorage (1.23.1):
+  - ReactNativeHost (0.4.11):
+    - glog
+    - RCT-Folly (= 2022.05.16.00)
+    - React-Core
+    - React-cxxreact
+    - ReactCommon/turbomodule/core
+  - ReactTestApp-DevSupport (3.8.11):
+    - React-Core
+    - React-jsi
+  - ReactTestApp-Resources (1.0.0-dev)
+  - RNCAsyncStorage (1.24.0):
     - React-Core
   - RNGestureHandler (2.17.1):
     - glog
@@ -1077,6 +1087,9 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native-macos/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native-macos/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native-macos/ReactCommon`)
+  - "ReactNativeHost (from `../node_modules/@rnx-kit/react-native-host`)"
+  - ReactTestApp-DevSupport (from `../node_modules/react-native-test-app`)
+  - ReactTestApp-Resources (from `..`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - SocketRocket (from `../node_modules/react-native-macos/third-party-podspecs/SocketRocket.podspec`)
@@ -1179,6 +1192,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-macos/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native-macos/ReactCommon"
+  ReactNativeHost:
+    :path: "../node_modules/@rnx-kit/react-native-host"
+  ReactTestApp-DevSupport:
+    :path: "../node_modules/react-native-test-app"
+  ReactTestApp-Resources:
+    :path: ".."
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNGestureHandler:
@@ -1237,11 +1256,14 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 68e2b8754cceaaa8b443d62018d4c9c0aa4e0741
   React-utils: 46cc84b17edde38232668073688b2ed621a3d171
   ReactCommon: 0b6b092708b879557708b378a09729fc29900918
-  RNCAsyncStorage: 826b603ae9c0f88b5ac4e956801f755109fa4d5c
+  ReactNativeHost: 02d9df701ce3f7b6560f95315df4bab38b660f58
+  ReactTestApp-DevSupport: e3d0a5cd57b7302a10f956a18edcc0f192626540
+  ReactTestApp-Resources: 9d83e280b173ba2ee053b8135730dff60f9ab674
+  RNCAsyncStorage: ec53e44dc3e75b44aa2a9f37618a49c3bc080a7a
   RNGestureHandler: 67d3f1f69d4d0c98d6e83f4229e3bbf997d1dc72
   SocketRocket: f6c6249082c011e6de2de60ed641ef8bbe0cfac9
   Yoga: 0981416dc6fbb2dec0c45125877c6f1251e4fc09
 
-PODFILE CHECKSUM: d4949b5e0512a07cb420463cc40d2d367b022a37
+PODFILE CHECKSUM: 5943c4311ccfc2110185cce2175f7eec04a823bf
 
 COCOAPODS: 1.14.3

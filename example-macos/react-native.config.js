@@ -1,16 +1,17 @@
+const project = (() => {
+  try {
+    const { configureProjects } = require("react-native-test-app");
+    return configureProjects({
+      macos: {
+        sourceDir: "macos",
+        automaticPodsInstallation: true,
+      },
+    });
+  } catch (_) {
+    return undefined;
+  }
+})();
+
 module.exports = {
-  project: {
-    macos: {
-      sourceDir: './macos',
-    },
-  },
-  dependency: {
-    // https://github.com/react-native-community/cli/blob/main/docs/platforms.md#platform-interface
-    platforms: {
-      ios: {},
-      android: {},
-      macos: null,
-      windows: null,
-    },
-  },
+  ...(project ? { project } : undefined),
 };

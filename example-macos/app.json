@@ -1,3 +1,16 @@
 {
-  "name": "RNSACExample"
+  "name": "RNSACExample-macOS",
+  "displayName": "RNSACExample-macOS",
+  "components": [
+    {
+      "appKey": "RNSACExample-macOS",
+      "displayName": "RNSACExample-macOS"
+    }
+  ],
+  "resources": {
+    "macos": [
+      "dist/assets",
+      "dist/main.macos.jsbundle"
+    ]
+  }
 }
