@@ -141,11 +141,13 @@ export type WithSafeAreaInsetsProps = {
 };
 
 export function withSafeAreaInsets<T>(
-  WrappedComponent: React.ComponentType<T & WithSafeAreaInsetsProps>,
+  WrappedComponent: React.ComponentType<
+    (React.PropsWithoutRef<T> | T) & WithSafeAreaInsetsProps
+  >,
 ): React.ForwardRefExoticComponent<
   React.PropsWithoutRef<T> & React.RefAttributes<unknown>
 > {
-  return React.forwardRef((props: T, ref: React.Ref<unknown>) => {
+  return React.forwardRef<unknown, T>((props, ref) => {
     const insets = useSafeAreaInsets();
     return <WrappedComponent {...props} insets={insets} ref={ref} />;
   });
