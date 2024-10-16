@@ -1,4 +1,4 @@
-let supportsCodegenConfig = false;
+let supportsCodegenConfig = true;
 try {
   const rnCliAndroidVersion = require.main.require(
     '@react-native-community/cli-platform-android/package.json',
