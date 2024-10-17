@@ -13,7 +13,7 @@
 - (instancetype)init
 {
   if ((self = [super init])) {
-#if !TARGET_OS_TV
+#if !TARGET_OS_TV && !TARGET_OS_OSX
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(invalidateSafeAreaInsets)
                                                name:UIKeyboardDidShowNotification
@@ -48,11 +48,24 @@
     return;
   }
 
+#if TARGET_OS_IPHONE
   UIEdgeInsets safeAreaInsets = self.safeAreaInsets;
+#elif TARGET_OS_OSX
+  NSEdgeInsets safeAreaInsets;
+  if (@available(macOS 11.0, *)) {
+    safeAreaInsets = self.safeAreaInsets;
+  } else {
+    safeAreaInsets = NSEdgeInsetsZero;
+  }
+#endif
   CGRect frame = [self convertRect:self.bounds toView:RNCParentViewController(self).view];
 
   if (_initialInsetsSent &&
+#if TARGET_OS_IPHONE
       UIEdgeInsetsEqualToEdgeInsetsWithThreshold(safeAreaInsets, _currentSafeAreaInsets, 1.0 / RCTScreenScale()) &&
+#elif TARGET_OS_OSX
+      NSEdgeInsetsEqualToEdgeInsetsWithThreshold(safeAreaInsets, _currentSafeAreaInsets, 1.0 / RCTScreenScale()) &&
+#endif
       CGRectEqualToRect(frame, _currentFrame)) {
     return;
   }
