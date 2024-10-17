@@ -1,0 +1,33 @@
+{
+  "name": "safe-area-example",
+  "displayName": "safe-area-example",
+  "components": [
+    {
+      "appKey": "safe-area-example",
+      "slug": "safe-area-example",
+      "displayName": "safe-area-example"
+    }
+  ],
+  "resources": {
+    "android": [
+      "dist/res",
+      "dist/main.android.jsbundle"
+    ],
+    "ios": [
+      "dist/assets",
+      "dist/main.ios.jsbundle"
+    ],
+    "macos": [
+      "dist/assets",
+      "dist/main.macos.jsbundle"
+    ],
+    "visionos": [
+      "dist/assets",
+      "dist/main.visionos.jsbundle"
+    ],
+    "windows": [
+      "dist/assets",
+      "dist/main.windows.bundle"
+    ]
+  }
+}
