@@ -1,12 +1,3 @@
 {
-  "extends": "@react-native/typescript-config/tsconfig.json",
-  "compilerOptions": {
-    "paths": {
-      "react-native-safe-area-context": ["../src/index"]
-    },
-  },
-  "include": [
-    "src",
-    "index.js"
-  ]
+  "extends": "@react-native/typescript-config/tsconfig.json"
 }
