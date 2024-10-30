@@ -28,6 +28,7 @@
     "@react-native/babel-preset": "0.74.84",
     "@react-native/metro-config": "0.74.84",
     "@react-native/typescript-config": "0.74.84",
+    "@rnx-kit/metro-config": "^2.0.1",
     "@types/react": "^18.3.3",
     "typescript": "^5.5.2"
   },
