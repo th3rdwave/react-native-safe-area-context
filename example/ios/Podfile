@@ -4,9 +4,10 @@ ws_dir = ws_dir.parent until
   ws_dir.expand_path.to_s == '/'
 require "#{ws_dir}/node_modules/react-native-test-app/test_app.rb"
 
-workspace 'safe-area-example.xcworkspace'
+workspace 'RNSACExample.xcworkspace'
 
 options = {
+# RCT_NEW_ARCH_ENABLED env variable (used in CI) takes precedence over the following
  :bridgeless_enabled => true,
  :fabric_enabled => true,
  :hermes_enabled => true,
