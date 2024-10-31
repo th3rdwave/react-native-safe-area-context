@@ -45,7 +45,7 @@ RCT_EXPORT_MODULE()
       constants = @{@"initialWindowMetrics" : [NSNull null]};
       return;
     }
-    
+
 #if TARGET_OS_IPHONE
     UIEdgeInsets safeAreaInsets = window.safeAreaInsets;
 #elif TARGET_OS_OSX
