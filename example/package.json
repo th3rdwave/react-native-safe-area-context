@@ -5,6 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
+    "macos": "react-native run-macos",
     "start": "react-native start"
   },
   "dependencies": {
@@ -14,8 +15,9 @@
     "@react-navigation/native-stack": "^6.9.26",
     "@react-navigation/stack": "^6.3.29",
     "react": "^18.3.1",
-    "react-native": "^0.74.2",
+    "react-native": "~0.74.6",
     "react-native-gesture-handler": "^2.17.1",
+    "react-native-macos": "~0.74.15",
     "react-native-safe-area-context": "link:../",
     "react-native-screens": "^3.32.0"
   },
@@ -26,6 +28,7 @@
     "@react-native/babel-preset": "0.74.84",
     "@react-native/metro-config": "0.74.84",
     "@react-native/typescript-config": "0.74.84",
+    "@rnx-kit/metro-config": "^2.0.1",
     "@types/react": "^18.3.3",
     "typescript": "^5.5.2"
   },
