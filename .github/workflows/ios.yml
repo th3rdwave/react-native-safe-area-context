@@ -34,10 +34,10 @@ jobs:
         run: yarn install
         working-directory: example
       - name: Install pods
-        run: bundle exec pod install
+        run: RCT_NEW_ARCH_ENABLED=0 npx pod-install
         working-directory: example/ios
       - name: Build ios example app
-        run: xcodebuild -scheme RNSACExample -workspace RNSACExample.xcworkspace ONLY_ACTIVE_ARCH=NO -sdk iphonesimulator -configuration Debug
+        run: xcodebuild -scheme ReactTestApp -workspace RNSACExample.xcworkspace ONLY_ACTIVE_ARCH=NO -sdk iphonesimulator -configuration Debug
         working-directory: example/ios
   ios-build-fabric:
     runs-on: macos-latest
@@ -58,8 +58,8 @@ jobs:
         run: yarn install
         working-directory: example
       - name: Install pods for new arch
-        run: RCT_NEW_ARCH_ENABLED=1 bundle exec pod install
+        run: RCT_NEW_ARCH_ENABLED=1 npx pod-install
         working-directory: example/ios
       - name: Build ios example app
-        run: xcodebuild -scheme RNSACExample -workspace RNSACExample.xcworkspace ONLY_ACTIVE_ARCH=NO -sdk iphonesimulator -configuration Debug
+        run: xcodebuild -scheme ReactTestApp -workspace RNSACExample.xcworkspace ONLY_ACTIVE_ARCH=NO -sdk iphonesimulator -configuration Debug
         working-directory: example/ios
