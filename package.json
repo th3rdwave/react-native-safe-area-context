@@ -138,5 +138,6 @@
     "name": "safeareacontext",
     "type": "all",
     "jsSrcsDir": "./src/specs"
-  }
+  },
+  "packageManager": "yarn@1.22.22"
 }
