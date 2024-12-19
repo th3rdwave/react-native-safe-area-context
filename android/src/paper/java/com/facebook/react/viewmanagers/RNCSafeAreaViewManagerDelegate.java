@@ -12,11 +12,12 @@ package com.facebook.react.viewmanagers;
 import android.view.View;
 import androidx.annotation.Nullable;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.uimanager.BaseViewManager;
 import com.facebook.react.uimanager.BaseViewManagerDelegate;
-import com.facebook.react.uimanager.BaseViewManagerInterface;
+import com.facebook.react.uimanager.LayoutShadowNode;
 
 public class RNCSafeAreaViewManagerDelegate<
-        T extends View, U extends BaseViewManagerInterface<T> & RNCSafeAreaViewManagerInterface<T>>
+        T extends View, U extends BaseViewManager<T, ? extends LayoutShadowNode> & RNCSafeAreaViewManagerInterface<T>>
     extends BaseViewManagerDelegate<T, U> {
   public RNCSafeAreaViewManagerDelegate(U viewManager) {
     super(viewManager);
